@@ -27,4 +27,5 @@ npm run dev
 
 - 제니퍼 대시보드에 외부 차트를 넣을 때: 고객이 `enable_csp`를 켜면 기본 `frame-src 'self'`라서 막힌다. 차트 도메인을 `csp_policy`에 추가해야 한다. 이 서버는 `FRAME_ANCESTORS`로 자신을 넣을 수 있는 origin을 제한한다.
 - 제니퍼 차트를 다른 도메인에서 불러올 때: HTTPS와 제니퍼의 `x_frame_options`, `enable_csp`, `add_same_site_none_cookie` 설정이 필요하다.
-- OpenAPI 프록시의 인증 방식(`token` 쿼리)은 실제 제니퍼 환경에서 확인 필요.
+- 제니퍼 iframe 위젯은 다른 origin이면 sandbox를 붙인다. 차트가 자기 서버(`/api/jennifer`)를 호출하려면 위젯 설정에서 `allow-scripts`와 `allow-same-origin`을 켜야 한다.
+- OpenAPI 프록시는 `Authorization: Bearer` 헤더로 토큰을 보내고, `ALLOWED_PATHS`에 등록한 경로만 넘긴다. 허용 경로는 실제로 쓰는 API에 맞춰 조정한다.
