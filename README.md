@@ -18,6 +18,7 @@ npm run dev
 | `/charts/[id]` | 레이아웃 없는 차트 단독 페이지. 제니퍼 사용자정의 대시보드 iframe 위젯에 URL로 등록 |
 | `/dashboards/integrated` | 통합 대시보드 데모. 제니퍼 APM 차트와 Prometheus 데모 서버 지표(`/charts/node-cpu` 등)를 한 화면에 |
 | `/api/prometheus/[key]` | 허용한 PromQL만 실행하는 프록시. 응답이 없으면 `lib/prometheus-fallback.json`(합성 데이터)으로 대체 |
+| `/widgets/incidents` | 열린 PagerDuty 인시던트와 담당자. 제니퍼 사용자정의 대시보드 iframe 위젯용. `PAGERDUTY_API_KEY`가 없으면 샘플 데이터 |
 | `/embed` | 제니퍼 `/popup/chartIframe`과 AI 차트를 나란히 보여주는 데모 |
 | `/api/jennifer/*` | 제니퍼 OpenAPI 프록시. 토큰은 서버에만 둔다 |
 

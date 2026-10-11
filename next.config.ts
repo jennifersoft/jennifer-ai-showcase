@@ -13,6 +13,10 @@ const nextConfig: NextConfig = {
         source: "/charts/:path*",
         headers: [{ key: "Content-Security-Policy", value: `frame-ancestors ${frameAncestors}` }],
       },
+      {
+        source: "/widgets/:path*",
+        headers: [{ key: "Content-Security-Policy", value: `frame-ancestors ${frameAncestors}` }],
+      },
     ];
   },
 };

@@ -8,6 +8,7 @@ export default function Home() {
         <li><a href="/slides">발표 슬라이드</a></li>
         <li><Link href="/charts/tps">AI 차트 예시</Link> (제니퍼 사용자정의 대시보드 iframe 위젯용)</li>
         <li><Link href="/dashboards/integrated">통합 대시보드</Link> (제니퍼 APM + Prometheus 서버 지표)</li>
+        <li><Link href="/widgets/incidents">PagerDuty 인시던트 위젯</Link> (제니퍼 사용자정의 대시보드 iframe용)</li>
         <li><Link href="/embed">제니퍼 차트 임베드 데모</Link></li>
       </ul>
     </main>
