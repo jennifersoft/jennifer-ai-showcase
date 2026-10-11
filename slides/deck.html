@@ -98,6 +98,11 @@ body.ov .slide.sec{background:var(--hot)}
 body.ov [data-a]{opacity:1;transform:none}
 body.ov .slide.on{outline-color:var(--hot)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}[data-a]{opacity:1;transform:none}}
+
+/* live: 실제 화면을 iframe으로 띄우는 슬라이드 */
+.live{flex:1;display:flex;flex-direction:column;gap:16px;min-height:0}
+.live iframe{flex:1;width:100%;border:2px solid var(--line);border-radius:16px;background:#fff}
+.live .empty{flex:1;display:grid;place-items:center;border:2px dashed var(--line);border-radius:16px;color:var(--sub);font:400 28px var(--mono)}
 </style>
 </head>
 <body>
@@ -170,6 +175,14 @@ body.ov .slide.on{outline-color:var(--hot)}
     <div class="tile ai" id="aiTile" style="grid-column:span 2"><span class="badge">iframe · AI生成</span><span class="t">業務KPI × 応答時間</span><canvas data-chart="heat"></canvas></div>
   </div>
 </section>
+<section class="slide" id="s-live-jennifer" data-notes="[라이브] 제니퍼 사용자정의 대시보드 실제 화면. AI 차트(/charts, /infra)와 배포 타임라인(/widgets)이 iframe 위젯으로 들어가 있습니다. 화면을 클릭하면 키보드가 iframe으로 넘어가니, 다음 슬라이드는 바깥을 한 번 클릭한 뒤 넘깁니다.">
+  <div>
+    <p class="eyebrow" data-a style="color:var(--hot)">Live · Inside JENNIFER</p>
+    <h2 data-a style="--d:1;font-size:56px">ユーザー定義ダッシュボード（実画面）</h2>
+    <p class="kr s" data-a style="--d:1">제니퍼 사용자정의 대시보드 실제 화면</p>
+  </div>
+  <div class="live" data-a style="--d:2">{{LIVE_JENNIFER}}</div>
+</section>
 
 <!-- 6 dashboard out -->
 <section class="slide" data-notes="방향을 반대로. 고객의 통합 관제판이 주인공이고, 제니퍼 차트는 부품이 됩니다. [확인 필요] 제니퍼 차트를 외부에 단독 임베드하는 방식과 인증.">
@@ -192,6 +205,14 @@ body.ov .slide.on{outline-color:var(--hot)}
       <p class="kr s">주인공은 고객의 화면, 제니퍼는 부품</p>
     </div>
   </div>
+</section>
+<section class="slide" id="s-live-integrated" data-notes="[라이브] 우리가 만든 통합 대시보드. 왼쪽 제니퍼 차트(chartIframe), 오른쪽 외부 데이터 소스(Prometheus 데모). 서로 다른 서버의 데이터임을 말합니다.">
+  <div>
+    <p class="eyebrow" data-a style="color:var(--cool)">Live · Outside JENNIFER</p>
+    <h2 data-a style="--d:1;font-size:56px">統合ダッシュボード（実画面）</h2>
+    <p class="kr s" data-a style="--d:1">우리가 만든 통합 대시보드 실제 화면</p>
+  </div>
+  <div class="live" data-a style="--d:2">{{LIVE_INTEGRATED}}</div>
 </section>
 
 <!-- 7 both ways -->

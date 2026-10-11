@@ -14,7 +14,7 @@ npm run dev
 
 | 경로 | 용도 |
 |---|---|
-| `/slides` | 일본 행사 발표용 인터랙티브 웹 슬라이드 (일본어 메인, 한국어 서브) |
+| `/slides` | 일본 행사 발표용 웹 슬라이드 (서버 렌더링). 원본은 `slides/deck.html`. 라이브 슬라이드 2장에 제니퍼 사용자정의 대시보드(`JENNIFER_DASHBOARD_URL` 또는 `?jennifer=`)와 `/dashboards/integrated` 가 iframe으로 들어간다 |
 | `/charts/[id]` | 레이아웃 없는 차트 단독 페이지. 제니퍼 사용자정의 대시보드 iframe 위젯에 URL로 등록 |
 | `/dashboards/integrated` | 통합 대시보드 데모. 제니퍼 APM 차트와 Prometheus 데모 서버 지표(`/charts/node-cpu` 등)를 한 화면에 |
 | `/api/prometheus/[key]` | 허용한 PromQL만 실행하는 프록시. 응답이 없으면 `lib/prometheus-fallback.json`(녹화 데이터)으로 대체 |

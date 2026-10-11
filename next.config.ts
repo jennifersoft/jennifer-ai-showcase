@@ -3,9 +3,8 @@ import type { NextConfig } from "next";
 const frameAncestors = process.env.FRAME_ANCESTORS || "'self'";
 
 const nextConfig: NextConfig = {
-  async rewrites() {
-    return [{ source: "/slides", destination: "/slides/index.html" }];
-  },
+  // /slides 는 app/slides/route.ts 가 slides/deck.html 을 읽어 렌더링한다. 배포 산출물에 포함시킨다.
+  outputFileTracingIncludes: { "/slides": ["./slides/**/*"] },
   async headers() {
     return [
       {
