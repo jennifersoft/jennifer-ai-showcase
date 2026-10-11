@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>JENNIFER × AI Live Deck</title>
+<link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500;700;900&family=Noto+Sans+KR:wght@300;500&family=JetBrains+Mono:wght@400;700&display=swap">
 <style>
@@ -16,8 +17,9 @@
 }
 html,body{height:100%;margin:0;background:var(--ink);color:var(--fg);overflow:hidden}
 body{font-family:var(--jp)}
-#viewport{position:fixed;inset:0;display:grid;place-items:center}
-#stage{width:1920px;height:1080px;position:relative;transform-origin:center;flex:none}
+#viewport{position:fixed;inset:0;overflow:hidden}
+/* 화면 비율과 상관없이 가운데 정렬: 레이아웃 크기는 1920×1080 그대로 두고 transform으로만 축소한다 */
+#stage{width:1920px;height:1080px;position:absolute;left:50%;top:50%;transform-origin:center}
 .slide{position:absolute;inset:0;padding:120px 140px;box-sizing:border-box;display:flex;flex-direction:column;gap:40px;opacity:0;pointer-events:none;transition:opacity .6s ease}
 .slide.on{opacity:1;pointer-events:auto}
 .bg-grid{position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:80px 80px;opacity:.25;mask-image:radial-gradient(circle at 70% 30%,#000 0,transparent 70%)}
@@ -94,7 +96,8 @@ h3{font-size:40px;font-weight:700;line-height:1.3}
 .skill .card:hover{transform:translateY(-8px);border-color:var(--hot)}
 .ic{font:700 48px var(--mono);color:var(--hot)}
 .ph{color:var(--hot);opacity:.85}
-body.ov .slide{opacity:1;pointer-events:auto;transform:scale(.24);cursor:pointer;outline:6px solid var(--line);background:var(--ink)}
+body.ov .slide{opacity:1;pointer-events:auto;transform-origin:0 0;cursor:pointer;outline:8px solid var(--line);background:var(--ink);transition:none}
+body.ov .slide iframe{visibility:hidden}
 body.ov .slide.sec{background:var(--hot)}
 body.ov [data-a]{opacity:1;transform:none}
 body.ov .slide.on{outline-color:var(--hot)}
@@ -347,7 +350,10 @@ body.ov .slide.on{outline-color:var(--hot)}
 <script>
 const stage=document.getElementById('stage'),slides=[...document.querySelectorAll('.slide')];
 let cur=0,step=0,t0=null;
-function fit(){if(document.body.classList.contains('ov')){stage.style.transform=`scale(${Math.min(innerWidth/1920,innerHeight/1080)*.98})`;return}const s=Math.min(innerWidth/1920,innerHeight/1080);stage.style.transform=`scale(${s})`}
+function fit(){const ov=document.body.classList.contains('ov');const s=Math.min(innerWidth/1920,innerHeight/1080)*(ov?.98:1);stage.style.transform=`translate(-50%,-50%) scale(${s})`;layoutOverview(ov)}
+// 목록 보기: 슬라이드를 격자로 배치한다 (5열)
+function layoutOverview(ov){const cols=5,rows=Math.ceil(slides.length/cols),gap=24,cw=(1920-gap*(cols+1))/cols,sc=Math.min(cw/1920,(1080-gap*(rows+1))/rows/1080),ch=1080*sc,oy=(1080-rows*ch-gap*(rows+1))/2;
+  slides.forEach((el,i)=>{el.style.transform=ov?`translate(${gap+(i%cols)*(cw+gap)}px,${oy+gap+Math.floor(i/cols)*(ch+gap)}px) scale(${sc})`:''})}
 addEventListener('resize',fit);fit();
 const hooks={};
 function go(i){
