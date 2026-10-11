@@ -13,6 +13,11 @@ const nextConfig: NextConfig = {
         source: "/charts/:path*",
         headers: [{ key: "Content-Security-Policy", value: `frame-ancestors ${frameAncestors}` }],
       },
+      {
+        // 인프라 지표 차트도 제니퍼 대시보드 iframe 위젯에 넣을 수 있다
+        source: "/infra/:path*",
+        headers: [{ key: "Content-Security-Policy", value: `frame-ancestors ${frameAncestors}` }],
+      },
     ];
   },
 };
