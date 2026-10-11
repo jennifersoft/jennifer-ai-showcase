@@ -24,7 +24,8 @@ function httpUrlOrNull(value: string | null | undefined): string | null {
 
 function frame(src: string | null, title: string, missing: string): string {
   if (src === null) return `<div class="empty">${escapeAttr(missing)}</div>`;
-  return `<iframe src="${escapeAttr(src)}" title="${escapeAttr(title)}" loading="lazy" allow="fullscreen"></iframe>`;
+  // 보호막(shield)이 덮여 있어 클릭·키보드는 슬라이드가 받는다. I 키로 iframe을 직접 조작하는 모드로 바꾼다.
+  return `<div class="frame"><iframe src="${escapeAttr(src)}" title="${escapeAttr(title)}" loading="lazy" allow="fullscreen"></iframe><div class="shield"></div></div><p class="hint">I : 画面操作 / 조작 모드 전환</p>`;
 }
 
 export async function GET(req: NextRequest) {
