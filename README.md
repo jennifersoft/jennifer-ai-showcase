@@ -51,3 +51,27 @@ curl -X POST "$SHOWCASE_URL/api/deploys" -H "Authorization: Bearer $DEPLOY_WEBHO
 
 - 데모용으로 `DEPLOY_GITHUB_REPO`(예: `prometheus/prometheus`)를 넣으면 그 저장소의 GitHub 릴리즈도 함께 찍힌다. 긴 범위(`?hours=720`)로 보면 된다.
 - POST로 받은 이벤트는 서버 메모리에만 있어 재시작하면 사라진다. 실제 운영에는 저장소(DB)가 필요하다.
+
+## Vercel 배포
+
+- GitHub 저장소를 Vercel 프로젝트에 연결하면 `main` 푸시마다 배포된다.
+- **커밋 작성자**: Vercel은 배포하는 커밋(브랜치 최신 커밋)의 작성자가 팀 멤버여야 배포한다. 이 저장소의 커밋은 `alvin-hh` / `alvin@jennifersoft.com` 으로 한다.
+
+```bash
+git config user.name alvin-hh
+git config user.email alvin@jennifersoft.com
+```
+
+- **환경변수** (Vercel 프로젝트 설정 → Environment Variables): `.env.example` 의 값을 넣는다.
+
+| 이름 | 용도 | 필수 |
+|---|---|---|
+| `JENNIFER_URL` | 제니퍼 뷰서버 주소 (OpenAPI 프록시, chartIframe) | 제니퍼 연동 시 |
+| `JENNIFER_API_TOKEN` | 제니퍼 OPEN_API 토큰. 서버에서만 쓴다 | 제니퍼 연동 시 |
+| `FRAME_ANCESTORS` | 이 서버 페이지를 iframe으로 넣을 수 있는 origin. 제니퍼 도메인을 넣는다 | 대시보드 위젯 사용 시 |
+| `JENNIFER_DASHBOARD_URL` | 슬라이드 라이브 화면의 제니퍼 사용자정의 대시보드 주소 (`?jennifer=` 로 덮어쓰기 가능) | 선택 |
+| `PROMETHEUS_URL` | 인프라 지표 소스 (기본: 공개 데모) | 선택 |
+| `DEPLOY_WEBHOOK_SECRET`, `DEPLOY_GITHUB_REPO`, `GITHUB_TOKEN` | 배포 타임라인 | 선택 |
+
+- **서버리스 주의**: 배포 타임라인의 `POST /api/deploys` 이벤트는 서버 메모리에만 저장된다. Vercel에서는 인스턴스가 바뀌면 사라지므로, 데모는 `DEPLOY_GITHUB_REPO` 의 GitHub 릴리즈로 보여주고 웹훅을 계속 쓰려면 외부 저장소(Vercel KV, Upstash 등)가 필요하다.
+- `/slides` 는 `slides/deck.html` 을 파일로 읽는다. `next.config.ts` 의 `outputFileTracingIncludes` 로 배포물에 포함된다.
