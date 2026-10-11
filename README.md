@@ -16,6 +16,8 @@ npm run dev
 |---|---|
 | `/slides` | 일본 행사 발표용 인터랙티브 웹 슬라이드 (일본어 메인, 한국어 서브) |
 | `/charts/[id]` | 레이아웃 없는 차트 단독 페이지. 제니퍼 사용자정의 대시보드 iframe 위젯에 URL로 등록 |
+| `/dashboards/integrated` | 통합 대시보드 데모. 제니퍼 APM 차트와 Prometheus 데모 서버 지표(`/charts/node-cpu` 등)를 한 화면에 |
+| `/api/prometheus/[key]` | 허용한 PromQL만 실행하는 프록시. 응답이 없으면 `lib/prometheus-fallback.json`(합성 데이터)으로 대체 |
 | `/embed` | 제니퍼 `/popup/chartIframe`과 AI 차트를 나란히 보여주는 데모 |
 | `/api/jennifer/*` | 제니퍼 OpenAPI 프록시. 토큰은 서버에만 둔다 |
 
@@ -30,3 +32,8 @@ npm run dev
 - 차트 페이지가 `/api/jennifer` 를 부르려면 제니퍼 iframe 위젯의 sandbox 에서 `allow-scripts` 와 `allow-same-origin` 을 켜야 한다. 다른 origin 위젯은 기본으로 sandbox 가 붙는다(view-server `DashboardIframePolicy`).
 - OpenAPI 프록시는 `Authorization: Bearer <token>` 헤더로 인증한다. 제니퍼는 `?token=` 쿼리와 헤더를 모두 받지만(view-server `InterceptorUtil.getTokenKey`), 쿼리 토큰은 로그에 남을 수 있다.
 - 프록시는 차트용 조회 경로(`domain`, `instance`, `business`, `realtime/*`, `metrics`, `dbmetrics/*`)만 허용한다. 필요한 경로는 `app/api/jennifer/[...path]/route.ts` 의 `ALLOWED_PATHS` 에 추가한다.
+
+## 서버 지표 데모 주의
+
+- 공개 Prometheus 데모(`prometheus.demo.prometheus.io`)는 제니퍼가 감시하는 서버와 다른 서버다. 같은 서버의 상관 분석처럼 보이지 않게 "외부 데이터 소스 연동 예시"로 소개한다.
+- 공개 데모는 가용성 보장이 없다. 응답이 없으면 차트에 "녹화 데이터"로 표시된다. 현재 fallback은 합성 데이터이므로 발표 전 실제 응답으로 교체하는 것을 권장한다.
