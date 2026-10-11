@@ -13,6 +13,11 @@ const nextConfig: NextConfig = {
         source: "/charts/:path*",
         headers: [{ key: "Content-Security-Policy", value: `frame-ancestors ${frameAncestors}` }],
       },
+      {
+        // 배포 타임라인 같은 위젯도 제니퍼 대시보드 iframe 위젯에 넣는다
+        source: "/widgets/:path*",
+        headers: [{ key: "Content-Security-Policy", value: `frame-ancestors ${frameAncestors}` }],
+      },
     ];
   },
 };
