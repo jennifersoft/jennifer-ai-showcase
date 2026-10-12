@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import type { IncidentList as Data } from "@/lib/pagerduty";
 
 const STATUS = {
-  triggered: { label: "Triggered", color: "#d93025" },
-  acknowledged: { label: "Acknowledged", color: "#e8a200" },
-  resolved: { label: "Resolved", color: "#188038" },
+  triggered: { label: "Triggered", color: "var(--danger)" },
+  acknowledged: { label: "Acknowledged", color: "var(--warn)" },
+  resolved: { label: "Resolved", color: "var(--ok)" },
 } as const;
 
 function elapsed(iso: string) {
@@ -25,30 +25,47 @@ export default function IncidentList() {
   }, []);
 
   const incidents = data?.incidents ?? [];
+  const triggered = incidents.filter((i) => i.status === "triggered").length;
 
   return (
-    <section style={{ fontSize: 13 }}>
-      <header style={{ display: "flex", justifyContent: "space-between", color: "#555", marginBottom: 6 }}>
-        <strong>PagerDuty · 열린 인시던트 {incidents.length}건</strong>
-        {data?.source === "sample" && <span style={{ color: "#c60" }}>샘플 데이터</span>}
-      </header>
-      {incidents.length === 0 ? (
-        <p style={{ color: "#188038" }}>{data ? "열린 인시던트가 없습니다." : "불러오는 중"}</p>
-      ) : (
-        <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
+    <div className="widget">
+      <div className="widget-head">
+        <div>
+          <div className="widget-title">PagerDuty · 열린 인시던트</div>
+          <div className="widget-value">
+            {data ? incidents.length : "–"}
+            <span className="widget-unit">건{triggered ? ` · 미확인 ${triggered}` : ""}</span>
+          </div>
+        </div>
+        {data?.source === "sample" ? <span className="badge">샘플 데이터</span> : <span className="chip">PagerDuty</span>}
+      </div>
+      <div style={{ flex: 1, overflow: "auto" }}>
+        {data && incidents.length === 0 && <div className="empty" style={{ color: "var(--ok)" }}>열린 인시던트가 없습니다.</div>}
+        <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "grid", gap: 6 }}>
           {incidents.map((i) => (
-            <li key={i.id} style={{ borderLeft: `4px solid ${STATUS[i.status].color}`, padding: "6px 8px", marginBottom: 6, background: "#fafafa" }}>
-              <div style={{ fontWeight: 600 }}>
-                {i.url ? <a href={i.url} target="_blank" rel="noreferrer" style={{ color: "inherit" }}>{i.title}</a> : i.title}
+            <li
+              key={i.id}
+              style={{ borderLeft: `3px solid ${STATUS[i.status].color}`, padding: "8px 10px", background: "var(--surface-2)", borderRadius: 6, fontSize: 13 }}
+            >
+              <div style={{ fontWeight: 600, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                {i.url ? (
+                  <a href={i.url} target="_blank" rel="noreferrer" style={{ color: "inherit", textDecoration: "none" }}>
+                    {i.title}
+                  </a>
+                ) : (
+                  i.title
+                )}
               </div>
-              <div style={{ color: "#666", marginTop: 2 }}>
-                <span style={{ color: STATUS[i.status].color }}>{STATUS[i.status].label}</span>
-                {i.urgency === "high" && " · High"} · {i.assignee} · {elapsed(i.createdAt)}
+              <div style={{ color: "var(--text-2)", marginTop: 3, fontSize: 12, display: "flex", gap: 6, flexWrap: "wrap" }}>
+                <span style={{ color: STATUS[i.status].color, fontWeight: 600 }}>{STATUS[i.status].label}</span>
+                {i.urgency === "high" && <span>· High</span>}
+                <span>· {i.assignee}</span>
+                <span>· {elapsed(i.createdAt)}</span>
               </div>
             </li>
           ))}
         </ul>
-      )}
-    </section>
+      </div>
+    </div>
   );
 }

@@ -19,9 +19,3 @@
 .skill .card:hover{transform:translateY(-8px);border-color:var(--hot)}
 .ic{font:700 48px var(--mono);color:var(--hot)}
 .ph{color:var(--hot);opacity:.85}
-body.ov .slide{opacity:1;pointer-events:auto;transform-origin:0 0;cursor:pointer;outline:8px solid var(--line);background:var(--ink);transition:none}
-body.ov .slide iframe{visibility:hidden}
-body.ov .slide.sec{background:var(--hot)}
-body.ov [data-a]{opacity:1;transform:none}
-body.ov .slide.on{outline-color:var(--hot)}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}[data-a]{opacity:1;transform:none}}

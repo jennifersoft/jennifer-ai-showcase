@@ -14,6 +14,8 @@ const DECK_NAME = /^[a-z0-9][a-z0-9-]*$/;
 
 export type DeckMeta = {
   title: string;
+  /** dark(기본) | light. ?theme= 로 미리보기 때 바꿀 수 있다 */
+  theme?: "dark" | "light";
   lang?: string;
   date?: string;
   description?: string;
@@ -40,18 +42,25 @@ export async function readDeckMeta(name: string): Promise<DeckMeta | null> {
 }
 
 /** 목록에 보일 덱. 이름이 _ 로 시작하는 폴더(엔진, 템플릿)는 뺀다. 날짜 최신순. */
-export async function listDecks(): Promise<(DeckMeta & { name: string })[]> {
+export type DeckSummary = DeckMeta & { name: string; slideCount: number };
+
+async function countSlides(name: string): Promise<number> {
+  const html = await readOptional(path.join(SLIDES_DIR, name, "slides.html"));
+  return (html.match(/<section\s+class="slide[\s"]/g) ?? []).length;
+}
+
+export async function listDecks(): Promise<DeckSummary[]> {
   const entries = await readdir(SLIDES_DIR, { withFileTypes: true });
   const decks = await Promise.all(
     entries
       .filter((e) => e.isDirectory() && isDeckName(e.name))
       .map(async (e) => {
         const meta = await readDeckMeta(e.name);
-        return meta ? { name: e.name, ...meta } : null;
+        return meta ? { name: e.name, ...meta, slideCount: await countSlides(e.name) } : null;
       })
   );
   return decks
-    .filter((d): d is DeckMeta & { name: string } => d !== null)
+    .filter((d): d is DeckSummary => d !== null)
     .sort((a, b) => (b.date ?? "").localeCompare(a.date ?? ""));
 }
 
@@ -88,7 +97,11 @@ export function renderLive(html: string, jenniferUrl: string | null): string {
 }
 
 /** 엔진 + 덱 파일을 합쳐 한 장의 HTML로 만든다. 덱이 없으면 null. */
-export async function renderDeck(name: string, jenniferUrl: string | null): Promise<string | null> {
+export async function renderDeck(
+  name: string,
+  jenniferUrl: string | null,
+  themeOverride?: string | null
+): Promise<string | null> {
   const meta = await readDeckMeta(name);
   if (meta === null) return null;
   const dir = path.join(SLIDES_DIR, name);
@@ -101,12 +114,13 @@ export async function renderDeck(name: string, jenniferUrl: string | null): Prom
     readOptional(path.join(dir, "deck.css")),
     readOptional(path.join(dir, "deck.js")),
   ]);
+  const theme = themeOverride === "light" || themeOverride === "dark" ? themeOverride : meta.theme ?? "dark";
   const fonts = meta.fonts
     ? `<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="stylesheet" href="${escapeHtml(meta.fonts)}">`
     : "";
 
   return `<!doctype html>
-<html lang="${escapeHtml(meta.lang ?? "ja")}">
+<html lang="${escapeHtml(meta.lang ?? "ja")}" data-theme="${theme}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">

@@ -8,9 +8,5 @@ export default async function DeployTimelinePage({ searchParams }: { searchParam
   const { hours } = await searchParams;
   const parsed = Number(hours);
   const range = Number.isFinite(parsed) && parsed > 0 ? parsed : DEFAULT_HOURS;
-  return (
-    <div style={{ width: "100vw", height: "100vh", boxSizing: "border-box", padding: 8 }}>
-      <DeployTimeline hours={range} />
-    </div>
-  );
+  return <DeployTimeline hours={range} />;
 }

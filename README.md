@@ -71,7 +71,7 @@ slides/
 ### 새 덱 추가하기
 
 1. `cp -r slides/_template slides/<덱이름>` (덱이름은 소문자·숫자·하이픈)
-2. `meta.json`의 `title`, `lang`, `date`, `description`을 고친다.
+2. `meta.json`의 `title`, `theme`(`dark`|`light`, 템플릿은 `light`), `lang`, `date`, `description`을 고친다. `?theme=light` 로 테마를 바꿔 미리볼 수 있다.
 3. `slides.html`에 `<section class="slide">`를 한 장씩 쓴다. `data-notes`는 발표자 노트, `data-a`는 등장 애니메이션(`style="--d:n"`으로 순서).
 4. 실제 화면은 한 줄로 넣는다. `{{live:jennifer}}`는 제니퍼 대시보드, `{{live:/경로}}`는 이 서버 페이지(예: `{{live:/dashboards/integrated}}`).
 5. 단계 연출이 필요하면 섹션에 `data-steps="N"`을 주고 `deck.js`에 `hooks['<섹션 id>']=st=>{...}`를 쓴다.
@@ -130,3 +130,10 @@ git config user.email alvin@jennifersoft.com
 - **Next.js 버전**: 취약 버전이면 빌드가 성공해도 배포가 Error로 막힌다. 15.5 최신 패치(현재 15.5.27)를 유지한다.
 - **슬라이드 파일**: `/slides`, `/slides/<덱>`은 `slides/` 폴더를 파일로 읽는다. `next.config.ts`의 `outputFileTracingIncludes`로 배포물에 포함된다.
 - **서버리스 주의**: `POST /api/deploys` 이벤트는 인스턴스가 바뀌면 사라진다. 데모는 `DEPLOY_GITHUB_REPO`의 GitHub 릴리즈로 보여준다.
+
+## 디자인
+
+- 공통 토큰은 `app/globals.css`(기본 라이트). 위젯·차트는 `?theme=dark` 로 다크 테마가 된다. 제니퍼 대시보드 테마(classic/dark)에 맞춰 넘긴다.
+- 차트는 `components/TimeSeriesChart.tsx` 하나를 쓴다. y축 눈금·격자, x축 시간, 현재 값, 마우스 위치 값이 있다. 패널은 `components/ChartWidget.tsx`.
+- 슬라이드 테마는 엔진(`slides/_engine/engine.css`)의 `:root[data-theme="light"]` 토큰으로 바뀐다. 덱 CSS에서는 색을 직접 쓰지 말고 `var(--fg)`, `var(--panel)` 같은 토큰을 쓴다.
+

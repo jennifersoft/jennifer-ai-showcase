@@ -1,37 +1,45 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import ChartWidget from "@/components/ChartWidget";
+import type { Point } from "@/components/TimeSeriesChart";
 
-const POINTS = 60;
+const POINTS = 120;
 
-// 데모용 시계열. 실제 데이터는 /api/jennifer 프록시로 교체한다.
-function mockNext(prev: number) {
-  return Math.max(0, prev + (Math.random() - 0.5) * 20);
+// 데모용 지표. 실제 데이터는 /api/jennifer 프록시로 바꾼다.
+const DEMO: Record<string, { title: string; unit: string; base: number; jitter: number; color?: string }> = {
+  tps: { title: "TPS", unit: "tps", base: 320, jitter: 40 },
+  response: { title: "평균 응답시간", unit: "ms", base: 180, jitter: 35, color: "var(--series-2)" },
+  error: { title: "에러 수", unit: "건", base: 3, jitter: 2, color: "var(--danger)" },
+  active: { title: "액티브 서비스", unit: "개", base: 24, jitter: 6 },
+};
+
+function next(prev: number, base: number, jitter: number) {
+  const pull = (base - prev) * 0.1;
+  return Math.max(0, prev + pull + (Math.random() - 0.5) * jitter);
 }
 
 export default function LineChart({ metric }: { metric: string }) {
-  const [values, setValues] = useState<number[]>(() => Array.from({ length: POINTS }, () => 100));
+  const conf = DEMO[metric] ?? { title: metric.toUpperCase(), unit: "", base: 100, jitter: 20 };
+  const [points, setPoints] = useState<Point[]>([]);
 
   useEffect(() => {
+    const now = Math.floor(Date.now() / 1000);
+    let v = conf.base;
+    const init: Point[] = [];
+    for (let i = POINTS - 1; i >= 0; i--) {
+      v = next(v, conf.base, conf.jitter);
+      init.push([now - i * 5, v]);
+    }
+    setPoints(init);
     const timer = setInterval(() => {
-      setValues((v) => [...v.slice(1), mockNext(v[v.length - 1])]);
-    }, 1000);
+      setPoints((p) => {
+        const [t, last] = p[p.length - 1];
+        return [...p.slice(1), [t + 5, next(last, conf.base, conf.jitter)]];
+      });
+    }, 5000);
     return () => clearInterval(timer);
-  }, []);
+  }, [conf.base, conf.jitter]);
 
-  const max = Math.max(...values, 1);
-  const d = values
-    .map((v, i) => `${i === 0 ? "M" : "L"}${(i / (POINTS - 1)) * 100},${100 - (v / max) * 90}`)
-    .join(" ");
-
-  return (
-    <figure style={{ margin: 0, height: "100%", display: "flex", flexDirection: "column" }}>
-      <figcaption style={{ fontSize: 13, color: "#555" }}>
-        {metric.toUpperCase()} · {values[values.length - 1].toFixed(0)}
-      </figcaption>
-      <svg viewBox="0 0 100 100" preserveAspectRatio="none" style={{ flex: 1, width: "100%" }}>
-        <path d={d} fill="none" stroke="#ff6a2b" strokeWidth={1} vectorEffect="non-scaling-stroke" />
-      </svg>
-    </figure>
-  );
+  return <ChartWidget title={conf.title} unit={conf.unit} points={points} color={conf.color} badge={<span className="chip">데모 데이터</span>} />;
 }
