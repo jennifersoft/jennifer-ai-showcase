@@ -97,3 +97,12 @@ body.ov .slide.sec{background:var(--hot)}
 body.ov [data-a]{opacity:1;transform:none}
 body.ov .slide.on{outline-color:var(--hot)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}[data-a]{opacity:1;transform:none}}
+
+/* playlist: 여러 영상을 차례로 자동 재생 (슬라이드가 보일 때만). <div class="playlist"><video muted playsinline></video><ol class="pl-tabs"><li data-src="...">이름<span>보조</span></li></ol></div> */
+.playlist{display:flex;flex-direction:column;gap:14px;min-width:0}
+.playlist video{width:100%;aspect-ratio:16/9;border-radius:20px;background:#E9EDF5;border:1px solid var(--line);object-fit:cover;display:block}
+.pl-tabs{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.pl-tabs li{position:relative;overflow:hidden;padding:12px 14px;border-radius:10px;background:var(--panel);border:1px solid var(--line);font:700 20px/1.3 var(--jp);color:var(--sub);cursor:pointer}
+.pl-tabs li span{display:block;font:300 16px var(--kr);margin-top:2px}
+.pl-tabs li.on{color:var(--fg);border-color:var(--hot)}
+.pl-tabs li.on::after{content:"";position:absolute;left:0;bottom:0;height:3px;width:var(--p,0%);background:var(--hot)}

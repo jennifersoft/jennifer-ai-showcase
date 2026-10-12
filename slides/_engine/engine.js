@@ -96,3 +96,19 @@ function draw(){tick++;
   }
   requestAnimationFrame(draw)}
 draw();
+
+// playlist: 슬라이드가 보일 때 영상을 차례로 재생하고, 다른 장으로 가면 멈춘다. 탭을 누르면 그 영상으로 이동.
+(function(){
+  const lists=[...document.querySelectorAll('.playlist')];
+  for(const pl of lists){
+    const v=pl.querySelector('video'),tabs=[...pl.querySelectorAll('.pl-tabs li')];let idx=0;
+    const play=i=>{idx=(i+tabs.length)%tabs.length;tabs.forEach((t,k)=>t.classList.toggle('on',k===idx));v.src=tabs[idx].dataset.src;v.play().catch(()=>{})};
+    v.addEventListener('ended',()=>play(idx+1));
+    v.addEventListener('timeupdate',()=>{if(v.duration)tabs[idx].style.setProperty('--p',(v.currentTime/v.duration*100)+'%')});
+    tabs.forEach((t,k)=>t.addEventListener('click',e=>{e.stopPropagation();play(k)}));
+    pl.addEventListener('click',e=>e.stopPropagation());
+    const slide=pl.closest('.slide');let wasOn=false;
+    setInterval(()=>{const on=slide.classList.contains('on')&&!document.body.classList.contains('ov');
+      if(on&&!wasOn)play(0); else if(!on&&wasOn)v.pause(); wasOn=on},300);
+  }
+})();

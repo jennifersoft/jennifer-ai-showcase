@@ -36,24 +36,32 @@
   </div>
   <div class="live" data-a style="--d:2"><div class="frame" style="border:2px dashed var(--line);border-radius:16px"></div></div>
 </section>
-<section class="slide" id="s-mobile" data-notes="[사례] AI와 함께 만든 모바일 앱. jennifer5-server apps/mobile, 2026-08-20 첫 추가. 기본 레이아웃·기능 구현은 3일 만에 끝났고, 이후 디자인 대기·반영과 QA를 띄엄띄엄 진행해 출시까지 약 한 달. 2026-10-11 기준 커밋 517, 테스트 1,021개 전부 통과, 라인 커버리지 77%. 모바일 대시보드도 제니퍼 차트를 /popup/chartIframe(iframe)으로 재사용합니다. 오늘 이야기한 iframe을 제니퍼 스스로 먼저 쓰고 있다는 점을 강조. [확인 필요] 모바일 화면 캡처.">
+<section class="slide" id="s-mobile" data-notes="[사례] AI와 함께 만든 모바일 앱. jennifer5-server apps/mobile, 2026-08-20 첫 추가. 기본 레이아웃·기능 구현은 3일 만에 끝났고, 이후 디자인 대기·반영과 QA를 띄엄띄엄 진행해 출시까지 약 한 달. 2026-10-11 기준 커밋 517, 테스트 1,021개 전부 통과, 라인 커버리지 77%. 모바일 대시보드도 제니퍼 차트를 /popup/chartIframe(iframe)으로 재사용합니다. 오늘 이야기한 iframe을 제니퍼 스스로 먼저 쓰고 있다는 점을 강조. 화면 영상 4개(대시보드 → 가로 차트 → X-View → AI)가 차례로 자동 재생됩니다. 아래 탭을 누르면 해당 영상으로 바로 이동.">
   <div>
     <p class="eyebrow" data-a>Built with AI</p>
     <h2 data-a style="--d:1;font-size:64px">AIと作った、JENNIFERモバイル</h2>
     <p class="kr s" data-a style="--d:1">AI와 함께 만든 제니퍼 모바일 앱. 기본 레이아웃과 기능 구현은 3일 만에 끝났고, 나머지는 디자인 반영과 QA로 출시까지 약 한 달이 걸렸습니다</p>
   </div>
-  <div class="row" style="flex:1;align-items:center;gap:48px">
-    <div style="flex:1;display:flex;flex-direction:column;gap:32px">
-      <div class="stats" style="gap:20px">
-        <div class="stat" data-a style="--d:2"><b style="font-size:76px">3日</b><span>基本機能 / 기본 레이아웃·기능</span></div>
-        <div class="stat" data-a style="--d:3"><b style="font-size:76px">約1か月</b><span>リリースまで / 출시까지</span></div>
-        <div class="stat" data-a style="--d:4"><b style="font-size:76px">1,021</b><span>テスト / 테스트</span></div>
-        <div class="stat" data-a style="--d:5"><b style="font-size:76px">77%</b><span>カバレッジ / 커버리지</span></div>
+  <div class="row" style="flex:1;align-items:center;gap:40px;min-height:0">
+    <div style="width:600px;flex:none;display:flex;flex-direction:column;gap:24px">
+      <div class="stats" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="stat" data-a style="--d:2;padding:22px 26px"><b style="font-size:64px">3日</b><span>基本機能<i class="kr" style="display:block;font-size:20px;font-style:normal">기본 레이아웃·기능</i></span></div>
+        <div class="stat" data-a style="--d:3;padding:22px 26px"><b style="font-size:64px">約1か月</b><span>リリースまで<i class="kr" style="display:block;font-size:20px;font-style:normal">출시까지</i></span></div>
+        <div class="stat" data-a style="--d:4;padding:22px 26px"><b style="font-size:64px">1,021</b><span>テスト<i class="kr" style="display:block;font-size:20px;font-style:normal">테스트</i></span></div>
+        <div class="stat" data-a style="--d:5;padding:22px 26px"><b style="font-size:64px">77%</b><span>カバレッジ<i class="kr" style="display:block;font-size:20px;font-style:normal">커버리지</i></span></div>
       </div>
-      <p data-a style="--d:6;font-size:34px">チャートは <span class="cl">/popup/chartIframe</span> を iframe で再利用。</p>
+      <p data-a style="--d:6;font-size:30px">チャートは <span class="cl">/popup/chartIframe</span> を iframe で再利用。</p>
       <p class="kr s" data-a style="--d:6">차트를 새로 만들지 않고 제니퍼 차트를 iframe으로 재사용해 기간을 줄였습니다. 뒤에 나올 iframe 이야기의 복선입니다</p>
     </div>
-    <div class="phone" data-a="scale" style="--d:7">screenshot</div>
+    <div class="playlist" data-a="scale" style="--d:7;flex:1">
+      <video muted playsinline preload="auto"></video>
+      <ol class="pl-tabs">
+        <li data-src="/media/japan-2026/mobile-01-dashboard.mp4">ダッシュボード<span>대시보드</span></li>
+        <li data-src="/media/japan-2026/mobile-02-chart-landscape.mp4">チャート（横画面）<span>차트 · 가로 화면</span></li>
+        <li data-src="/media/japan-2026/mobile-03-xview.mp4">X-View<span>X-View 분석</span></li>
+        <li data-src="/media/japan-2026/mobile-04-ai.mp4">JENNIFER AI<span>AI 분석</span></li>
+      </ol>
+    </div>
   </div>
 </section>
 <section class="slide sec" data-notes="두 번째 이야기, 오늘의 하이라이트: 사용자가 AI로 제니퍼를 확장합니다. PagerDuty 어댑터에서 시작해 사용자정의 대시보드까지.">
