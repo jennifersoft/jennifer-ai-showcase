@@ -35,6 +35,7 @@
   </div>
   <div class="spacer"></div>
   <h3 data-a style="--d:11;font-size:44px">一貫して「お客様が拡張できる構造」を目指してきました。</h3>
+  <p class="kr s" data-a style="--d:11">일관되게 '고객이 직접 확장할 수 있는 구조'를 지향해 왔습니다</p>
 </section>
 
 <!-- 4 section 01 -->
@@ -56,12 +57,13 @@
     </div>
   </div>
   <div class="prompt" data-a style="--d:2"><span class="hl">❯ </span><span id="ptext"></span><span class="caret"></span></div>
+  <p class="kr s" data-a style="--d:2;margin-top:-28px">프롬프트: 업무 KPI와 응답시간의 상관관계를 히트맵으로 보여줘</p>
   <div class="dash" data-a style="--d:3">
     <div class="tile"><span class="t">Active Service</span><canvas data-chart="bars" data-max="50"></canvas></div>
     <div class="tile"><span class="t">TPS</span><canvas data-chart="line" data-c="#4FB3FF" data-max="200"></canvas></div>
     <div class="tile"><span class="t">Response Time</span><canvas data-chart="line" data-c="#3DDC97" data-max="2000" data-unit="ms"></canvas></div>
     <div class="tile"><span class="t">CPU</span><canvas data-chart="line" data-c="#8E9CB3" data-unit="%"></canvas></div>
-    <div class="tile ai" id="aiTile" style="grid-column:span 2"><span class="badge">iframe · AI生成</span><span class="t">業務KPI × 応答時間</span><canvas data-chart="heat"></canvas></div>
+    <div class="tile ai" id="aiTile" style="grid-column:span 2"><span class="badge">iframe · AI生成</span><span class="t">業務KPI × 応答時間 · 업무 KPI × 응답시간</span><canvas data-chart="heat"></canvas></div>
   </div>
 </section>
 <section class="slide" id="s-live-jennifer" data-notes="[라이브] 제니퍼 사용자정의 대시보드 실제 화면. AI 차트(/charts, /infra)와 배포 타임라인(/widgets)이 iframe 위젯으로 들어가 있습니다. 화면을 클릭하면 키보드가 iframe으로 넘어가니, 다음 슬라이드는 바깥을 한 번 클릭한 뒤 넘깁니다.">
@@ -82,9 +84,9 @@
   </div>
   <div class="row" style="flex:1;align-items:center">
     <div class="dash" data-a="scale" style="--d:3;flex:1.6;grid-template-rows:200px 200px">
-      <div class="tile"><span class="t">インフラ</span><canvas data-chart="line" data-c="#5D6B83" data-unit="%"></canvas></div>
-      <div class="tile"><span class="t">業務KPI</span><canvas data-chart="bars" data-c="#5D6B83" data-max="500"></canvas></div>
-      <div class="tile"><span class="t">ネットワーク</span><canvas data-chart="line" data-c="#5D6B83" data-unit="M"></canvas></div>
+      <div class="tile"><span class="t">インフラ · 인프라</span><canvas data-chart="line" data-c="#5D6B83" data-unit="%"></canvas></div>
+      <div class="tile"><span class="t">業務KPI · 업무 KPI</span><canvas data-chart="bars" data-c="#5D6B83" data-max="500"></canvas></div>
+      <div class="tile"><span class="t">ネットワーク · 네트워크</span><canvas data-chart="line" data-c="#5D6B83" data-unit="M"></canvas></div>
       <div class="tile" style="grid-column:span 2;outline:3px solid var(--cool);outline-offset:-3px"><span class="t cl">JENNIFER · X-View</span><canvas data-chart="xview"></canvas></div>
       <div class="tile" style="outline:3px solid var(--cool);outline-offset:-3px"><span class="t cl">JENNIFER · TPS</span><canvas data-chart="line" data-c="#4FB3FF" data-max="200"></canvas></div>
     </div>
@@ -152,12 +154,13 @@
     <p class="kr s" data-a style="--d:1">일본 고객 요청으로 실제 만든 어댑터, 요청부터 인시던트까지</p>
   </div>
   <div class="prompt" data-a style="--d:2"><span class="hl">❯ </span><span id="ptext2"></span><span class="caret"></span></div>
+  <p class="kr s" data-a style="--d:2;margin-top:-16px">프롬프트: 제니퍼 장애 이벤트를 PagerDuty로 보내는 어댑터를 만들어 줘</p>
   <div class="code" id="code" data-a style="--d:3"></div>
   <div class="steps" data-a style="--d:4">
     <div class="step" data-s="0">コード生成<span class="kr s">코드 생성</span></div>
-    <div class="step" data-s="1">ビルド<span class="kr s">mvn clean package</span></div>
-    <div class="step" data-s="2">登録<span class="kr s">Adapter ID: pagerduty</span></div>
-    <div class="step" data-s="3">インシデント<span class="kr s">PagerDuty 인시던트 생성</span></div>
+    <div class="step" data-s="1">ビルド<span class="kr s">빌드 · mvn clean package</span></div>
+    <div class="step" data-s="2">登録<span class="kr s">등록 · Adapter ID: pagerduty</span></div>
+    <div class="step" data-s="3">インシデント<span class="kr s">인시던트 · PagerDuty에 생성</span></div>
   </div>
   <div class="toast" id="toast"><div class="ico" style="background:#06AC38">P</div><div><b>Triggered · Critical</b><span>[JENNIFER] Groupware · SERVICE_EXCEPTION<br>View in JENNIFER5 → X-View</span></div></div>
 </section>
@@ -193,9 +196,9 @@
   </div>
   <div class="spacer"></div>
   <div class="skill">
-    <div class="card" data-a style="--d:2"><span class="ic">5</span><h3>アダプター種別</h3><p style="font:400 22px/1.6 var(--mono);color:var(--sub)">Event · Transaction<br>Login · SSO · System Event</p></div>
-    <div class="card" data-a style="--d:3"><span class="ic">{ }</span><h3>実装例</h3><p style="font:400 22px/1.6 var(--mono);color:var(--sub)">Slack · Teams<br>Telegram · LDAP</p></div>
-    <div class="card" data-a style="--d:4"><span class="ic">⚙</span><h3>共通パターン</h3><p style="font:400 22px/1.6 var(--mono);color:var(--sub)">認証 · HTTP · エラー処理<br>ログ · メッセージ形式</p></div>
+    <div class="card" data-a style="--d:2"><span class="ic">5</span><h3>アダプター種別</h3><p class="kr s">어댑터 종류</p><p style="font:400 22px/1.6 var(--mono);color:var(--sub)">Event · Transaction<br>Login · SSO · System Event</p></div>
+    <div class="card" data-a style="--d:3"><span class="ic">{ }</span><h3>実装例</h3><p class="kr s">구현 예제</p><p style="font:400 22px/1.6 var(--mono);color:var(--sub)">Slack · Teams<br>Telegram · LDAP</p></div>
+    <div class="card" data-a style="--d:4"><span class="ic">⚙</span><h3>共通パターン</h3><p class="kr s">공통 패턴</p><p style="font:400 22px/1.6 var(--mono);color:var(--sub)">認証 · HTTP · エラー処理<br>ログ · メッセージ形式</p></div>
   </div>
   <div class="prompt" data-a style="--d:6;font-size:24px"><span class="hl">$ </span>curl -L github.com/jennifersoft/jennifer-view-extension-tutorial/raw/main/jennifer-extension.zip …</div>
   <p class="kr s" data-a style="--d:6">Claude 설정 → Skills에 업로드하거나, curl 한 줄로 설치</p>
@@ -210,4 +213,5 @@
   <p class="kr" data-a style="--d:2">다음 사례 발표는 여러분의 차례입니다</p>
   <div class="spacer"></div>
   <p data-a style="--d:3;font-size:36px;color:var(--sub)">ありがとうございました</p>
+  <p class="kr s" data-a style="--d:3">감사합니다</p>
 </section>
