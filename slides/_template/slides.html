@@ -31,6 +31,20 @@
   </div>
 </section>
 
+<section class="slide" data-notes="대시보드 목업: canvas data-chart 는 축이 있는 움직이는 차트(line·bars·xview·heat). data-max 로 Y축 최대값, data-unit 으로 단위">
+  <div>
+    <p class="eyebrow" data-a>Dashboard</p>
+    <h2 data-a style="--d:1;font-size:64px">차트로 보여주기</h2>
+  </div>
+  <div class="dash" data-a style="--d:2">
+    <div class="tile"><span class="t">TPS</span><canvas data-chart="line" data-c="#1C78D4" data-max="200"></canvas></div>
+    <div class="tile"><span class="t">Response Time</span><canvas data-chart="line" data-c="#0F9F68" data-max="2000" data-unit="ms"></canvas></div>
+    <div class="tile"><span class="t">Active Service</span><canvas data-chart="bars" data-max="50"></canvas></div>
+    <div class="tile" style="grid-column:span 2"><span class="t">X-View</span><canvas data-chart="xview"></canvas></div>
+    <div class="tile"><span class="t">Heatmap</span><canvas data-chart="heat"></canvas></div>
+  </div>
+</section>
+
 <section class="slide" data-notes="[라이브] 실제 화면">
   <div>
     <p class="eyebrow" data-a>Live</p>

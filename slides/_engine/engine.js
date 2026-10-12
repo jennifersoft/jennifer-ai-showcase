@@ -65,21 +65,34 @@ function net(id){const c=document.getElementById(id),x=c.getContext('2d');c.widt
     if(!reduce)requestAnimationFrame(f)})()}
 
 
-// live mini charts
-const charts=[...document.querySelectorAll('canvas[data-chart]')].map(c=>{
-  const r=c.getBoundingClientRect();return{c,x:c.getContext('2d'),type:c.dataset.chart,col:c.dataset.c||'#FF6B35',d:Array.from({length:60},(_,i)=>50+Math.sin(i/5)*20+Math.random()*15),pts:[]}});
+// 움직이는 목업 차트: <canvas data-chart="line|bars|heat|xview" data-c="#색" data-max="100" data-unit="ms">
+// line·bars·xview 는 Y축 눈금(0·절반·최대)과 X축(시간)을 같이 그린다. 축 색은 테마 토큰(--sub, --line)을 따른다.
+const charts=[...document.querySelectorAll('canvas[data-chart]')].map(c=>({c,x:c.getContext('2d'),type:c.dataset.chart,col:c.dataset.c||'#FF6B35',max:+(c.dataset.max||100),unit:c.dataset.unit||'',d:Array.from({length:60},(_,i)=>50+Math.sin(i/5)*20+Math.random()*15),pts:[]}));
 function size(o){const w=o.c.clientWidth||400,h=o.c.clientHeight||150;if(o.c.width!==w*2){o.c.width=w*2;o.c.height=h*2}return[o.c.width,o.c.height]}
+const tokens={};
+function token(name,fb){return tokens[name]??=(getComputedStyle(document.documentElement).getPropertyValue(name).trim()||fb)}
+const AX={l:92,b:42,t:12,r:8};
+// 축 글자: 1000ms 이상은 초(s), 그 외 1000 이상은 k
+function fmt(v,unit){if(v<1000)return Math.round(v)+unit;const n=(v/1000).toFixed(v%1000?1:0);return unit==='ms'?n+'s':n+'k'+unit}
+// 축과 격자를 그리고 그림 영역 {x,y,w,h} 를 돌려준다
+function axes(x,w,h,max,unit,xl){const sub=token('--sub','#8E9CB3'),line=token('--line','#24344F'),pw=w-AX.l-AX.r,ph=h-AX.t-AX.b;
+  x.font='500 26px '+token('--mono','monospace');x.textBaseline='middle';
+  for(const f of [0,.5,1]){const y=AX.t+ph-f*ph;x.strokeStyle=line;x.lineWidth=f?1:2;x.globalAlpha=f?.6:1;x.beginPath();x.moveTo(AX.l,y);x.lineTo(w-AX.r,y);x.stroke();x.globalAlpha=1;
+    x.fillStyle=sub;x.textAlign='right';x.fillText(fmt(max*f,unit),AX.l-14,y)}
+  x.textBaseline='alphabetic';xl.forEach((t,i)=>{x.textAlign=i===0?'left':i===xl.length-1?'right':'center';x.fillText(t,AX.l+pw*i/(xl.length-1),h-4)});
+  return{x:AX.l,y:AX.t,w:pw,h:ph}}
 let tick=0;
 function draw(){tick++;
   for(const o of charts){if(!o.c.closest('.slide.on'))continue;const[w,h]=size(o),x=o.x;x.clearRect(0,0,w,h);
     if(tick%6===0){o.d.shift();o.d.push(Math.max(5,Math.min(95,o.d[o.d.length-1]+(Math.random()-.5)*18)))}
-    if(o.type==='line'){x.beginPath();o.d.forEach((v,i)=>{const px=i/(o.d.length-1)*w,py=h-v/100*h;i?x.lineTo(px,py):x.moveTo(px,py)});
-      x.strokeStyle=o.col;x.lineWidth=4;x.stroke();x.lineTo(w,h);x.lineTo(0,h);x.fillStyle=o.col+'22';x.fill()}
-    else if(o.type==='bars'){const n=12,bw=w/n;for(let i=0;i<n;i++){const v=o.d[o.d.length-n+i];x.fillStyle=o.c.dataset.c||(v>75?'#FF6B35':'#4FB3FF');x.fillRect(i*bw+6,h-v/100*h,bw-12,v/100*h)}}
+    if(o.type==='line'){const a=axes(x,w,h,o.max,o.unit,['-10m','-5m','now']);x.beginPath();o.d.forEach((v,i)=>{const px=a.x+i/(o.d.length-1)*a.w,py=a.y+a.h-v/100*a.h;i?x.lineTo(px,py):x.moveTo(px,py)});
+      x.strokeStyle=o.col;x.lineWidth=4;x.lineJoin='round';x.stroke();x.lineTo(a.x+a.w,a.y+a.h);x.lineTo(a.x,a.y+a.h);x.fillStyle=o.col+'22';x.fill()}
+    else if(o.type==='bars'){const a=axes(x,w,h,o.max,o.unit,['-12m','-6m','now']),n=12,bw=a.w/n;for(let i=0;i<n;i++){const v=o.d[o.d.length-n+i];x.fillStyle=o.c.dataset.c||(v>75?'#FF6B35':'#4FB3FF');x.fillRect(a.x+i*bw+6,a.y+a.h-v/100*a.h,bw-12,v/100*a.h)}}
     else if(o.type==='heat'){const cols=30,rows=6,cw=w/cols,rh=h/rows;for(let i=0;i<cols;i++)for(let j=0;j<rows;j++){
       const v=(Math.sin((i+tick/20)/3+j)+1)/2;x.fillStyle=`rgba(255,107,53,${.12+v*.8})`;x.fillRect(i*cw+2,j*rh+2,cw-4,rh-4)}}
-    else if(o.type==='xview'){if(o.pts.length<400||tick%2===0){for(let k=0;k<3;k++)o.pts.push({t:tick,y:Math.random()<.08?Math.random()*.9:Math.random()*.3})}
-      o.pts=o.pts.filter(p=>tick-p.t<300);for(const p of o.pts){const px=w-(tick-p.t)/300*w,py=h-p.y*h-4;x.fillStyle=p.y>.6?'#FF6B35':p.y>.3?'#FFC24B':'#4FB3FF';x.fillRect(px,py,5,5)}}
+    else if(o.type==='xview'){const a=axes(x,w,h,+(o.c.dataset.max||8000),o.c.dataset.unit||'ms',['-5m','-2.5m','now']);
+      if(o.pts.length<400||tick%2===0){for(let k=0;k<3;k++)o.pts.push({t:tick,y:Math.random()<.08?Math.random()*.9:Math.random()*.3})}
+      o.pts=o.pts.filter(p=>tick-p.t<300);for(const p of o.pts){const px=a.x+a.w-(tick-p.t)/300*a.w,py=a.y+a.h-p.y*a.h-4;x.fillStyle=p.y>.6?'#FF6B35':p.y>.3?'#FFC24B':'#4FB3FF';x.fillRect(px,py,5,5)}}
   }
   requestAnimationFrame(draw)}
 draw();

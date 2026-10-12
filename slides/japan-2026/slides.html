@@ -57,10 +57,10 @@
   </div>
   <div class="prompt" data-a style="--d:2"><span class="hl">❯ </span><span id="ptext"></span><span class="caret"></span></div>
   <div class="dash" data-a style="--d:3">
-    <div class="tile"><span class="t">Active Service</span><canvas data-chart="bars"></canvas></div>
-    <div class="tile"><span class="t">TPS</span><canvas data-chart="line" data-c="#4FB3FF"></canvas></div>
-    <div class="tile"><span class="t">Response Time</span><canvas data-chart="line" data-c="#3DDC97"></canvas></div>
-    <div class="tile"><span class="t">CPU</span><canvas data-chart="line" data-c="#8E9CB3"></canvas></div>
+    <div class="tile"><span class="t">Active Service</span><canvas data-chart="bars" data-max="50"></canvas></div>
+    <div class="tile"><span class="t">TPS</span><canvas data-chart="line" data-c="#4FB3FF" data-max="200"></canvas></div>
+    <div class="tile"><span class="t">Response Time</span><canvas data-chart="line" data-c="#3DDC97" data-max="2000" data-unit="ms"></canvas></div>
+    <div class="tile"><span class="t">CPU</span><canvas data-chart="line" data-c="#8E9CB3" data-unit="%"></canvas></div>
     <div class="tile ai" id="aiTile" style="grid-column:span 2"><span class="badge">iframe · AI生成</span><span class="t">業務KPI × 応答時間</span><canvas data-chart="heat"></canvas></div>
   </div>
 </section>
@@ -82,11 +82,11 @@
   </div>
   <div class="row" style="flex:1;align-items:center">
     <div class="dash" data-a="scale" style="--d:3;flex:1.6;grid-template-rows:200px 200px">
-      <div class="tile"><span class="t">インフラ</span><canvas data-chart="line" data-c="#5D6B83"></canvas></div>
-      <div class="tile"><span class="t">業務KPI</span><canvas data-chart="bars" data-c="#5D6B83"></canvas></div>
-      <div class="tile"><span class="t">ネットワーク</span><canvas data-chart="line" data-c="#5D6B83"></canvas></div>
+      <div class="tile"><span class="t">インフラ</span><canvas data-chart="line" data-c="#5D6B83" data-unit="%"></canvas></div>
+      <div class="tile"><span class="t">業務KPI</span><canvas data-chart="bars" data-c="#5D6B83" data-max="500"></canvas></div>
+      <div class="tile"><span class="t">ネットワーク</span><canvas data-chart="line" data-c="#5D6B83" data-unit="M"></canvas></div>
       <div class="tile" style="grid-column:span 2;outline:3px solid var(--cool);outline-offset:-3px"><span class="t cl">JENNIFER · X-View</span><canvas data-chart="xview"></canvas></div>
-      <div class="tile" style="outline:3px solid var(--cool);outline-offset:-3px"><span class="t cl">JENNIFER · TPS</span><canvas data-chart="line" data-c="#4FB3FF"></canvas></div>
+      <div class="tile" style="outline:3px solid var(--cool);outline-offset:-3px"><span class="t cl">JENNIFER · TPS</span><canvas data-chart="line" data-c="#4FB3FF" data-max="200"></canvas></div>
     </div>
     <div data-a style="--d:6;display:flex;flex-direction:column;gap:16px">
       <h3 style="font-size:52px;font-weight:900">主役は<br>お客様の画面。</h3>

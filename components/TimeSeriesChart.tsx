@@ -89,7 +89,7 @@ export default function TimeSeriesChart({ points, unit = "", color = "var(--seri
     const line = points.map(([t, v], i) => `${i ? "L" : "M"}${sx(t).toFixed(1)},${sy(v).toFixed(1)}`).join("");
     const area = `${line}L${sx(x1).toFixed(1)},${sy(y0).toFixed(1)}L${sx(x0).toFixed(1)},${sy(y0).toFixed(1)}Z`;
     const xTicks = timeTicks(x0, x1, Math.max(2, Math.floor(iw / 80)));
-    return { sx, sy, line, area, yTicks: yTicks.filter((v) => v <= y1), xTicks, iw, ih, x0, x1, showSeconds: x1 - x0 < 600 };
+    return { sx, sy, line, area, yTicks: yTicks.filter((v) => v <= y1), xTicks, iw, ih, x0, x1, showSeconds: xTicks.some((t) => t % 60 !== 0) };
   }, [points, size, zeroBased, max]);
 
   const onMove = (e: React.MouseEvent<SVGSVGElement>) => {

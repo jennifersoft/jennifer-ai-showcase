@@ -74,6 +74,7 @@ slides/
 2. `meta.json`의 `title`, `theme`(`dark`|`light`, 템플릿은 `light`), `lang`, `date`, `description`을 고친다. `?theme=light` 로 테마를 바꿔 미리볼 수 있다.
 3. `slides.html`에 `<section class="slide">`를 한 장씩 쓴다. `data-notes`는 발표자 노트, `data-a`는 등장 애니메이션(`style="--d:n"`으로 순서).
 4. 실제 화면은 한 줄로 넣는다. `{{live:jennifer}}`는 제니퍼 대시보드, `{{live:/경로}}`는 이 서버 페이지(예: `{{live:/dashboards/integrated}}`).
+   움직이는 목업 차트는 `<canvas data-chart="line|bars|xview|heat" data-max="200" data-unit="ms">`로 넣는다. line·bars·xview는 Y축(0·절반·최대)과 시간축을 같이 그린다.
 5. 단계 연출이 필요하면 섹션에 `data-steps="N"`을 주고 `deck.js`에 `hooks['<섹션 id>']=st=>{...}`를 쓴다.
 6. 여러 덱에 쓸 만한 스타일·컴포넌트가 생기면 덱 폴더가 아니라 `_engine`으로 올린다.
 
