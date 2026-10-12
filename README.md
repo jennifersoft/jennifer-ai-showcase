@@ -50,7 +50,7 @@ npm run dev                  # http://localhost:3000
 
 - 주소: `/slides/<덱>?jennifer=<제니퍼 대시보드 주소>`. `?jennifer=`가 없으면 `JENNIFER_DASHBOARD_URL`을 쓰고, 둘 다 없으면 라이브 화면에 "未設定"이 뜬다. 대시보드 주소 끝에 `layout=iframe`을 붙이면 제니퍼 상단 메뉴가 빠진다.
 - 조작: `→`/`Space` 다음, `←` 이전, `N` 발표자 노트, `O` 목록, `F` 전체화면, `I` 라이브 화면 조작(여백을 클릭하면 해제), `Home`/`End` 처음/끝. 주소 끝 `#s3`처럼 장 번호로 바로 연다.
-- 라이브 화면(iframe)을 클릭하면 키보드가 iframe 안으로 들어간다. 다음 장으로 넘기기 전에 `I`로 전환하거나 바깥을 한 번 클릭한다.
+- 라이브 화면(iframe) 위에는 보호막이 덮여 있어 클릭·키보드는 슬라이드가 받는다. 화면을 직접 조작할 때만 `I`를 누르고, 끝나면 슬라이드 여백을 클릭해 돌아온다.
 - 제니퍼와 이 서버의 도메인이 다르면, 발표할 브라우저에서 제니퍼에 미리 로그인해 둔다(아래 "제니퍼 연동 주의").
 - 발표자 노트의 `[확인 필요]` 항목은 아직 확정 전이다.
 
@@ -125,5 +125,8 @@ git config user.name alvin-hh
 git config user.email alvin@jennifersoft.com
 ```
 
+- **Root Directory**: 저장소 루트(`./`). Framework는 Next.js(자동 감지).
+- **도메인**: https://jennifer.alvin.ing. Cloudflare DNS에서 Vercel로 CNAME을 걸고, Cloudflare 프록시는 끈다(DNS only).
+- **Next.js 버전**: 취약 버전이면 빌드가 성공해도 배포가 Error로 막힌다. 15.5 최신 패치(현재 15.5.27)를 유지한다.
 - **슬라이드 파일**: `/slides`, `/slides/<덱>`은 `slides/` 폴더를 파일로 읽는다. `next.config.ts`의 `outputFileTracingIncludes`로 배포물에 포함된다.
 - **서버리스 주의**: `POST /api/deploys` 이벤트는 인스턴스가 바뀌면 사라진다. 데모는 `DEPLOY_GITHUB_REPO`의 GitHub 릴리즈로 보여준다.
