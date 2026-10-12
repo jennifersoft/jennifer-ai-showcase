@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
-import TimeSeriesChart, { formatValue, type Point } from "./TimeSeriesChart";
+import TimeSeriesChart, { type Point } from "./TimeSeriesChart";
+import { formatValue } from "./format";
 import { t, type Lang } from "@/lib/i18n";
 
 type Props = {

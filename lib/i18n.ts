@@ -40,6 +40,20 @@ const DICT = {
   "incidents.sample2": { ko: "[JENNIFER] 에러율 급증 · payment-api", ja: "[JENNIFER] エラー率が急増・payment-api", en: "[JENNIFER] Error rate spike · payment-api" },
   "incidents.sample3": { ko: "[JENNIFER] Active Service 증가 · batch-01", ja: "[JENNIFER] アクティブサービス増加・batch-01", en: "[JENNIFER] Active services rising · batch-01" },
 
+  // MCP 데모 (ChatGPT·Claude 가 제니퍼 MCP 로 Open API 를 불러 만든 차트)
+  "mcp.title": { ko: "MCP로 만든 차트", ja: "MCPで作ったチャート", en: "Chart built with MCP" },
+  "mcp.prompt": {
+    ko: "최근 1시간 REALTIME, ANALYSIS 도메인의 TPS, 응답시간, 액티브 서비스를 차트로 보여줘",
+    ja: "直近1時間の REALTIME, ANALYSIS ドメインの TPS・応答時間・アクティブサービスをチャートで",
+    en: "Chart TPS, response time and active services for the REALTIME, ANALYSIS domain over the last hour",
+  },
+  "mcp.source": {
+    ko: "제니퍼 MCP(get_domain_metric_values) → Open API · {time} 기록",
+    ja: "JENNIFER MCP（get_domain_metric_values）→ Open API・{time} 記録",
+    en: "JENNIFER MCP (get_domain_metric_values) → Open API · recorded {time}",
+  },
+  "unit.ms": { ko: "ms", ja: "ms", en: "ms" },
+
   // 대시보드
   "dash.integrated.title": { ko: "통합 대시보드", ja: "統合ダッシュボード", en: "Integrated dashboard" },
   "dash.integrated.desc": {

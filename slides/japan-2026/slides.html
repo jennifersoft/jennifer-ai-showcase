@@ -229,17 +229,15 @@
     <h2 data-a style="--d:1;font-size:60px">MCPで、Open APIから直接チャートを</h2>
     <p class="kr s" data-a style="--d:1">제니퍼 MCP를 연결하면 AI가 Open API를 직접 호출해 데이터를 가져오고, 차트까지 그려 줍니다</p>
   </div>
-  <div class="row" style="align-items:flex-start;gap:40px;margin-top:24px">
+  <div class="row" style="align-items:stretch;gap:40px;margin-top:16px;flex:1;min-height:0">
     <div style="flex:1;display:flex;flex-direction:column;gap:14px">
       <div class="card" data-a style="--d:2"><h3>① Claude・ChatGPT に接続</h3><p style="font:400 22px/1.6 var(--mono);color:var(--sub)">https://insight-dev.jennifersoft.com/mcp</p><p class="kr s">Claude·ChatGPT에 제니퍼 MCP 주소와 접속 정보 등록</p></div>
       <div class="card" data-a style="--d:3"><h3>② 言葉で頼む</h3><p class="kr s">원하는 지표를 말로 요청</p></div>
       <div class="card" data-a style="--d:4"><h3>③ AI がチャートを実装</h3><p class="kr s">AI가 Open API로 데이터를 가져와 차트를 직접 구현</p></div>
     </div>
-    <div class="dash" data-a="scale" style="--d:5;flex:1.5;display:flex;flex-direction:column;gap:16px">
-      <div class="prompt" style="margin:0;font-size:26px"><span class="hl">❯ </span>直近10分の order-api の TPS と応答時間をチャートで</div>
-      <p class="kr s" style="margin:0">질문: 최근 10분 order-api의 TPS와 응답시간을 차트로</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;height:380px"><div class="tile"><span class="t cl">TPS · Open API</span><canvas data-chart="line" data-c="#4FB3FF" data-max="200"></canvas></div>
-      <div class="tile"><span class="t cl">応答時間 · 응답시간</span><canvas data-chart="line" data-c="#3DDC97" data-max="2000" data-unit="ms"></canvas></div></div>
+    <div class="live" data-a style="--d:5;flex:1.6;height:660px">
+      <p class="kr s" style="margin:0">질문: 최근 1시간 REALTIME, ANALYSIS 도메인의 TPS·응답시간·액티브 서비스를 차트로 (실제 MCP 응답으로 그린 화면)</p>
+      {{live:/mcp-demo}}
     </div>
   </div>
 </section>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { formatValue } from "./format";
 
 export type Point = [number, number]; // [epoch seconds, value]
 
@@ -30,15 +31,6 @@ function niceTicks(min: number, max: number, count = 4): number[] {
   return ticks;
 }
 
-function formatValue(v: number): string {
-  const a = Math.abs(v);
-  if (a >= 1e6) return `${(v / 1e6).toFixed(1)}M`;
-  if (a >= 1e4) return `${(v / 1e3).toFixed(0)}k`;
-  if (a >= 1e3) return `${(v / 1e3).toFixed(1)}k`;
-  if (a >= 100 || Number.isInteger(v)) return v.toFixed(0);
-  if (a >= 1) return v.toFixed(1);
-  return v.toFixed(2);
-}
 
 function formatTime(sec: number, withSeconds = false): string {
   const d = new Date(sec * 1000);
@@ -167,4 +159,3 @@ export default function TimeSeriesChart({ points, unit = "", color = "var(--seri
   );
 }
 
-export { formatValue };
