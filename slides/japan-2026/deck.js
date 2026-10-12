@@ -4,8 +4,8 @@ net('net');net('net2');
 // slide 5: step1 prompt, step2 AI tile flies in
 hooks['s-dash']=st=>{const t=document.getElementById('aiTile'),p=document.getElementById('ptext');
   if(st===0){t.classList.remove('in');p._tok=(p._tok||0)+1;p.textContent=''}
-  if(st===1)typer(p,'業務KPIと応答時間の相関をヒートマップで表示して',45);
-  if(st===2){p._tok++;p.textContent='業務KPIと応答時間の相関をヒートマップで表示して';t.classList.add('in')}};
+  if(st===1)typer(p,'PagerDutyのインシデントをダッシュボードに表示して',45);
+  if(st===2){p._tok++;p.textContent='PagerDutyのインシデントをダッシュボードに表示して';t.classList.add('in')}};
 
 // slide 7: particles flowing both ways
 (function(){const c=document.getElementById('flow'),x=c.getContext('2d');c.width=1920;c.height=1080;const P=[];
