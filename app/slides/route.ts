@@ -1,43 +1,16 @@
-import { readFile } from "node:fs/promises";
-import path from "node:path";
-import { NextRequest } from "next/server";
+import { escapeHtml, listDecks } from "@/lib/slides";
 
-// 발표 슬라이드를 서버에서 렌더링한다. 라이브 슬라이드의 iframe 주소를 환경변수(또는 쿼리)로 채운다.
-// - JENNIFER_DASHBOARD_URL: 제니퍼 사용자정의 대시보드 주소 (예: https://jennifer.example.com/userdefine/dashboard?key=...&layout=iframe)
-// - 통합 대시보드는 이 서버의 /dashboards/integrated
-// 쿼리 ?jennifer=<url> 로 발표 직전에 덮어쓸 수 있다(http/https만 허용).
-const DECK_PATH = path.join(process.cwd(), "slides", "deck.html");
-
-function escapeAttr(value: string): string {
-  return value.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-}
-
-function httpUrlOrNull(value: string | null | undefined): string | null {
-  if (!value) return null;
-  try {
-    const url = new URL(value);
-    return url.protocol === "http:" || url.protocol === "https:" ? url.toString() : null;
-  } catch {
-    return null;
-  }
-}
-
-function frame(src: string | null, title: string, missing: string): string {
-  if (src === null) return `<div class="empty">${escapeAttr(missing)}</div>`;
-  // 보호막(shield)이 덮여 있어 클릭·키보드는 슬라이드가 받는다. I 키로 iframe을 직접 조작하는 모드로 바꾼다.
-  return `<div class="frame"><iframe src="${escapeAttr(src)}" title="${escapeAttr(title)}" loading="lazy" allow="fullscreen"></iframe><div class="shield"></div></div><p class="hint">I : 画面操作 / 조작 모드 전환</p>`;
-}
-
-export async function GET(req: NextRequest) {
-  const deck = await readFile(DECK_PATH, "utf8");
-  const jennifer =
-    httpUrlOrNull(req.nextUrl.searchParams.get("jennifer")) ?? httpUrlOrNull(process.env.JENNIFER_DASHBOARD_URL);
-
-  const html = deck
-    .replace("{{LIVE_JENNIFER}}", frame(jennifer, "JENNIFER dashboard", "JENNIFER_DASHBOARD_URL 未設定 / ?jennifer= で指定"))
-    .replace("{{LIVE_INTEGRATED}}", frame("/dashboards/integrated", "Integrated dashboard", ""));
-
-  return new Response(html, {
-    headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" },
-  });
+// /slides : 덱 목록. 새 덱은 slides/_template 을 복사해 slides/<덱이름>/ 으로 만든다.
+export async function GET() {
+  const decks = await listDecks();
+  const items = decks
+    .map(
+      (d) =>
+        `<li><a href="/slides/${escapeHtml(d.name)}">${escapeHtml(d.title)}</a> <small>${escapeHtml(d.date ?? "")} · ${escapeHtml(d.name)}</small>${d.description ? `<p>${escapeHtml(d.description)}</p>` : ""}</li>`
+    )
+    .join("\n");
+  const html = `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Slides</title>
+<style>body{font-family:system-ui,sans-serif;background:#070B14;color:#EEF1F6;margin:0;padding:48px;line-height:1.6}a{color:#FF6B35;font-size:22px;font-weight:700;text-decoration:none}small{color:#8E9CB3;margin-left:8px}p{margin:4px 0 0;color:#8E9CB3}ul{list-style:none;padding:0;display:grid;gap:24px}</style>
+</head><body><h1>JENNIFER Slides</h1><ul>${items}</ul></body></html>`;
+  return new Response(html, { headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" } });
 }

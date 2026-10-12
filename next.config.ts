@@ -4,7 +4,7 @@ const frameAncestors = process.env.FRAME_ANCESTORS || "'self'";
 
 const nextConfig: NextConfig = {
   // /slides 는 app/slides/route.ts 가 slides/deck.html 을 읽어 렌더링한다. 배포 산출물에 포함시킨다.
-  outputFileTracingIncludes: { "/slides": ["./slides/**/*"] },
+  outputFileTracingIncludes: { "/slides": ["./slides/**/*"], "/slides/[deck]": ["./slides/**/*"] },
   async headers() {
     return [
       {

@@ -1,0 +1,27 @@
+/* japan-2026 전용 스타일 */
+/* both ways */
+#flow{position:absolute;inset:0}
+.box{position:absolute;width:560px;height:360px;border-radius:24px;display:flex;flex-direction:column;justify-content:center;padding:48px;box-sizing:border-box;gap:8px}
+/* adapter */
+.code{font:400 17px/1.5 var(--mono);background:#050810;border:1px solid var(--line);border-radius:14px;padding:28px;height:440px;box-sizing:border-box;overflow:hidden;white-space:pre;color:#C7D2E4}
+.code .k{color:var(--hot)} .code .s{color:var(--ok)} .code .c{color:#5D6B83}
+.steps{display:flex;gap:16px}
+.step{flex:1;padding:20px;border-radius:12px;background:var(--panel);border:1px solid var(--line);font-size:28px;font-weight:700;display:flex;flex-direction:column;gap:4px;transition:all .4s}
+.step.done{background:var(--panel2);border-color:var(--ok)}
+.step.done::after{content:"✓";color:var(--ok);font-size:24px}
+#s-adapter{gap:24px;padding-block:90px}
+.toast{position:absolute;right:140px;top:140px;width:520px;background:#F4F6FA;color:#111827;border-radius:16px;padding:24px 28px;box-shadow:0 30px 80px rgba(0,0,0,.5);transform:translateX(700px);transition:transform .7s cubic-bezier(.2,1.3,.4,1);display:flex;gap:16px}
+.toast.in{transform:none}
+.toast .ico{width:56px;height:56px;border-radius:12px;background:var(--hot);flex:none;display:grid;place-items:center;color:#fff;font:900 28px var(--jp)}
+.toast b{font-size:22px;display:block} .toast span{font-size:20px;color:#4B5563}
+.skill{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.skill .card{transition:transform .3s,border-color .3s}
+.skill .card:hover{transform:translateY(-8px);border-color:var(--hot)}
+.ic{font:700 48px var(--mono);color:var(--hot)}
+.ph{color:var(--hot);opacity:.85}
+body.ov .slide{opacity:1;pointer-events:auto;transform-origin:0 0;cursor:pointer;outline:8px solid var(--line);background:var(--ink);transition:none}
+body.ov .slide iframe{visibility:hidden}
+body.ov .slide.sec{background:var(--hot)}
+body.ov [data-a]{opacity:1;transform:none}
+body.ov .slide.on{outline-color:var(--hot)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}[data-a]{opacity:1;transform:none}}

@@ -14,7 +14,8 @@ npm run dev
 
 | 경로 | 용도 |
 |---|---|
-| `/slides` | 일본 행사 발표용 웹 슬라이드 (서버 렌더링). 원본은 `slides/deck.html`. 라이브 슬라이드 2장에 제니퍼 사용자정의 대시보드(`JENNIFER_DASHBOARD_URL` 또는 `?jennifer=`)와 `/dashboards/integrated` 가 iframe으로 들어간다 |
+| `/slides` | 발표 덱 목록 |
+| `/slides/<덱>` | 웹 슬라이드(서버 렌더링). 예: `/slides/japan-2026` 일본 행사 발표. 라이브 슬라이드에 제니퍼 사용자정의 대시보드(`JENNIFER_DASHBOARD_URL` 또는 `?jennifer=`)와 `/dashboards/integrated` 가 iframe으로 들어간다 |
 | `/charts/[id]` | 레이아웃 없는 차트 단독 페이지. 제니퍼 사용자정의 대시보드 iframe 위젯에 URL로 등록 |
 | `/dashboards/integrated` | 통합 대시보드 데모. 제니퍼 APM 차트와 Prometheus 데모 서버 지표(`/charts/node-cpu` 등)를 한 화면에 |
 | `/api/prometheus/[key]` | 허용한 PromQL만 실행하는 프록시. 응답이 없으면 `lib/prometheus-fallback.json`(녹화 데이터)으로 대체 |
@@ -74,4 +75,24 @@ git config user.email alvin@jennifersoft.com
 | `DEPLOY_WEBHOOK_SECRET`, `DEPLOY_GITHUB_REPO`, `GITHUB_TOKEN` | 배포 타임라인 | 선택 |
 
 - **서버리스 주의**: 배포 타임라인의 `POST /api/deploys` 이벤트는 서버 메모리에만 저장된다. Vercel에서는 인스턴스가 바뀌면 사라지므로, 데모는 `DEPLOY_GITHUB_REPO` 의 GitHub 릴리즈로 보여주고 웹훅을 계속 쓰려면 외부 저장소(Vercel KV, Upstash 등)가 필요하다.
-- `/slides` 는 `slides/deck.html` 을 파일로 읽는다. `next.config.ts` 의 `outputFileTracingIncludes` 로 배포물에 포함된다.
+- `/slides/*` 는 `slides/` 폴더를 파일로 읽는다. `next.config.ts` 의 `outputFileTracingIncludes` 로 배포물에 포함된다.
+
+## 슬라이드 덱 추가하기
+
+슬라이드는 공통 엔진 + 덱 폴더 구조다. 엔진은 한 번 만들고 모든 덱이 같이 쓴다.
+
+```
+slides/
+  _engine/      공통 엔진: engine.css(무대·애니메이션·카드·타임라인·숫자 카드·라이브 iframe), engine.js(이동·단계·노트·목록·전체화면), chrome.html(HUD)
+  _template/    새 덱 시작 템플릿 (목록에 안 보임)
+  japan-2026/   덱 하나 = meta.json + slides.html + deck.css + deck.js
+```
+
+1. `cp -r slides/_template slides/<덱이름>` (덱이름은 소문자·숫자·하이픈)
+2. `meta.json` 의 제목·언어·날짜·설명을 고친다. 목록(`/slides`)은 날짜 최신순이다.
+3. `slides.html` 에 `<section class="slide">` 를 한 장씩 쓴다. `data-notes` 는 발표자 노트, `data-a` 는 등장 애니메이션.
+4. 실제 화면은 `{{live:jennifer}}`(제니퍼 대시보드) 또는 `{{live:/경로}}`(이 서버 페이지)로 넣는다.
+5. 단계 연출이 필요하면 `data-steps="N"` 과 `deck.js` 의 `hooks['<section id>']=st=>{...}` 를 쓴다.
+6. 여러 덱에 쓸 만한 스타일·컴포넌트가 생기면 덱 폴더가 아니라 `_engine` 으로 올린다.
+
+조작: `→`/`Space` 다음, `←` 이전, `N` 노트, `O` 목록, `F` 전체화면, `I` 라이브 화면 조작 모드(여백 클릭으로 해제), `#s3` 처럼 주소에 장 번호.
