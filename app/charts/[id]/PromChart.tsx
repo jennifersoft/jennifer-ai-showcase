@@ -3,8 +3,9 @@
 import { useEffect, useState } from "react";
 import ChartWidget from "@/components/ChartWidget";
 import type { Series } from "@/lib/prometheus";
+import { t, type Lang } from "@/lib/i18n";
 
-export default function PromChart({ id, label, unit }: { id: string; label: string; unit: string }) {
+export default function PromChart({ id, label, unit, lang }: { id: string; label: string; unit: string; lang: Lang }) {
   const [series, setSeries] = useState<Series | null>(null);
 
   useEffect(() => {
@@ -16,11 +17,12 @@ export default function PromChart({ id, label, unit }: { id: string; label: stri
 
   return (
     <ChartWidget
+      lang={lang}
       title={label}
       unit={unit}
       points={series?.points ?? []}
       max={unit === "%" ? 100 : undefined}
-      badge={series?.source === "fallback" ? <span className="badge">녹화 데이터</span> : <span className="chip">Prometheus</span>}
+      badge={series?.source === "fallback" ? <span className="badge">{t(lang, "recordedData")}</span> : <span className="chip">Prometheus</span>}
     />
   );
 }

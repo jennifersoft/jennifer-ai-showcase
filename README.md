@@ -138,3 +138,13 @@ git config user.email alvin@jennifersoft.com
 - 차트는 `components/TimeSeriesChart.tsx` 하나를 쓴다. y축 눈금·격자, x축 시간, 현재 값, 마우스 위치 값이 있다. 패널은 `components/ChartWidget.tsx`.
 - 슬라이드 테마는 엔진(`slides/_engine/engine.css`)의 `:root[data-theme="light"]` 토큰으로 바뀐다. 덱 CSS에서는 색을 직접 쓰지 말고 `var(--fg)`, `var(--panel)` 같은 토큰을 쓴다.
 
+## 다국어 (기본 규칙)
+
+위젯·차트·대시보드는 **한국어·일본어·영어를 모두 지원해야 한다.** 첫 발표가 일본 고객 대상이라 이것을 기본 규칙으로 둔다.
+
+- 화면 문구는 코드에 직접 쓰지 않는다. `lib/i18n.ts` 의 `DICT` 에 키를 추가하고 `ko`·`ja`·`en` 세 언어를 모두 채운다(하나라도 빠지면 타입 오류).
+- 언어는 `?lang=ko|ja|en` → 브라우저 `Accept-Language` → `en` 순으로 정한다. 서버 페이지는 `requestLang()`, 컴포넌트는 `t(lang, key)` 를 쓴다.
+- 대시보드는 받은 `lang`·`theme` 를 하위 위젯 iframe 에 그대로 넘긴다(`withParams`).
+- 슬라이드의 `{{live:/경로}}` 는 덱 `meta.json` 의 `lang` 을 자동으로 붙인다. 일본 덱이면 라이브 화면도 일본어로 뜬다.
+- 샘플 데이터 문구도 번역한다. 실제 외부 데이터(PagerDuty 제목 등)와 제품 용어(Triggered, TPS 등)는 그대로 둔다.
+

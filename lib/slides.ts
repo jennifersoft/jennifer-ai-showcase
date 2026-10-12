@@ -86,12 +86,15 @@ function liveFrame(src: string | null, title: string): string {
   return `<div class="frame"><iframe src="${escapeHtml(src)}" title="${escapeHtml(title)}" loading="lazy" allow="fullscreen"></iframe><div class="shield"></div></div><p class="hint">I : 画面操作 / 조작 모드 전환</p>`;
 }
 
-/** {{live:...}} 자리표시자를 iframe으로 바꾼다. */
-export function renderLive(html: string, jenniferUrl: string | null): string {
+/** {{live:...}} 자리표시자를 iframe으로 바꾼다. 이 서버 페이지에는 덱의 언어(lang)를 넘겨 위젯 문구를 맞춘다. */
+export function renderLive(html: string, jenniferUrl: string | null, lang?: string): string {
   return html.replace(/\{\{live:([^}]+)\}\}/g, (_m, key: string) => {
     const k = key.trim();
     if (k === "jennifer") return liveFrame(jenniferUrl, "JENNIFER dashboard (JENNIFER_DASHBOARD_URL / ?jennifer=)");
-    if (/^\/(?!\/)[^\s"<>]*$/.test(k)) return liveFrame(k, k);
+    if (/^\/(?!\/)[^\s"<>]*$/.test(k)) {
+      const src = lang && !/[?&]lang=/.test(k) ? `${k}${k.includes("?") ? "&" : "?"}lang=${encodeURIComponent(lang)}` : k;
+      return liveFrame(src, k);
+    }
     return liveFrame(null, k);
   });
 }
@@ -134,7 +137,7 @@ ${deckCss}
 </head>
 <body>
 <div id="viewport"><div id="stage">
-${renderLive(slides, jenniferUrl)}
+${renderLive(slides, jenniferUrl, meta.lang)}
 </div></div>
 ${chrome}
 <script>

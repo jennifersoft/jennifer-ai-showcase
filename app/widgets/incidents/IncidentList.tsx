@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { IncidentList as Data } from "@/lib/pagerduty";
+import { t, type Lang } from "@/lib/i18n";
 
 const STATUS = {
   triggered: { label: "Triggered", color: "var(--danger)" },
@@ -9,20 +10,20 @@ const STATUS = {
   resolved: { label: "Resolved", color: "var(--ok)" },
 } as const;
 
-function elapsed(iso: string) {
+function elapsed(iso: string, lang: Lang) {
   const min = Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 60_000));
-  return min < 60 ? `${min}분 전` : `${Math.floor(min / 60)}시간 전`;
+  return min < 60 ? t(lang, "incidents.minAgo", { n: min }) : t(lang, "incidents.hourAgo", { n: Math.floor(min / 60) });
 }
 
-export default function IncidentList() {
+export default function IncidentList({ lang }: { lang: Lang }) {
   const [data, setData] = useState<Data | null>(null);
 
   useEffect(() => {
-    const load = () => fetch("/api/incidents").then((r) => r.json()).then(setData).catch(() => {});
+    const load = () => fetch(`/api/incidents?lang=${lang}`).then((r) => r.json()).then(setData).catch(() => {});
     load();
     const timer = setInterval(load, 30000);
     return () => clearInterval(timer);
-  }, []);
+  }, [lang]);
 
   const incidents = data?.incidents ?? [];
   const triggered = incidents.filter((i) => i.status === "triggered").length;
@@ -31,16 +32,19 @@ export default function IncidentList() {
     <div className="widget">
       <div className="widget-head">
         <div>
-          <div className="widget-title">PagerDuty · 열린 인시던트</div>
+          <div className="widget-title">{t(lang, "incidents.title")}</div>
           <div className="widget-value">
             {data ? incidents.length : "–"}
-            <span className="widget-unit">건{triggered ? ` · 미확인 ${triggered}` : ""}</span>
+            <span className="widget-unit">
+              {t(lang, "count")}
+              {triggered ? ` · ${t(lang, "incidents.unacked", { n: triggered })}` : ""}
+            </span>
           </div>
         </div>
-        {data?.source === "sample" ? <span className="badge">샘플 데이터</span> : <span className="chip">PagerDuty</span>}
+        {data?.source === "sample" ? <span className="badge">{t(lang, "sampleData")}</span> : <span className="chip">PagerDuty</span>}
       </div>
       <div style={{ flex: 1, overflow: "auto" }}>
-        {data && incidents.length === 0 && <div className="empty" style={{ color: "var(--ok)" }}>열린 인시던트가 없습니다.</div>}
+        {data && incidents.length === 0 && <div className="empty" style={{ color: "var(--ok)" }}>{t(lang, "incidents.empty")}</div>}
         <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "grid", gap: 6 }}>
           {incidents.map((i) => (
             <li
@@ -60,7 +64,7 @@ export default function IncidentList() {
                 <span style={{ color: STATUS[i.status].color, fontWeight: 600 }}>{STATUS[i.status].label}</span>
                 {i.urgency === "high" && <span>· High</span>}
                 <span>· {i.assignee}</span>
-                <span>· {elapsed(i.createdAt)}</span>
+                <span>· {elapsed(i.createdAt, lang)}</span>
               </div>
             </li>
           ))}

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { DeployEvent } from "../../lib/deploys";
+import { t, type Lang } from "@/lib/i18n";
 
 const REFRESH_MS = 30000;
 
@@ -25,7 +26,7 @@ function ticks(from: number, to: number): number[] {
   return out;
 }
 
-export default function DeployTimeline({ hours }: { hours: number }) {
+export default function DeployTimeline({ hours, lang }: { hours: number; lang: Lang }) {
   const [data, setData] = useState<Payload | null>(null);
 
   useEffect(() => {
@@ -51,10 +52,12 @@ export default function DeployTimeline({ hours }: { hours: number }) {
     <div className="widget">
       <div className="widget-head">
         <div>
-          <div className="widget-title">배포 · 변경</div>
+          <div className="widget-title">{t(lang, "deploy.title")}</div>
           <div className="widget-value">
             {data ? data.events.length : "–"}
-            <span className="widget-unit">건 · 최근 {hours}시간</span>
+            <span className="widget-unit">
+              {t(lang, "count")} · {t(lang, "deploy.range", { hours })}
+            </span>
           </div>
         </div>
       </div>
@@ -98,7 +101,7 @@ export default function DeployTimeline({ hours }: { hours: number }) {
 
       {/* 최신순 목록 */}
       <ol style={{ margin: "8px 0 0", padding: 0, listStyle: "none", overflow: "auto", flex: 1, fontSize: 12 }}>
-        {data && data.events.length === 0 && <li className="empty">이 기간에 배포가 없습니다.</li>}
+        {data && data.events.length === 0 && <li className="empty">{t(lang, "deploy.empty")}</li>}
         {[...(data?.events ?? [])].reverse().map((e) => (
           <li key={e.id} style={{ display: "flex", gap: 10, padding: "6px 2px", borderTop: "1px solid var(--grid)" }}>
             <span style={{ color: "var(--text-3)", fontFamily: "var(--mono)", flex: "none" }}>{formatTime(Date.parse(e.time), true)}</span>

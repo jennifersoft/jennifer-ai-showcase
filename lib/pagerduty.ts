@@ -1,3 +1,5 @@
+import { t, type Lang } from "./i18n";
+
 // PagerDuty REST API v2로 열린 인시던트(triggered, acknowledged)를 읽는다. 키는 서버 환경변수에만 둔다.
 export type Incident = {
   id: string;
@@ -24,18 +26,18 @@ type PdIncident = {
 };
 
 // 키가 없거나 호출에 실패하면 보여줄 샘플. 제니퍼 이벤트가 어댑터를 거쳐 들어온 모습을 가정한다.
-function sample(): Incident[] {
+function sample(lang: Lang): Incident[] {
   const ago = (min: number) => new Date(Date.now() - min * 60_000).toISOString();
   return [
-    { id: "S1", title: "[JENNIFER] 응답시간 임계치 초과 · order-api", status: "triggered", urgency: "high", service: "JENNIFER APM", assignee: "On-call A", createdAt: ago(3) },
-    { id: "S2", title: "[JENNIFER] 에러율 급증 · payment-api", status: "acknowledged", urgency: "high", service: "JENNIFER APM", assignee: "On-call B", createdAt: ago(18) },
-    { id: "S3", title: "[JENNIFER] Active Service 증가 · batch-01", status: "acknowledged", urgency: "low", service: "JENNIFER APM", assignee: "On-call A", createdAt: ago(42) },
+    { id: "S1", title: t(lang, "incidents.sample1"), status: "triggered", urgency: "high", service: "JENNIFER APM", assignee: "On-call A", createdAt: ago(3) },
+    { id: "S2", title: t(lang, "incidents.sample2"), status: "acknowledged", urgency: "high", service: "JENNIFER APM", assignee: "On-call B", createdAt: ago(18) },
+    { id: "S3", title: t(lang, "incidents.sample3"), status: "acknowledged", urgency: "low", service: "JENNIFER APM", assignee: "On-call A", createdAt: ago(42) },
   ];
 }
 
-export async function fetchIncidents(): Promise<IncidentList> {
+export async function fetchIncidents(lang: Lang = "en"): Promise<IncidentList> {
   const key = process.env.PAGERDUTY_API_KEY;
-  if (!key) return { source: "sample", incidents: sample() };
+  if (!key) return { source: "sample", incidents: sample(lang) };
 
   const url = new URL("https://api.pagerduty.com/incidents");
   url.searchParams.append("statuses[]", "triggered");
@@ -66,6 +68,6 @@ export async function fetchIncidents(): Promise<IncidentList> {
       })),
     };
   } catch {
-    return { source: "sample", incidents: sample() };
+    return { source: "sample", incidents: sample(lang) };
   }
 }

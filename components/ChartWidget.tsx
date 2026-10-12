@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import TimeSeriesChart, { formatValue, type Point } from "./TimeSeriesChart";
+import { t, type Lang } from "@/lib/i18n";
 
 type Props = {
   title: string;
@@ -8,10 +9,11 @@ type Props = {
   color?: string;
   max?: number;
   badge?: ReactNode;
+  lang: Lang;
 };
 
 /** iframe 위젯용 차트 패널: 제목 · 현재 값 · 축이 있는 시계열 차트. */
-export default function ChartWidget({ title, unit = "", points, color, max, badge }: Props) {
+export default function ChartWidget({ title, unit = "", points, color, max, badge, lang }: Props) {
   const last = points.length ? points[points.length - 1][1] : null;
   return (
     <div className="widget">
@@ -26,7 +28,7 @@ export default function ChartWidget({ title, unit = "", points, color, max, badg
         {badge}
       </div>
       <div className="widget-body">
-        {points.length < 2 ? <div className="empty" style={{ height: "100%" }}>불러오는 중</div> : <TimeSeriesChart points={points} unit={unit} color={color} max={max} />}
+        {points.length < 2 ? <div className="empty" style={{ height: "100%" }}>{t(lang, "loading")}</div> : <TimeSeriesChart points={points} unit={unit} color={color} max={max} />}
       </div>
     </div>
   );
