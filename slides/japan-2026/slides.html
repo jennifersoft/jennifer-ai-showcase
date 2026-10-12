@@ -203,6 +203,26 @@
   </div>
   <div class="live" data-a style="--d:2">{{live:/dashboards/integrated}}</div>
 </section>
+<section class="slide" id="s-mcp" data-notes="[부록] 대시보드를 만들 시간도 없다면, 대화로 바로 차트를. 제니퍼 MCP(Streamable HTTP)를 Open WebUI 같은 채팅 도구에 연결하면 Open API 데이터로 AI가 차트를 직접 그립니다. 설정: Admin Panel → Settings → Integrations → Manage Tool Servers에 Type MCP(Streamable HTTP), URL은 LLM 프록시 서버의 /mcp, Headers에 X-Jennifer-Api-Url과 X-Jennifer-Api-Token(설정 → JENNIFER 서버에서 발급).">
+  <div>
+    <p class="eyebrow" data-a style="color:var(--cool)">Appendix · MCP</p>
+    <h2 data-a style="--d:1;font-size:60px">MCPで、Open APIから直接チャートを</h2>
+    <p class="kr s" data-a style="--d:1">부록: 제니퍼 MCP를 연결하면 대화만으로 Open API 차트를 직접 만든다</p>
+  </div>
+  <div class="row" style="align-items:flex-start;gap:40px;margin-top:24px">
+    <div style="flex:1;display:flex;flex-direction:column;gap:14px">
+      <div class="card" data-a style="--d:2"><h3>① Tool Server を追加</h3><p class="kr s">Open WebUI → Integrations</p></div>
+      <div class="card" data-a style="--d:3"><h3>② MCP サーバー</h3><p style="font:400 22px/1.6 var(--mono);color:var(--sub)">URL: https://&lt;llm-proxy&gt;/mcp</p><p class="kr s">Streamable HTTP 타입, MCP 주소</p></div>
+      <div class="card" data-a style="--d:4"><h3>③ JENNIFER 接続情報</h3><p style="font:400 22px/1.6 var(--mono);color:var(--sub)">X-Jennifer-Api-Url<br>X-Jennifer-Api-Token</p><p class="kr s">헤더에 제니퍼 주소·인증 토큰</p></div>
+    </div>
+    <div class="dash" data-a="scale" style="--d:5;flex:1.5;display:flex;flex-direction:column;gap:16px">
+      <div class="prompt" style="margin:0;font-size:26px"><span class="hl">❯ </span>直近10分の order-api の TPS と応答時間をチャートで</div>
+      <p class="kr s" style="margin:0">질문: 최근 10분 order-api의 TPS와 응답시간을 차트로</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;height:380px"><div class="tile"><span class="t cl">TPS · Open API</span><canvas data-chart="line" data-c="#4FB3FF" data-max="200"></canvas></div>
+      <div class="tile"><span class="t cl">応答時間 · 응답시간</span><canvas data-chart="line" data-c="#3DDC97" data-max="2000" data-unit="ms"></canvas></div></div>
+    </div>
+  </div>
+</section>
 <section class="slide" id="s-both" data-notes="02와 03을 한 장으로. 제니퍼 안에 외부를(02), 외부 안에 제니퍼를(03). 경계는 양방향입니다.">
   <canvas id="flow"></canvas>
   <div>
