@@ -61,7 +61,7 @@ html.compact .message summary{list-style:none;cursor:default;pointer-events:none
  <article class="card chart-card span-3"><div class="chart-head"><div><h2 class="chart-title">TPS 推移</h2><div class="chart-sub">service_rate · 2分間隔</div></div></div><div class="chart-wrap"><canvas id="tps-chart"></canvas></div></article>
  <article class="card chart-card span-3"><div class="chart-head"><div><h2 class="chart-title">応答時間の推移</h2><div class="chart-sub">service_time · ms</div></div></div><div class="chart-wrap"><canvas id="time-chart"></canvas></div></article>
  <article class="card chart-card span-2"><div class="chart-head"><div><h2 class="chart-title">アクティブサービス</h2><div class="chart-sub">2分間隔</div></div></div><div class="chart-wrap short"><canvas id="active-chart"></canvas></div></article>
- <article class="card chart-card span-4"><div class="chart-head"><div><h2 class="chart-title">インスタンス別 CPU</h2><div class="chart-sub">max_sys_cpu · %</div></div></div><div class="chart-wrap short"><canvas id="cpu-chart" role="img" aria-label="インスタンス別CPU使用率"></canvas></div><div id="cpu-legend" class="cpu-legend" aria-label="インスタンスの表示切り替え"></div></article>
+ <article class="card chart-card span-4"><div class="chart-head"><div><h2 class="chart-title">X-View</h2><div class="chart-sub">トランザクション応答時間 · 直近5分 · <span id="xview-count">—</span>件</div></div></div><div class="chart-wrap short"><canvas id="xview-chart" role="img" aria-label="X-View トランザクション分布"></canvas></div></article>
  <article class="card chart-card span-6 error-card"><div class="chart-head"><div><h2 class="chart-title">エラータイプ別件数</h2><div class="chart-sub"><span id="error-sample-note"></span></div></div></div><div class="chart-wrap short error-wrap"><canvas id="errors-chart"></canvas><div class="chart-empty">データなし</div></div></article>
  <article class="card chart-card span-6 events">
   <div class="chart-head"><div><h2 class="chart-title">イベント一覧</h2><div class="chart-sub">WARNING・FATAL · 取得サンプルの新しい順・最大10件</div></div></div>
@@ -212,7 +212,7 @@ html.compact .message summary{list-style:none;cursor:default;pointer-events:none
       borderDash: instance.status === 'STOPPED' ? [4,4] : [], tension: 0, spanGaps: false, fill: false };
    // 실제로 값이 있는(0보다 큰 값이 하나라도 있는) 가동 중 인스턴스만 그린다
   }).filter((set, index) => instances[index].status !== 'STOPPED' && set.data.some(v => finite(v) && v > 0));
-  if (cpuDatasets.some(set => set.data.some(finite))) {
+  if (byId('cpu-chart') && cpuDatasets.some(set => set.data.some(finite))) {
     const opts = options('%'); opts.interaction.mode = 'nearest'; opts.scales.y.max = 100;
     cpuDatasets.forEach(set => (set.hidden = hiddenCpu.has(set.label)));
     const cpu = upsert(byId('cpu-chart'), {type: 'line', data: {labels: cpuTimes.map(displayTime),datasets: cpuDatasets}, options: opts});
@@ -226,7 +226,7 @@ html.compact .message summary{list-style:none;cursor:default;pointer-events:none
       button.addEventListener('click', () => { const visible = !cpu.isDatasetVisible(index); cpu.setDatasetVisibility(index, visible); visible ? hiddenCpu.delete(set.label) : hiddenCpu.add(set.label); button.setAttribute('aria-pressed', String(visible)); cpu.update(); });
       byId('cpu-legend').append(button);
     }); }
-  } else empty('cpu-chart');
+  } else if (byId('cpu-chart')) empty('cpu-chart');
   const counts = new Map();
   (Array.isArray(errors) ? errors : []).forEach(error => { const type = error.errorType ?? '不明'; counts.set(type,(counts.get(type) ?? 0) + 1); });
   const categories = [...counts].sort((a,b) => b[1] - a[1]);
@@ -263,6 +263,36 @@ html.compact .message summary{list-style:none;cursor:default;pointer-events:none
     } catch { mark(false); } finally { busy[part] = false; }
   };
   poll('all'); setInterval(() => poll('kpi'), 2000); setInterval(() => poll('all'), 10000);
+
+  // X-View 스캐터: 2초마다 새로 끝난 트랜잭션만 받아 덧붙이고, 5분이 지난 점은 지운다. 빨간 점은 에러.
+  if (window.Chart && byId('xview-chart')) {
+    const pad = n => String(n).padStart(2, '0');
+    const hm = ms => { const d = new Date(ms + 9 * 3600000); return pad(d.getUTCHours()) + ':' + pad(d.getUTCMinutes()); };
+    const xv = new Chart(byId('xview-chart'), { type: 'scatter', data: { datasets: [
+      { label: 'OK', data: [], pointRadius: 1.6, pointHoverRadius: 3, backgroundColor: 'rgba(98,183,255,.75)', borderWidth: 0 },
+      { label: 'Error', data: [], pointRadius: 2.2, pointHoverRadius: 4, backgroundColor: '#E5484D', borderWidth: 0 }] },
+      options: { responsive: true, maintainAspectRatio: false, animation: false, parsing: false,
+        plugins: { legend: { display: false }, tooltip: { enabled: false } },
+        scales: { x: { type: 'linear', grid: { display: false }, ticks: { maxTicksLimit: 6, callback: v => hm(v) } },
+                  y: { min: 0, suggestedMax: 2000, grid: { color: 'rgba(133,151,178,.12)' }, border: { display: false }, ticks: { maxTicksLimit: 5 } } } } });
+    let since = 0, xBusy = false;
+    const pullX = async () => {
+      if (xBusy || document.hidden) return; xBusy = true;
+      try {
+        const res = await fetch('/api/mcp-dashboard?part=xview&since=' + since, { cache: 'no-store' });
+        if (!res.ok) throw 0;
+        const { end, points } = await res.json();
+        for (const [t, ms, err] of points) xv.data.datasets[err ? 1 : 0].data.push({ x: t, y: Math.min(ms, 8000) });
+        if (points.length) since = points[points.length - 1][0];
+        const from = end - 5 * 60000;
+        xv.data.datasets.forEach(d => { d.data = d.data.filter(p => p.x >= from); });
+        xv.options.scales.x.min = from; xv.options.scales.x.max = end;
+        byId('xview-count').textContent = (xv.data.datasets[0].data.length + xv.data.datasets[1].data.length).toLocaleString('ja-JP');
+        xv.update('none');
+      } catch {} finally { xBusy = false; }
+    };
+    pullX(); setInterval(pullX, 2000);
+  }
 })();
 
 </script>

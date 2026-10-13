@@ -89,7 +89,9 @@ async function loadSlow(): Promise<Slow> {
 }
 
 export async function GET(req: Request) {
-  const kpiOnly = new URL(req.url).searchParams.get("part") === "kpi";
+  const q = new URL(req.url).searchParams;
+  const kpiOnly = q.get("part") === "kpi";
+  if (q.get("part") === "xview") return xview(Number(q.get("since")) || 0);
   if (!process.env.JENNIFER_URL || !process.env.JENNIFER_API_TOKEN) {
     return Response.json({ error: "JENNIFER_URL / JENNIFER_API_TOKEN not set" }, { status: 503 });
   }
@@ -133,6 +135,28 @@ export async function GET(req: Request) {
       },
       { headers: { "Cache-Control": "no-store" } },
     );
+  } catch (e) {
+    return Response.json({ error: String(e) }, { status: 502 });
+  }
+}
+
+// X-View: 최근 트랜잭션을 [끝난 시각(ms), 응답시간(ms), 에러 여부] 로 가볍게 돌려준다. since 이후만(최대 5분 전부터).
+async function xview(since: number) {
+  if (!process.env.JENNIFER_URL || !process.env.JENNIFER_API_TOKEN) {
+    return Response.json({ error: "JENNIFER_URL / JENNIFER_API_TOKEN not set" }, { status: 503 });
+  }
+  const end = Date.now();
+  const start = Math.max(since, end - 5 * 60_000);
+  try {
+    // transaction/time 은 한 번에 60초 구간까지만 돌려준다 → 60초씩 나눠 동시에 부른다
+    const chunks: [number, number][] = [];
+    for (let t = start; t < end; t += 60_000) chunks.push([t, Math.min(t + 60_000, end)]);
+    type Tx = { endTime: string; responseTime: number; errorType: string };
+    const rows = (
+      await Promise.all(chunks.map(([a, b]) => api<Tx[]>("transaction/time", { domain_id: DOMAIN_ID, start_time: a, end_time: b }).catch(() => [] as Tx[])))
+    ).flat();
+    const points = rows.map((r) => [Number(r.endTime), r.responseTime, r.errorType ? 1 : 0]).filter((p) => p[0] > since).sort((a, b) => a[0] - b[0]);
+    return Response.json({ end, points: points.slice(-8000) }, { headers: { "Cache-Control": "no-store" } });
   } catch (e) {
     return Response.json({ error: String(e) }, { status: 502 });
   }
