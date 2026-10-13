@@ -8,7 +8,7 @@
   <p data-a style="--d:4;font:500 28px var(--mono);color:var(--sub)">洪在錫（ホン・ジェソク） · JenniferSoft R&amp;Dチーム Frontend Tech Lead</p>
   <p class="kr s" data-a style="--d:4">발표자: 홍재석(洪在錫) · 제니퍼소프트 R&amp;D팀 Frontend Tech Lead</p>
 </section>
-<section class="slide" id="s-agenda" data-notes="오늘의 네 가지 이야기. 1) 개발자인 제가 AI를 쓰는 방법 2) 사용자가 AI로 제니퍼를 확장하는 방법(PagerDuty) 3) 통합 대시보드에서 제니퍼 데이터를 보는 방법 4) MCP로 Open API 차트를 직접 만드는 방법(ChatGPT·Claude)." data-script="오늘은 네 가지 이야기를 준비했습니다. 첫 번째는 개발자인 제가 AI를 어떻게 쓰는지입니다. 두 번째는 제니퍼 사용자가 AI로 제니퍼를 직접 확장하는 방법으로, PagerDuty 사례를 보여드리겠습니다. 세 번째는 이미 쓰고 계신 통합 대시보드에서 제니퍼 데이터를 보는 방법이고, 네 번째는 MCP를 이용해 대화만으로 차트를 만드는 방법입니다.">
+<section class="slide" id="s-agenda" data-notes="오늘의 네 가지 이야기. 1) 개발자인 제가 AI를 쓰는 방법 2) 사용자가 AI로 제니퍼를 확장하는 방법(PagerDuty) 3) 통합 대시보드에서 제니퍼 데이터를 보는 방법 4) MCP로 Open API 차트를 직접 만드는 방법(ChatGPT)." data-script="오늘은 네 가지 이야기를 준비했습니다. 첫 번째는 개발자인 제가 AI를 어떻게 쓰는지입니다. 두 번째는 제니퍼 사용자가 AI로 제니퍼를 직접 확장하는 방법으로, PagerDuty 사례를 보여드리겠습니다. 세 번째는 이미 쓰고 계신 통합 대시보드에서 제니퍼 데이터를 보는 방법이고, 네 번째는 MCP를 이용해 대화만으로 차트를 만드는 방법입니다.">
   <div>
     <p class="eyebrow" data-a>Agenda</p>
     <h2 data-a style="--d:1">今日の4つの話</h2>
@@ -18,7 +18,7 @@
     <div class="card" data-a style="--d:2"><span class="ic" style="font-size:72px">01</span><h3 style="font-size:36px;line-height:1.35;word-break:keep-all">開発者は<br>AIをどう使うか</h3><p class="kr s">제니퍼 개발자가 AI를 활용하는 방법</p></div>
     <div class="card" data-a style="--d:3"><span class="ic" style="font-size:72px">02</span><h3 style="font-size:36px;line-height:1.35;word-break:keep-all">ユーザーは<br>AIをどう使うか</h3><p class="kr s">제니퍼 사용자가 AI를 활용하는 방법 · PagerDuty</p></div>
     <div class="card" data-a style="--d:4"><span class="ic" style="font-size:72px">03</span><h3 style="font-size:36px;line-height:1.35;word-break:keep-all">統合ダッシュボードで<br>JENNIFERを見る</h3><p class="kr s">통합 대시보드에서 제니퍼 데이터를 보고 싶을 때</p></div>
-    <div class="card" data-a style="--d:5"><span class="ic" style="font-size:72px">04</span><h3 style="font-size:36px;line-height:1.35;word-break:keep-all">MCPで<br>チャートを作る</h3><p class="kr s">MCP로 Open API 차트를 직접 만들기 · ChatGPT·Claude</p></div>
+    <div class="card" data-a style="--d:5"><span class="ic" style="font-size:72px">04</span><h3 style="font-size:36px;line-height:1.35;word-break:keep-all">MCPで<br>チャートを作る</h3><p class="kr s">MCP로 Open API 차트를 직접 만들기 · ChatGPT</p></div>
   </div>
 </section>
 <section class="slide sec" data-notes="첫 번째 이야기: 개발자인 제가 AI와 어떻게 일하는지." data-script="먼저 첫 번째 이야기입니다. 제니퍼를 만드는 개발자인 제가 매일 AI와 어떻게 일하는지 보여드리겠습니다.">
@@ -203,7 +203,7 @@
     <div class="card"><h3>X-View 直リンク</h3><p class="kr s">알림에서 트랜잭션 분석으로 바로 이동</p></div>
   </div>
 </section>
-<section class="slide" data-notes="jennifer-view-extension-tutorial 저장소의 skills/jennifer-extension.zip. Claude 웹/데스크톱은 설정 → Skills에서 업로드, Claude Code는 curl 한 줄로 설치(README_JP 기준). 5종 어댑터, Slack/Teams/Telegram/LDAP 예제, 인증·HTTP·오류 처리 패턴 포함." data-script="이렇게 만들 수 있었던 비결은 이 스킬입니다. jennifer-extension 스킬을 AI에 넣으면, AI가 제니퍼 어댑터를 만드는 규칙과 예제를 이미 알고 시작합니다. 어댑터 종류, Slack과 Teams 같은 구현 예제, 인증과 오류 처리 같은 공통 패턴이 들어 있습니다. 공개되어 있으니 여러분도 같은 방식으로 만드실 수 있습니다.">
+<section class="slide" data-notes="jennifer-view-extension-tutorial 저장소의 skills/jennifer-extension.zip. zip을 받아 ChatGPT 설정 → Skills에서 업로드합니다. 발표에서는 ChatGPT로 통일합니다. 5종 어댑터, Slack/Teams/Telegram/LDAP 예제, 인증·HTTP·오류 처리 패턴 포함." data-script="이렇게 만들 수 있었던 비결은 이 스킬입니다. jennifer-extension 스킬을 AI에 넣으면, AI가 제니퍼 어댑터를 만드는 규칙과 예제를 이미 알고 시작합니다. 어댑터 종류, Slack과 Teams 같은 구현 예제, 인증과 오류 처리 같은 공통 패턴이 들어 있습니다. 공개되어 있으니 여러분도 같은 방식으로 만드실 수 있습니다.">
   <div>
     <p class="eyebrow" data-a>Skill</p>
     <h2 data-a style="--d:1;font-size:72px">「jennifer-extension」スキル</h2>
@@ -215,8 +215,8 @@
     <div class="card" data-a style="--d:3"><span class="ic">{ }</span><h3>実装例</h3><p class="kr s">구현 예제</p><p style="font:400 22px/1.6 var(--mono);color:var(--sub)">Slack · Teams<br>Telegram · LDAP</p></div>
     <div class="card" data-a style="--d:4"><span class="ic">⚙</span><h3>共通パターン</h3><p class="kr s">공통 패턴</p><p style="font:400 22px/1.6 var(--mono);color:var(--sub)">認証 · HTTP · エラー処理<br>ログ · メッセージ形式</p></div>
   </div>
-  <div class="prompt" data-a style="--d:6;font-size:24px"><span class="hl">$ </span>curl -L github.com/jennifersoft/jennifer-view-extension-tutorial/raw/main/skills/jennifer-extension.zip …</div>
-  <p class="kr s" data-a style="--d:6">Claude 설정 → Skills에 업로드하거나, curl 한 줄로 설치</p>
+  <div class="prompt" data-a style="--d:6;font-size:24px"><span class="hl">⬇ </span>github.com/jennifersoft/jennifer-view-extension-tutorial · skills/jennifer-extension.zip</div>
+  <p class="kr s" data-a style="--d:6">zip을 받아 ChatGPT 설정 → Skills에 업로드하면 끝입니다</p>
 </section>
 <section class="slide" id="s-dash" data-steps="2" data-notes="[데모] 어댑터로 PagerDuty에 보낸 인시던트를, 이번에는 제니퍼 사용자정의 대시보드에서 봅니다. 프롬프트 한 줄로 AI가 위젯을 만들고 iframe 칸에 들어갑니다. [확인 필요] 현재 버전의 사용자정의 대시보드 iframe 설정 방식." data-script="이제 어댑터로 보낸 인시던트를 제니퍼 안에서 보겠습니다. 제니퍼의 사용자정의 대시보드에는 외부 화면을 넣을 수 있는 iframe 칸이 있습니다. AI에게 PagerDuty 인시던트를 대시보드에 보여 달라고 하면, AI가 위젯을 만들고 그 칸에 들어갑니다.">
   <div class="row" style="align-items:flex-end">
@@ -294,11 +294,11 @@
   <div class="box" data-a="left" style="--d:2;left:140px;top:460px;background:var(--panel2);border:2px solid var(--hot)"><h3 style="font-size:56px;font-weight:900">JENNIFER</h3><p class="kr s">제니퍼 대시보드</p></div>
   <div class="box" data-a style="--d:3;right:140px;top:460px;background:var(--panel2);border:2px solid var(--cool)"><h3 style="font-size:56px;font-weight:900">お客様の画面</h3><p class="kr s">고객 통합 대시보드</p></div>
 </section>
-<section class="slide sec" data-notes="네 번째 이야기: 대시보드를 만들지 않아도, ChatGPT·Claude에 제니퍼 MCP를 연결하면 Open API로 차트를 바로 만들 수 있습니다." data-script="네 번째 이야기입니다. 대시보드를 따로 만들지 않아도 됩니다. ChatGPT나 Claude에 제니퍼 MCP를 연결하면 대화만으로 차트를 만들 수 있습니다.">
+<section class="slide sec" data-notes="네 번째 이야기: 대시보드를 만들지 않아도, ChatGPT에 제니퍼 MCP를 연결하면 Open API로 차트를 바로 만들 수 있습니다." data-script="네 번째 이야기입니다. 대시보드를 따로 만들지 않아도 됩니다. ChatGPT에 제니퍼 MCP를 연결하면 대화만으로 차트를 만들 수 있습니다.">
   <div class="spacer"></div>
   <p class="num" data-a="left">04</p>
   <h2 data-a style="--d:2;font-size:96px">MCPで、<br>Open APIからチャートを</h2>
-  <p class="kr" data-a style="--d:3">네 번째, 대시보드를 따로 만들지 않아도 됩니다. ChatGPT나 Claude에 제니퍼 MCP를 연결하면 대화만으로 Open API 차트를 만들 수 있습니다.</p>
+  <p class="kr" data-a style="--d:3">네 번째, 대시보드를 따로 만들지 않아도 됩니다. ChatGPT에 제니퍼 MCP를 연결하면 대화만으로 Open API 차트를 만들 수 있습니다.</p>
   <div class="spacer"></div>
 </section>
 <section class="slide" id="s-mcp" data-autoplay data-steps="3" data-notes="ChatGPT에 jennifer5-mcp 플러그인(제니퍼 MCP, https://insight-dev.jennifersoft.com/mcp)을 연결하고 한 줄로 요청. AI가 get_domain_list → get_instance_list → get_domain_metric_values → get_instance_metric_values → get_event_list → get_error_list 를 직접 호출해 도메인 2000 Simula의 실제 1시간 데이터(2026-10-13 11:39~12:39)로 대시보드 HTML을 만들었습니다. 오른쪽은 그 결과물(jennifer-mcp-dashboard.html, 자동 갱신 없는 스냅샷). 대화 문구는 실제 결과 보고를 줄인 것." data-script="네 번째 이야기의 실제 화면입니다. ChatGPT에 jennifer5-mcp 플러그인을 연결하고, 최근 1시간 운영 대시보드를 만들어 달라고 한 줄로 요청했습니다. AI가 제니퍼 MCP 도구를 차례로 호출해서 도메인과 인스턴스를 찾고, TPS와 응답시간, CPU, 에러와 이벤트 데이터를 가져옵니다. 그리고 눈에 띄는 점까지 정리해서 대시보드를 만들어 줍니다. 오른쪽 화면이 그 결과물이고, 데이터는 모두 실제 값입니다.">
