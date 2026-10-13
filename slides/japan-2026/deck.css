@@ -1,10 +1,10 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
-/* 제니퍼소프트 사이트 톤: 무채색 검정 배경 + 브랜드 보라 #9245DB, 한국어는 Pretendard (일본어는 Noto Sans JP 유지) */
-:root{--ink:#0E0F12;--panel:#17181C;--panel2:#1E2026;--line:#2B2D35;--sub:#8F94A3;--hot:#B47CF2;--hot-bg:#9245DB;--code-bg:#08090B;--notes-bg:rgba(23,24,28,.96);
+/* 일본 발표라 제니퍼소프트 일본 사이트(jennifersoft.co.jp) 톤: 보라 #7C73C2 + 주황 #F6A621, Noto Sans JP + Montserrat. 배경은 무채색 검정, 한국어는 Pretendard */
+:root{--ink:#0E0F12;--panel:#17181C;--panel2:#1E2026;--line:#2B2D35;--sub:#8F94A3;--hot:#9A91E6;--hot-bg:#7C73C2;--code-bg:#08090B;--notes-bg:rgba(23,24,28,.96);
   --kr:'Pretendard','Noto Sans KR','Apple SD Gothic Neo',sans-serif}
-#next-hint{background:linear-gradient(135deg,#9245DB,#B47CF2);box-shadow:0 8px 28px rgba(146,69,219,.45)}
+#next-hint{background:linear-gradient(135deg,#7C73C2,#9A91E6);box-shadow:0 8px 28px rgba(124,115,194,.45)}
 #next-hint::before{animation-name:hintring2}
-@keyframes hintring2{0%{box-shadow:0 0 0 0 rgba(146,69,219,.55)}100%{box-shadow:0 0 0 14px rgba(146,69,219,0)}}
+@keyframes hintring2{0%{box-shadow:0 0 0 0 rgba(124,115,194,.55)}100%{box-shadow:0 0 0 14px rgba(124,115,194,0)}}
 /* japan-2026 전용 스타일 */
 /* both ways */
 .box{position:absolute;width:560px;height:360px;border-radius:24px;display:flex;flex-direction:column;justify-content:center;padding:48px;box-sizing:border-box;gap:8px}
@@ -83,13 +83,13 @@
 .chat.gpt .msg.ai.tr{padding-right:70px}
 .chat.gpt .msg.me.tr{padding-right:70px}
 /* 14장: AI 위젯이 들어올 빈 칸을 '자리'로 보여 준다 */
-.dash .slot{grid-row:2;grid-column:2 / span 2;border:2px dashed rgba(146,69,219,.45);border-radius:12px;background:repeating-linear-gradient(135deg,rgba(146,69,219,.05) 0 14px,transparent 14px 28px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--sub);transition:opacity .5s ease}
-.dash .slot .plus{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;border:2px solid rgba(146,69,219,.5);color:var(--hot);font-size:24px;margin-bottom:4px}
+.dash .slot{grid-row:2;grid-column:2 / span 2;border:2px dashed rgba(124,115,194,.45);border-radius:12px;background:repeating-linear-gradient(135deg,rgba(124,115,194,.05) 0 14px,transparent 14px 28px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--sub);transition:opacity .5s ease}
+.dash .slot .plus{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;border:2px solid rgba(124,115,194,.5);color:var(--hot);font-size:24px;margin-bottom:4px}
 .dash .slot b{font-size:24px;color:var(--fg)}
 .dash .slot span:last-child{font:400 17px var(--kr)}
 .dash:has(.tile.ai.in) .slot{opacity:0}
 /* 5장 오른쪽: 대화가 진행되는 동안 캡처 자리를 먼저 보여 주고, 단계마다 한 장씩 채운다 */
-.shots figure[data-step]:not(.shown){opacity:1;transform:none;background:repeating-linear-gradient(135deg,rgba(146,69,219,.05) 0 14px,transparent 14px 28px);border:2px dashed rgba(146,69,219,.35)}
+.shots figure[data-step]:not(.shown){opacity:1;transform:none;background:repeating-linear-gradient(135deg,rgba(124,115,194,.05) 0 14px,transparent 14px 28px);border:2px dashed rgba(124,115,194,.35)}
 .shots figure[data-step]:not(.shown)>*{opacity:0}
 .shots figure[data-step]:not(.shown)::after{content:"キャプチャ待ち…";position:absolute;inset:0;display:grid;place-items:center;color:var(--sub);font:500 18px var(--kr)}
 .shots figure[data-step]>*{transition:opacity .5s ease}
@@ -103,7 +103,7 @@
 /* 19장: 양방향 — 두 창 목업과 서로를 향한 연결선 */
 .both{flex:1;display:grid;grid-template-columns:1fr 240px 1fr;align-items:center;gap:0;margin-top:10px}
 .win{margin:0;border-radius:18px;background:linear-gradient(160deg,#131d31,#0c1424);border:1px solid var(--line);box-shadow:0 30px 70px rgba(0,0,0,.45);overflow:visible;position:relative}
-.win.jen{box-shadow:0 30px 70px rgba(0,0,0,.45),0 0 0 1px rgba(146,69,219,.45)}
+.win.jen{box-shadow:0 30px 70px rgba(0,0,0,.45),0 0 0 1px rgba(124,115,194,.45)}
 .win.cus{box-shadow:0 30px 70px rgba(0,0,0,.45),0 0 0 1px rgba(79,179,255,.35)}
 .win .bar{display:flex;align-items:center;gap:8px;padding:14px 18px;border-bottom:1px solid var(--line)}
 .win .bar i{width:11px;height:11px;border-radius:50%;background:#2a3852}
@@ -114,15 +114,15 @@
 .mt svg{flex:1;width:100%}
 .mt.emb{border:2px solid}
 .mt.in-ext{border-color:#4FB3FF;background:rgba(79,179,255,.08)}
-.mt.in-jen{border-color:#B47CF2;background:rgba(146,69,219,.1)}
+.mt.in-jen{border-color:#9A91E6;background:rgba(124,115,194,.1)}
 .mt.emb>span{color:var(--fg)}
 .mt .tag{position:absolute;top:8px;right:8px;font:700 12px var(--mono);font-style:normal;padding:2px 8px;border-radius:5px;color:#071019}
-.in-ext .tag{background:#4FB3FF}.in-jen .tag{background:#B47CF2}
+.in-ext .tag{background:#4FB3FF}.in-jen .tag{background:#9A91E6}
 .mt ul{list-style:none;margin:0;padding:0;font:500 13px var(--mono);color:#c9d3e3}
 .mt li{display:flex;align-items:center;gap:8px;line-height:1.75}.mt li b{width:8px;height:8px;border-radius:50%}
 .mt li b.r{background:#E5484D}.mt li b.y{background:#F6A621}
 @keyframes embglow{50%{box-shadow:0 0 24px currentColor}}
-.in-ext{color:rgba(79,179,255,.6)}.in-jen{color:rgba(146,69,219,.6)}
+.in-ext{color:rgba(79,179,255,.6)}.in-jen{color:rgba(124,115,194,.6)}
 .win figcaption{position:absolute;left:0;right:0;top:calc(100% + 22px);font:800 26px var(--jp);display:flex;flex-direction:column;gap:4px;padding-left:4px}
 .win figcaption .no{font:700 16px var(--mono);color:var(--hot);letter-spacing:.1em}
 .win.cus figcaption .no{color:var(--cool)}
@@ -132,7 +132,7 @@
 .lnk svg{width:100%;height:20px;overflow:visible}
 .lnk path{fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:10 8;animation:dash 1s linear infinite}
 .lnk.to-left{color:#4FB3FF}.lnk.to-left path{stroke:#4FB3FF;animation-direction:reverse}
-.lnk.to-right{color:#B47CF2}.lnk.to-right path{stroke:#B47CF2}
+.lnk.to-right{color:#9A91E6}.lnk.to-right path{stroke:#9A91E6}
 @keyframes dash{to{stroke-dashoffset:-18}}
 /* 마지막 전 장: 1인당 커밋 수 */
 .cstat{flex:1;display:grid;grid-template-columns:1.55fr 1fr;gap:48px;align-items:stretch;min-height:0;margin-top:10px}
@@ -142,7 +142,7 @@
 .slide.on .cb i{animation:grow 1s cubic-bezier(.2,.9,.3,1) calc(.5s + var(--k) * .3s) both}
 .cb b,.cb u{opacity:0}.slide.on .cb b,.slide.on .cb u{animation:fadeup .5s ease calc(.5s + var(--k) * .3s) both}
 @keyframes fadeup{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.cb.hi i{background:linear-gradient(180deg,#B47CF2,#9245DB)}
+.cb.hi i{background:linear-gradient(180deg,#9A91E6,#7C73C2)}
 .cb b{font:800 30px var(--mono);color:var(--sub);margin-bottom:10px;font-variant-numeric:tabular-nums}
 .cb.hi b{color:var(--fg);font-size:40px}
 .cb span{position:absolute;bottom:-58px;font:700 24px var(--mono);color:var(--sub);text-align:center;line-height:1.1}
@@ -159,7 +159,7 @@
 .feel li:not(:last-child)::after{content:"";position:absolute;left:23px;top:calc(50% + 8px);height:calc(100% + 2px);width:2px;background:var(--line)}
 .feel b{display:block;font:700 24px var(--jp);color:var(--sub)}
 .feel span{font:400 16px var(--kr);color:var(--sub)}
-.feel li.now{background:linear-gradient(135deg,rgba(146,69,219,.18),rgba(146,69,219,.06));border-color:rgba(146,69,219,.6);box-shadow:0 0 40px rgba(146,69,219,.18)}
+.feel li.now{background:linear-gradient(135deg,rgba(124,115,194,.18),rgba(124,115,194,.06));border-color:rgba(124,115,194,.6);box-shadow:0 0 40px rgba(124,115,194,.18)}
 .feel li.now::before{background:var(--hot);box-shadow:0 0 12px var(--hot)}
 .feel li.now b{color:var(--fg);font-size:26px}.feel li.now span{color:var(--hot)}
 .cfoot{margin:40px 0 0;font:400 16px var(--kr);color:var(--sub)}
@@ -171,9 +171,9 @@
 .feel::before{content:"";position:absolute;left:24px;top:36px;width:2px;height:0;background:linear-gradient(var(--sub),var(--hot));z-index:1}
 .slide.on .feel::before{animation:feelline 3s ease 1.8s forwards}
 .feel li{z-index:2}
-@keyframes feelstep{0%{opacity:0;transform:translateX(-16px)}25%{opacity:1;transform:none;border-color:rgba(146,69,219,.7);box-shadow:0 0 24px rgba(146,69,219,.25)}70%{opacity:1;border-color:rgba(146,69,219,.7)}100%{opacity:1;transform:none}}
+@keyframes feelstep{0%{opacity:0;transform:translateX(-16px)}25%{opacity:1;transform:none;border-color:rgba(124,115,194,.7);box-shadow:0 0 24px rgba(124,115,194,.25)}70%{opacity:1;border-color:rgba(124,115,194,.7)}100%{opacity:1;transform:none}}
 @keyframes feelnow{0%{opacity:0;transform:translateX(-16px) scale(.97)}100%{opacity:1;transform:none}}
-@keyframes feelglow{50%{box-shadow:0 0 60px rgba(146,69,219,.38)}}
+@keyframes feelglow{50%{box-shadow:0 0 60px rgba(124,115,194,.38)}}
 @keyframes feelline{to{height:calc(100% - 72px)}}
 .slide.on .feel li:nth-child(1) b,.slide.on .feel li:nth-child(2) b{animation:feeltext 1.4s ease var(--at) both}
 @keyframes feeltext{25%,70%{color:var(--fg)}}
@@ -194,3 +194,6 @@
 .feel::before{left:25px;top:var(--lt,36px)}
 @keyframes feelline{to{height:var(--lh,calc(100% - 72px))}}
 .card .kr,.slide .kr{word-break:keep-all}
+/* 숫자·연도·영문 라벨은 일본 사이트처럼 Montserrat (코드는 JetBrains Mono 유지) */
+.cb b,.cb span,.tl h3,.stat b,.big,.eyebrow,.ic,#next-hint{font-family:'Montserrat',var(--jp)!important}
+.cb b{font-weight:700}
