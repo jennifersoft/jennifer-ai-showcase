@@ -111,6 +111,7 @@ curl -X POST "$SHOWCASE_URL/api/deploys" -H "Authorization: Bearer $DEPLOY_WEBHO
 | `JENNIFER_URL` | 제니퍼 뷰서버 주소 (OpenAPI 프록시, chartIframe) | 제니퍼 연동 |
 | `JENNIFER_API_TOKEN` | 제니퍼 OPEN_API 토큰. 서버에서만 쓴다 | 제니퍼 연동 |
 | `FRAME_ANCESTORS` | 이 서버 페이지를 iframe으로 넣을 수 있는 origin(공백 구분). 제니퍼 도메인을 넣는다 | 대시보드 위젯 |
+| `JENNIFER_CHART_URL` | 통합 대시보드 왼쪽 큰 칸에 넣을 제니퍼 차트 iframe 주소 (예: X-View `popup/chartIframe?...`). `?src=`로 덮어쓰기 | 선택 |
 | `JENNIFER_DASHBOARD_URL` | 슬라이드 라이브 화면의 제니퍼 대시보드 기본 주소 (`?jennifer=`로 덮어쓰기) | 선택 |
 | `PROMETHEUS_URL` | 서버 지표 소스 (기본: 공개 데모) | 선택 |
 | `PAGERDUTY_API_KEY`, `PAGERDUTY_SERVICE_ID` | 인시던트 위젯 (읽기 전용 키 권장) | 선택 |

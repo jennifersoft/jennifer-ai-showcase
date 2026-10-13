@@ -13,7 +13,8 @@ export default async function IntegratedDashboard({
   const { src, theme, lang: langParam } = await searchParams;
   const lang = await requestLang(langParam);
   const base = process.env.JENNIFER_URL;
-  const chartSrc = src ?? (base ? new URL("/popup/chartIframe", base).toString() : "");
+  // 왼쪽 큰 칸: ?src= > JENNIFER_CHART_URL(제니퍼에서 복사한 chartIframe 주소, 예: X-View) > JENNIFER_URL 기본 chartIframe
+  const chartSrc = src ?? process.env.JENNIFER_CHART_URL ?? (base ? new URL("/popup/chartIframe", base).toString() : "");
   const child = (path: string) => withParams(path, { lang, theme: theme === "dark" ? "dark" : undefined });
 
   return (
