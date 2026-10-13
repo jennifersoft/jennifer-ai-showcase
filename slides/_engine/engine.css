@@ -18,7 +18,7 @@ html,body{height:100%;margin:0;background:var(--ink);color:var(--fg);overflow:hi
 body{font-family:var(--jp)}
 #viewport{position:fixed;inset:0;overflow:hidden}
 /* 화면 비율과 상관없이 가운데 정렬: 레이아웃 크기는 1920×1080 그대로 두고 transform으로만 축소한다 */
-#stage{width:1920px;height:1080px;position:absolute;left:50%;top:50%;transform-origin:center}
+#stage{width:1920px;height:1080px;position:absolute;left:50%;top:50%;transform-origin:center;transform:translate(-50%,-50%);visibility:hidden}
 .slide{position:absolute;inset:0;padding:120px 140px;box-sizing:border-box;display:flex;flex-direction:column;gap:40px;opacity:0;pointer-events:none;transition:opacity .6s ease}
 .slide.on{opacity:1;pointer-events:auto}
 .bg-grid{position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:80px 80px;opacity:.25;mask-image:radial-gradient(circle at 70% 30%,#000 0,transparent 70%)}

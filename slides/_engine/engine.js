@@ -1,7 +1,7 @@
 // 공통 슬라이드 엔진: 이동·단계(hooks)·노트·목록·전체화면·라이브 iframe 조작 모드, typer/wait/net 도우미, 미니 차트(canvas[data-chart])
 const stage=document.getElementById('stage'),slides=[...document.querySelectorAll('.slide')];
 let cur=0,step=0,t0=null;
-function fit(){const ov=document.body.classList.contains('ov');const s=Math.min(innerWidth/1920,innerHeight/1080)*(ov?.98:1);stage.style.transform=`translate(-50%,-50%) scale(${s})`;layoutOverview(ov)}
+function fit(){const ov=document.body.classList.contains('ov');const s=Math.min(innerWidth/1920,innerHeight/1080)*(ov?.98:1);stage.style.transform=`translate(-50%,-50%) scale(${s})`;stage.style.visibility="visible";layoutOverview(ov)}
 // 목록 보기: 슬라이드를 격자로 배치한다 (5열)
 function layoutOverview(ov){const cols=5,rows=Math.ceil(slides.length/cols),gap=24,cw=(1920-gap*(cols+1))/cols,sc=Math.min(cw/1920,(1080-gap*(rows+1))/rows/1080),ch=1080*sc,oy=(1080-rows*ch-gap*(rows+1))/2;
   slides.forEach((el,i)=>{el.style.transform=ov?`translate(${gap+(i%cols)*(cw+gap)}px,${oy+gap+Math.floor(i/cols)*(ch+gap)}px) scale(${sc})`:''})}
