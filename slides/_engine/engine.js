@@ -134,6 +134,7 @@ draw();
     const start=()=>{tabs.forEach((t,k)=>t.classList.toggle('on',k===idx));pl.dataset.o=tabs[idx].dataset.orient||'';v.src=tabs[idx].dataset.src;v.play().catch(()=>{})};
     // data-orient 가 portrait ↔ landscape 로 바뀌면 휴대폰이 90도 도는 전환을 넣는다(영상 속 휴대폰 위치에 맞춘 윤곽)
     const phone=document.createElement('div');phone.className='pl-phone';pl.querySelector('.pl-stage')?.appendChild(phone);
+    const dim=document.createElement('div');dim.className='pl-dim';pl.querySelector('.pl-stage')?.appendChild(dim);
     let busy=false;
     const play=(i,force)=>{const next=(i+tabs.length)%tabs.length,from=tabs[idx]?.dataset.orient,to=tabs[next].dataset.orient;
       const turn=!force&&from&&to&&from!==to&&!reduce&&phone.isConnected;idx=next;
