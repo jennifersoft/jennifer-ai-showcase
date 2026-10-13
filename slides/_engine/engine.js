@@ -122,7 +122,16 @@ draw();
   const lists=[...document.querySelectorAll('.playlist')];
   for(const pl of lists){
     const v=pl.querySelector('video'),tabs=[...pl.querySelectorAll('.pl-tabs li')];let idx=0;
-    const play=i=>{idx=(i+tabs.length)%tabs.length;tabs.forEach((t,k)=>t.classList.toggle('on',k===idx));v.src=tabs[idx].dataset.src;v.play().catch(()=>{})};
+    const start=()=>{tabs.forEach((t,k)=>t.classList.toggle('on',k===idx));v.src=tabs[idx].dataset.src;v.play().catch(()=>{})};
+    // data-orient 가 portrait ↔ landscape 로 바뀌면 휴대폰이 90도 도는 전환을 넣는다(영상 속 휴대폰 위치에 맞춘 윤곽)
+    const phone=document.createElement('div');phone.className='pl-phone';pl.querySelector('.pl-stage')?.appendChild(phone);
+    let busy=false;
+    const play=(i,force)=>{const next=(i+tabs.length)%tabs.length,from=tabs[idx]?.dataset.orient,to=tabs[next].dataset.orient;
+      const turn=!force&&from&&to&&from!==to&&!reduce&&phone.isConnected;idx=next;
+      if(!turn||busy){start();return}
+      busy=true;v.pause();pl.classList.add('turning');phone.className='pl-phone '+from;void phone.offsetWidth;
+      requestAnimationFrame(()=>{phone.className='pl-phone '+to+' go'});
+      setTimeout(()=>{start();setTimeout(()=>{pl.classList.remove('turning');phone.className='pl-phone';busy=false},250)},900)};
     v.addEventListener('ended',()=>play(idx+1));
     // data-max="초": 그 시간까지만 재생하고 다음 영상으로 (긴 영상을 줄여 보여줄 때)
     v.addEventListener('timeupdate',()=>{const max=+tabs[idx].dataset.max||v.duration;if(!max)return;
@@ -132,7 +141,7 @@ draw();
     pl.addEventListener('click',e=>e.stopPropagation());
     const slide=pl.closest('.slide');let wasOn=false;
     setInterval(()=>{const on=slide.classList.contains('on')&&!document.body.classList.contains('ov');
-      if(on&&!wasOn)play(0); else if(!on&&wasOn)v.pause(); wasOn=on},300);
+      if(on&&!wasOn){idx=0;play(0,true)} else if(!on&&wasOn)v.pause(); wasOn=on},300);
   }
 })();
 
