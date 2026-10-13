@@ -134,8 +134,9 @@ export async function renderDeck(
 <link rel="icon" href="data:,">
 ${fonts}
 <style>
+${cssImports(deckCss)}
 ${engineCss}
-${deckCss}
+${stripImports(deckCss)}
 </style>
 </head>
 <body>
@@ -182,4 +183,12 @@ export async function readDeckScript(name: string): Promise<{ meta: DeckMeta; it
     return { no: i + 1, title: textOf(heading), subtitle: textOf(sub), script: attr("data-script"), notes: attr("data-notes") };
   });
   return { meta, items };
+}
+
+// deck.css 의 @import 는 한 <style> 안에서 맨 앞에 와야 동작하므로 엔진 CSS 앞으로 옮긴다
+function cssImports(css: string | null | undefined): string {
+  return (css ?? "").match(/^@import[^;]+;/gm)?.join("\n") ?? "";
+}
+function stripImports(css: string | null | undefined): string {
+  return (css ?? "").replace(/^@import[^;]+;\s*/gm, "");
 }
