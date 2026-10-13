@@ -64,6 +64,9 @@ const DICT = {
   "pd.low": { ko: "Low", ja: "Low", en: "Low" },
   "pd.min": { ko: "분", ja: "分", en: "m" },
   "pd.sample": { ko: "샘플 (PagerDuty API 형식)", ja: "サンプル（PagerDuty API 形式）", en: "Sample (PagerDuty API format)" },
+  "pd.st.triggered": { ko: "미확인", ja: "未確認", en: "Triggered" },
+  "pd.st.acknowledged": { ko: "확인됨", ja: "確認済み", en: "Acked" },
+  "pd.st.resolved": { ko: "해결", ja: "解決", en: "Resolved" },
   "pd.total": { ko: "24시간 {n}건", ja: "24時間で{n}件", en: "{n} in 24h" },
 
   // 대시보드

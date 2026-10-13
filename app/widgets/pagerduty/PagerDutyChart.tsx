@@ -84,6 +84,21 @@ export default function PagerDutyChart({ lang }: { lang: Lang }) {
           </svg>
         )}
       </div>
+      {data && data.recent.length > 0 && (
+        <div style={{ marginTop: 6, borderTop: "1px solid var(--grid)", paddingTop: 4 }}>
+          {data.recent.map((r) => (
+            <div key={r.no} style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 11, lineHeight: "18px", minWidth: 0 }}>
+              <i style={{ flex: "none", width: 7, height: 7, borderRadius: 4, background: r.urgency === "high" ? "var(--danger)" : "var(--warn)" }} />
+              <span style={{ flex: "none", color: "var(--text-3)", fontVariantNumeric: "tabular-nums" }}>{new Date(r.at).toTimeString().slice(0, 5)}</span>
+              <span style={{ flex: 1, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", color: "var(--text-2)" }}>
+                #{r.no} {r.title}
+              </span>
+              {r.alerts > 1 && <span style={{ flex: "none", color: "var(--text-3)" }}>×{r.alerts}</span>}
+              <span style={{ flex: "none", color: r.status === "triggered" ? "var(--danger)" : "var(--text-3)" }}>{t(lang, `pd.st.${r.status}`)}</span>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
