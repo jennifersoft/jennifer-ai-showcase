@@ -56,7 +56,7 @@ function streamTranslate(e,done){
   e.querySelector('.st')?.remove();ko.after(st);e.classList.add('streaming');
   const orig=dst.map(n=>n.nodeValue);const tok=e._tok=(e._tok||0)+1;let i=0,c=0;
   const tick=()=>{if(e._tok!==tok)return;
-    if(i>=dst.length){st.remove();e.classList.remove('streaming');e.classList.add('translated');done();return}
+    if(i>=dst.length){e.classList.add('streamed','translated');e.classList.remove('streaming');st.remove();done();return}
     const t=src[i].nodeValue;c=Math.min(t.length,c+Math.max(1,Math.round(TR_CPS/30)));
     dst[i].nodeValue=mix(orig[i],t,c);dst[i].parentElement.classList.add('cur');
     if(c>=t.length){dst[i].parentElement.classList.remove('cur');i++;c=0}
@@ -67,7 +67,7 @@ function showStep(){const n=steps();document.getElementById('st').textContent=n?
   // 이번 단계에서 새로 나타나는 채팅 메시지는 하나씩: 내 말풍선은 바로, AI 말풍선은 '입력 중…' 뒤에 나타난다
   let delay=0;
   s.querySelectorAll('[data-step]').forEach(e=>{const show=+e.dataset.step<=step,was=e.classList.contains('shown');
-    if(!show){e.classList.remove('shown','typing','translated','streaming');e.querySelector('.st')?.remove();e._tok=(e._tok||0)+1;clearTimeout(e._t);clearTimeout(e._tr);return}
+    if(!show){e.classList.remove('shown','typing','translated','streaming','streamed');e.querySelector('.st')?.remove();e._tok=(e._tok||0)+1;clearTimeout(e._t);clearTimeout(e._tr);return}
     if(was)return;
     if(e.matches('.chat .msg')&&!reduce){const ai=e.classList.contains('ai');
       e._t=setTimeout(()=>{e.classList.add('shown');if(ai){e.classList.add('typing');e._t=setTimeout(()=>{e.classList.remove('typing');scrollChat(s)},900)}scrollChat(s)},delay);

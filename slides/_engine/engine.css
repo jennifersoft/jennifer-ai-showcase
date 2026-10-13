@@ -212,3 +212,5 @@ h1+.kr,h2+.kr,h1+.kr.s,h2+.kr.s{margin-top:18px}
 .chat .msg.tr .st .cur::after{content:"";display:inline-block;width:.5em;height:1em;margin-left:2px;vertical-align:-2px;background:var(--hot);animation:blink 1s steps(1) infinite}
 @keyframes blink{50%{opacity:0}}
 .chat .msg.tr.translated .st{display:none}
+/* 스트리밍으로 이미 일본어가 다 보였으면 .ja 로 바꿀 때 페이드를 하지 않는다(깜빡임 방지) */
+.chat .msg.tr.streamed .ja{animation:none}
