@@ -124,7 +124,10 @@ draw();
     const v=pl.querySelector('video'),tabs=[...pl.querySelectorAll('.pl-tabs li')];let idx=0;
     const play=i=>{idx=(i+tabs.length)%tabs.length;tabs.forEach((t,k)=>t.classList.toggle('on',k===idx));v.src=tabs[idx].dataset.src;v.play().catch(()=>{})};
     v.addEventListener('ended',()=>play(idx+1));
-    v.addEventListener('timeupdate',()=>{if(v.duration)tabs[idx].style.setProperty('--p',(v.currentTime/v.duration*100)+'%')});
+    // data-max="초": 그 시간까지만 재생하고 다음 영상으로 (긴 영상을 줄여 보여줄 때)
+    v.addEventListener('timeupdate',()=>{const max=+tabs[idx].dataset.max||v.duration;if(!max)return;
+      tabs[idx].style.setProperty('--p',Math.min(100,v.currentTime/max*100)+'%');
+      if(tabs[idx].dataset.max&&v.currentTime>=max)play(idx+1)});
     tabs.forEach((t,k)=>t.addEventListener('click',e=>{e.stopPropagation();play(k)}));
     pl.addEventListener('click',e=>e.stopPropagation());
     const slide=pl.closest('.slide');let wasOn=false;
