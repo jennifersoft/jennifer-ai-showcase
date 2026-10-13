@@ -163,7 +163,7 @@ h1+.kr,h2+.kr,h1+.kr.s,h2+.kr.s{margin-top:18px}
 #script p{margin:0;font:400 24px/1.65 var(--kr);color:var(--fg);white-space:pre-wrap}
 
 /* playlist 회전 전환: .pl-stage 안의 휴대폰 윤곽이 세로 ↔ 가로로 돈다 */
-.pl-stage{position:relative;border-radius:20px;overflow:hidden;background:#E9EDF5}
+.pl-stage{position:relative;border-radius:20px;overflow:hidden;background:transparent}
 .pl-stage video{transition:opacity .25s ease}
 .playlist.turning .pl-stage video{opacity:0}
 .pl-stage{container-type:inline-size}
@@ -177,3 +177,8 @@ h1+.kr,h2+.kr,h1+.kr.s,h2+.kr.s{margin-top:18px}
 [data-active-step]{transition:border-color .4s ease,box-shadow .4s ease,transform .4s ease,opacity .4s ease}
 .slide.on [data-active-step]:not(.active){opacity:.55}
 [data-active-step].active{border-color:var(--hot);box-shadow:0 0 0 1px var(--hot),0 12px 40px rgba(124,115,194,.25);transform:translateX(-6px)}
+
+/* 영상의 밝은 배경을 숨기고 휴대폰만 보이게 자른다(data-orient 별 실측 위치). 슬라이드 배경이 그대로 비친다 */
+.playlist[data-o] video{border:0;background:transparent;transition:clip-path .3s ease,opacity .25s ease}
+.playlist[data-o="portrait"] video{clip-path:inset(5.93% 38.96% 6.11% 38.85% round 3.1cqw)}
+.playlist[data-o="landscape"] video{clip-path:inset(13.7% 6.67% 13.89% 6.56% round 5.7cqw)}
