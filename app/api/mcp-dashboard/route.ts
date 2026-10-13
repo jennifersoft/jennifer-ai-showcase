@@ -2,13 +2,13 @@
 // GPT가 jennifer5-mcp로 만든 대시보드와 같은 모양(meta·instances·domainMetrics·instanceMetrics·events·errors)으로 돌려준다.
 // 제니퍼 Open API를 서버에서 부르고(토큰은 서버 환경변수에만), 화면은 2초마다 이 경로를 폴링한다.
 // - KPI(TPS·응답시간·액티브)는 /api/realtime/domain 으로 매번 새로 가져온다.
-// - 1시간 차트·이벤트·에러는 분 단위 데이터라 20초 동안 캐시한다.
+// - 1시간 차트·이벤트·에러는 분 단위 데이터라 10초 동안 캐시한다. ?part=kpi 는 KPI만 돌려준다(화면은 KPI 2초, 차트 10초 주기).
 
 export const dynamic = "force-dynamic";
 
 const DOMAIN_ID = 2000;
 const INTERVAL = 2;
-const SLOW_TTL = 20_000;
+const SLOW_TTL = 10_000;
 const DOMAIN_METRICS = ["service_rate", "service_time", "active_service", "error_count", "concurrent_user"];
 
 type Point = { t: string; v: number | null };
@@ -88,7 +88,8 @@ async function loadSlow(): Promise<Slow> {
   };
 }
 
-export async function GET() {
+export async function GET(req: Request) {
+  const kpiOnly = new URL(req.url).searchParams.get("part") === "kpi";
   if (!process.env.JENNIFER_URL || !process.env.JENNIFER_API_TOKEN) {
     return Response.json({ error: "JENNIFER_URL / JENNIFER_API_TOKEN not set" }, { status: 503 });
   }
@@ -100,6 +101,16 @@ export async function GET() {
     }
     const [rt] = await api<{ domainName: string; tps: number; responseTime: number; activeService: number }[]>("realtime/domain", { domain_id: DOMAIN_ID });
     const s = slow;
+    if (kpiOnly) {
+      return Response.json(
+        {
+          meta: { observedAt: iso(Date.now()) + "+09:00", live: true },
+          realtime: rt ? { tps: rt.tps, responseTime: rt.responseTime, activeService: rt.activeService } : null,
+          errorTotal: { value: s.errorTotal, intervalMinute: INTERVAL },
+        },
+        { headers: { "Cache-Control": "no-store" } },
+      );
+    }
     return Response.json(
       {
         meta: {

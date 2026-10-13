@@ -76,13 +76,27 @@ html.compact table{table-layout:fixed;height:auto}html.compact td{vertical-align
   'use strict';
   const embedded = JSON.parse(document.getElementById('dashboard-data').textContent);
   const byId = id => document.getElementById(id);
+  const putKpi = (id, value, unit = '') => { // render 밖(2초 KPI 폴링)에서 쓰는 KPI 갱신
+    const node = byId(id), ok = typeof value === 'number' && Number.isFinite(value);
+    node.textContent = ok ? value.toLocaleString('ja-JP', { maximumFractionDigits: 2 }) : 'データなし';
+    if (ok && unit) { const span = document.createElement('span'); span.className = 'kpi-unit'; span.textContent = unit; node.append(span); }
+  };
   const hiddenCpu = new Set(); // CPU 범례에서 끈 인스턴스(다시 그려도 유지)
   // 처음에는 GPT가 jennifer5-mcp로 받아 둔 스냅샷을 그리고, 이후 2초마다 /api/mcp-dashboard(제니퍼 Open API 실시간)로 다시 그린다.
   function render(data) {
   const { meta, instances, domainMetrics, instanceMetrics, events, errors } = data;
-  if (window.Chart) document.querySelectorAll('canvas').forEach(c => Chart.getChart(c)?.destroy());
   document.querySelectorAll('.chart-wrap.empty').forEach(w => w.classList.remove('empty'));
-  byId('cpu-legend').textContent = ''; byId('event-rows').textContent = '';
+  byId('event-rows').textContent = '';
+  // 이미 그린 차트는 지우지 않고 데이터만 바꾼다(깜빡임 방지)
+  const upsert = (canvas, config) => {
+    const old = Chart.getChart(canvas);
+    if (!old) return new Chart(canvas, config);
+    old.data.labels = config.data.labels;
+    config.data.datasets.forEach((d, i) => { if (old.data.datasets[i]) Object.assign(old.data.datasets[i], { data: d.data, label: d.label }); else old.data.datasets[i] = d; });
+    old.data.datasets.length = config.data.datasets.length;
+    old.update('none');
+    return old;
+  };
   const finite = value => typeof value === 'number' && Number.isFinite(value);
   const format = value => finite(value) ? value.toLocaleString('ja-JP', { maximumFractionDigits: 2 }) : 'データなし';
   const domainSeries = key => domainMetrics[meta.domainId + ',' + key]?.points ?? [];
@@ -174,7 +188,7 @@ html.compact table{table-layout:fixed;height:auto}html.compact td{vertical-align
   const drawMetric = (id, metric, label, type, color, unit) => {
     const points = domainSeries(metric);
     if (!points.some(p => finite(p.v))) { empty(id); return; }
-    new Chart(byId(id), {
+    upsert(byId(id), {
       type, data: { labels: points.map(p => displayTime(p.t)), datasets: [{
         label, data: points.map(p => finite(p.v) ? p.v : null), borderColor: color,
         backgroundColor: color + (type === 'bar' ? 'aa' : '18'),
@@ -200,7 +214,9 @@ html.compact table{table-layout:fixed;height:auto}html.compact td{vertical-align
   if (cpuDatasets.some(set => set.data.some(finite))) {
     const opts = options('%'); opts.interaction.mode = 'nearest'; opts.scales.y.max = 100;
     cpuDatasets.forEach(set => (set.hidden = hiddenCpu.has(set.label)));
-    const cpu = new Chart(byId('cpu-chart'), {type: 'line', data: {labels: cpuTimes.map(displayTime),datasets: cpuDatasets}, options: opts});
+    const cpu = upsert(byId('cpu-chart'), {type: 'line', data: {labels: cpuTimes.map(displayTime),datasets: cpuDatasets}, options: opts});
+    const legendKey = cpuDatasets.map(d => d.label).join('|');
+    if (byId('cpu-legend').dataset.key !== legendKey) { byId('cpu-legend').textContent = ''; byId('cpu-legend').dataset.key = legendKey;
     cpuDatasets.forEach((set, index) => {
       const button = document.createElement('button'), dot = document.createElement('span');
       button.type = 'button'; button.setAttribute('aria-pressed', String(!hiddenCpu.has(set.label)));
@@ -208,7 +224,7 @@ html.compact table{table-layout:fixed;height:auto}html.compact td{vertical-align
       button.append(dot, document.createTextNode(set.label));
       button.addEventListener('click', () => { const visible = !cpu.isDatasetVisible(index); cpu.setDatasetVisibility(index, visible); visible ? hiddenCpu.delete(set.label) : hiddenCpu.add(set.label); button.setAttribute('aria-pressed', String(visible)); cpu.update(); });
       byId('cpu-legend').append(button);
-    });
+    }); }
   } else empty('cpu-chart');
   const counts = new Map();
   (Array.isArray(errors) ? errors : []).forEach(error => { const type = error.errorType ?? '不明'; counts.set(type,(counts.get(type) ?? 0) + 1); });
@@ -217,31 +233,35 @@ html.compact table{table-layout:fixed;height:auto}html.compact td{vertical-align
   const errorOptions = options('件'); errorOptions.indexAxis = 'y';
   errorOptions.plugins.tooltip.callbacks.label = context => '取得サンプル: ' + format(context.parsed.x) + '件';
   errorOptions.scales = { x: { beginAtZero:true, grid:{color:'rgba(133,151,178,.12)'}, ticks:{precision:0} }, y: {grid:{display:false},border:{display:false}} };
-  new Chart(byId('errors-chart'), { type:'bar', data:{labels:categories.map(([name]) => name),datasets:[{label:'取得サンプル',data:categories.map(([,count]) => count),backgroundColor:'#E5484Dcc',borderRadius:4,maxBarThickness:20}]},options:errorOptions });
+  upsert(byId('errors-chart'), { type:'bar', data:{labels:categories.map(([name]) => name),datasets:[{label:'取得サンプル',data:categories.map(([,count]) => count),backgroundColor:'#E5484Dcc',borderRadius:4,maxBarThickness:20}]},options:errorOptions });
   }
   render(embedded);
 
-  // 실시간: 2초마다 폴링. 실패하면 마지막 화면을 그대로 두고 표시만 바꾼다.
+  // 실시간: 상단 KPI 4개는 2초마다(?part=kpi), 아래 차트는 10초마다 전체를 받아 갱신한다.
+  // 실패하면 마지막 화면을 그대로 두고 표시만 SNAPSHOT 으로 바꾼다.
   const badge = byId('live-badge');
-  let busy = false;
-  const poll = async () => {
-    if (busy || document.hidden) return;
-    busy = true;
+  const mark = (ok, at) => {
+    badge.className = 'live-badge ' + (ok ? 'on' : 'off');
+    badge.querySelector('b').textContent = ok ? 'LIVE' : 'SNAPSHOT';
+    badge.querySelector('span').textContent = ok ? at.slice(11, 19) + ' 更新' : embedded.meta.observedAt.slice(5, 16).replace('T', ' ');
+  };
+  const busy = {};
+  const poll = async part => {
+    if (busy[part] || document.hidden) return;
+    busy[part] = true;
     try {
-      const res = await fetch('/api/mcp-dashboard', { cache: 'no-store' });
+      const res = await fetch('/api/mcp-dashboard' + (part === 'kpi' ? '?part=kpi' : ''), { cache: 'no-store' });
       if (!res.ok) throw new Error(String(res.status));
       const data = await res.json();
-      render(data);
-      badge.className = 'live-badge on';
-      badge.querySelector('b').textContent = 'LIVE';
-      badge.querySelector('span').textContent = data.meta.observedAt.slice(11, 19) + ' 更新';
-    } catch {
-      badge.className = 'live-badge off';
-      badge.querySelector('b').textContent = 'SNAPSHOT';
-      badge.querySelector('span').textContent = embedded.meta.observedAt.slice(5, 16).replace('T', ' ');
-    } finally { busy = false; }
+      if (part === 'kpi') {
+        const rt = data.realtime;
+        if (rt) { putKpi('kpi-tps', rt.tps, 'TPS'); putKpi('kpi-time', Math.round(rt.responseTime), 'ms'); putKpi('kpi-active', rt.activeService); }
+        if (data.errorTotal) putKpi('kpi-errors', data.errorTotal.value, '件');
+      } else render(data);
+      mark(true, data.meta.observedAt);
+    } catch { mark(false); } finally { busy[part] = false; }
   };
-  poll(); setInterval(poll, 2000);
+  poll('all'); setInterval(() => poll('kpi'), 2000); setInterval(() => poll('all'), 10000);
 })();
 
 </script>
