@@ -202,3 +202,6 @@ h1+.kr,h2+.kr,h1+.kr.s,h2+.kr.s{margin-top:18px}
 /* 라이브 화면이 있는 장은 여백을 줄여 화면을 크게 */
 .slide:has(> .live){padding:56px 80px 36px;gap:18px}
 .slide:has(> .live) .hint{font-size:16px}
+.live .hint{display:flex;align-items:center;gap:10px}
+.live .hint kbd{font:700 15px var(--mono);color:var(--fg);background:var(--panel);border:1px solid var(--line);border-bottom-width:3px;border-radius:6px;padding:1px 8px}
+.live.interact .hint kbd{border-color:var(--hot);color:var(--hot)}
