@@ -163,7 +163,7 @@ h1+.kr,h2+.kr,h1+.kr.s,h2+.kr.s{margin-top:18px}
 #script p{margin:0;font:400 24px/1.65 var(--kr);color:var(--fg);white-space:pre-wrap}
 
 /* playlist 회전 전환: .pl-stage 안의 휴대폰 윤곽이 세로 ↔ 가로로 돈다 */
-.pl-stage{position:relative;border-radius:20px;overflow:hidden;background:transparent}
+.pl-stage{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:radial-gradient(ellipse 60% 70% at 50% 50%,#3a4466 0%,#252d47 45%,#161d2f 100%)}
 .pl-stage video{transition:opacity .25s ease}
 .playlist.turning .pl-stage video{opacity:0}
 .pl-stage{container-type:inline-size}
@@ -182,3 +182,8 @@ h1+.kr,h2+.kr,h1+.kr.s,h2+.kr.s{margin-top:18px}
 .playlist[data-o] video{border:0;background:transparent;transition:clip-path .3s ease,opacity .25s ease}
 .playlist[data-o="portrait"] video{clip-path:inset(5.93% 38.96% 6.11% 38.85% round 3.1cqw)}
 .playlist[data-o="landscape"] video{clip-path:inset(13.7% 6.67% 13.89% 6.56% round 5.7cqw)}
+
+:root[data-theme="light"] .pl-stage{background:radial-gradient(ellipse 60% 70% at 50% 50%,#ffffff 0%,#eef1f7 50%,#dfe4ee 100%)}
+/* 잘린 휴대폰 아래 은은한 그림자 */
+.playlist[data-o] .pl-stage::after{content:"";position:absolute;left:50%;bottom:4%;width:30%;height:5%;transform:translateX(-50%);background:radial-gradient(ellipse at center,rgba(0,0,0,.45),transparent 70%);pointer-events:none}
+.playlist[data-o="landscape"] .pl-stage::after{width:80%;bottom:10%}
