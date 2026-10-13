@@ -53,7 +53,11 @@ function showStep(){const n=steps();document.getElementById('st').textContent=n?
     else{e._t=setTimeout(()=>e.classList.add('shown'),delay)}});
   scrollChat(s)}
 function scrollChat(s){
-  s.querySelectorAll('.chat').forEach(c=>{const last=[...c.querySelectorAll('[data-step].shown')].pop();if(last)c.scrollTo({top:Math.max(0,last.offsetTop+last.offsetHeight-c.offsetTop-c.clientHeight+20),behavior:reduce?'auto':'smooth'});else c.scrollTop=0})}
+  // 처음에는 맨 위부터 보여 주고, 새 메시지가 아래로 넘칠 때만 그 메시지의 '시작'이 보이도록 올린다(끝부분만 보이지 않게)
+  s.querySelectorAll('.chat').forEach(c=>{const last=[...c.querySelectorAll('[data-step].shown')].pop();
+    if(!last){c.scrollTop=0;return}
+    const top=last.offsetTop,bottom=top+last.offsetHeight;
+    if(bottom>c.scrollTop+c.clientHeight)c.scrollTo({top:Math.max(0,top-16),behavior:reduce?'auto':'smooth'})})}
 function fwd(){t0??=Date.now();if(step<steps()){step++;showStep();hooks[slides[cur].id]&&hooks[slides[cur].id](step)}else go(cur+1)}
 setInterval(()=>{if(t0==null)return;const e=Math.floor((Date.now()-t0)/1000);const tm=document.getElementById('tm');tm.textContent=String(e/60|0).padStart(2,'0')+':'+String(e%60).padStart(2,'0');tm.style.color=e>780?'#F6A621':''},1000);
 // 라이브 iframe 조작 모드: 켜면 iframe이 클릭·키보드를 받는다. 끄려면 iframe 바깥(슬라이드 여백)을 클릭한다.

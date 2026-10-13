@@ -112,7 +112,7 @@ body.ov .slide.on{outline-color:var(--hot)}
 [data-step].shown{opacity:1;transform:none}
 body.ov [data-step]{opacity:1;transform:none}
 /* chat: 메신저 대화 재연. <div class="chat"><div class="msg me" data-step="1">…</div><div class="msg ai" data-step="2">…</div></div> */
-.chat{display:flex;flex-direction:column;gap:14px;overflow:hidden;min-height:0;padding:20px 24px;border-radius:20px;background:var(--panel);border:1px solid var(--line);font:400 21px/1.55 var(--kr)}
+.chat{position:relative;display:flex;flex-direction:column;gap:14px;overflow:hidden;min-height:0;padding:20px 24px;border-radius:20px;background:var(--panel);border:1px solid var(--line);font:400 21px/1.55 var(--kr)}
 .chat .msg{max-width:88%;padding:14px 20px;border-radius:18px;background:var(--panel2);color:var(--fg)}
 .chat .msg.me{align-self:flex-end;background:#5B7CB8;color:#fff;border-bottom-right-radius:6px}
 .chat .msg.ai{align-self:flex-start;border-bottom-left-radius:6px}
