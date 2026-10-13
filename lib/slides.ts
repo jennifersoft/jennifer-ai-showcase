@@ -87,12 +87,15 @@ function liveFrame(src: string | null, title: string): string {
 }
 
 /** {{live:...}} 자리표시자를 iframe으로 바꾼다. 이 서버 페이지에는 덱의 언어(lang)를 넘겨 위젯 문구를 맞춘다. */
-export function renderLive(html: string, jenniferUrl: string | null, lang?: string): string {
+export function renderLive(html: string, jenniferUrl: string | null, lang?: string, theme?: string): string {
   return html.replace(/\{\{live:([^}]+)\}\}/g, (_m, key: string) => {
     const k = key.trim();
     if (k === "jennifer") return liveFrame(jenniferUrl, "JENNIFER dashboard (JENNIFER_DASHBOARD_URL / ?jennifer=)");
     if (/^\/(?!\/)[^\s"<>]*$/.test(k)) {
-      const src = lang && !/[?&]lang=/.test(k) ? `${k}${k.includes("?") ? "&" : "?"}lang=${encodeURIComponent(lang)}` : k;
+      // 덱의 언어·테마를 이 서버 페이지에 넘겨 위젯 문구와 색을 슬라이드에 맞춘다
+      let src = k;
+      if (lang && !/[?&]lang=/.test(src)) src += `${src.includes("?") ? "&" : "?"}lang=${encodeURIComponent(lang)}`;
+      if (theme === "dark" && !/[?&]theme=/.test(src)) src += `${src.includes("?") ? "&" : "?"}theme=dark`;
       return liveFrame(src, k);
     }
     return liveFrame(null, k);
@@ -137,7 +140,7 @@ ${deckCss}
 </head>
 <body>
 <div id="viewport"><div id="stage">
-${renderLive(slides, jenniferUrl, meta.lang)}
+${renderLive(slides, jenniferUrl, meta.lang, theme)}
 </div></div>
 ${chrome}
 <script>
