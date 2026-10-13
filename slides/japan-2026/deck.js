@@ -36,7 +36,9 @@ hooks['s-adapter']=async st=>{
   if(st>=4){steps.forEach(s=>s.classList.add('done'));toast.classList.add('in')}};
 
 // 22장: 막대가 차례로 자라는 동안 숫자도 0부터 세어 올라간다
-hooks['s-stats']=()=>{document.querySelectorAll('#s-stats .cb').forEach(cb=>{const b=cb.querySelector('b');
+hooks['s-stats']=()=>{const f=document.querySelector('#s-stats .feel');if(f){const li=f.querySelectorAll('li'),a=li[0],z=li[li.length-1];
+  const top=a.offsetTop+a.offsetHeight/2,bot=z.offsetTop+z.offsetHeight/2;f.style.setProperty('--lt',top+'px');f.style.setProperty('--lh',(bot-top)+'px')}
+  document.querySelectorAll('#s-stats .cb').forEach(cb=>{const b=cb.querySelector('b');
   const to=+(b.dataset.v??=b.textContent.replace(/,/g,''));const delay=500+(+getComputedStyle(cb).getPropertyValue('--k'))*300;
   b.textContent='0';const t0=performance.now()+delay;const tick=now=>{const p=Math.min(1,Math.max(0,(now-t0)/1000));
     b.textContent=Math.round(to*(1-Math.pow(1-p,3))).toLocaleString('en-US');if(p<1&&slides[cur].id==='s-stats')requestAnimationFrame(tick);else b.textContent=to.toLocaleString('en-US')};requestAnimationFrame(tick)})};

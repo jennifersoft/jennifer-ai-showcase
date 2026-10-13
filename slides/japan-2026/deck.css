@@ -182,3 +182,7 @@
 .feel li{z-index:auto}
 .feel::before{z-index:3}
 .feel li::before{z-index:4}
+/* 선 위치·길이를 원 중심에 정확히 맞춘다: 원 중심 x = li 테두리 1px + left 19px + 반지름 6px = 26px, 선(2px)은 25px에서 시작.
+   세로는 deck.js 가 첫 원~마지막 원 중심을 재서 --lt(시작)·--lh(길이)로 넣는다 */
+.feel::before{left:25px;top:var(--lt,36px)}
+@keyframes feelline{to{height:var(--lh,calc(100% - 72px))}}
