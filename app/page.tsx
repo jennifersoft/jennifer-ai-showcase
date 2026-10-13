@@ -12,6 +12,7 @@ const GROUPS = [
       { href: "/charts/node-cpu", title: "서버 지표 차트", desc: "Prometheus 데모의 CPU · 메모리 · Load · 네트워크", tag: "/charts/node-*" },
       { href: "/widgets/deploy-timeline", title: "배포 타임라인", desc: "응답시간 차트 옆에 두면 '배포 직후 느려짐'이 보인다.", tag: "/widgets/deploy-timeline" },
       { href: "/widgets/incidents", title: "PagerDuty 인시던트", desc: "열린 인시던트와 담당자.", tag: "/widgets/incidents" },
+      { href: "/widgets/pagerduty", title: "PagerDuty 인시던트 추이", desc: "24시간 긴급도별 건수와 MTTA·MTTR. 키가 없으면 API 형식 샘플.", tag: "/widgets/pagerduty" },
     ],
   },
   {

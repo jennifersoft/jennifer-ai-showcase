@@ -54,6 +54,18 @@ const DICT = {
   },
   "unit.ms": { ko: "ms", ja: "ms", en: "ms" },
 
+  // PagerDuty 차트 위젯
+  "pd.title": { ko: "PagerDuty · 인시던트 추이 (24시간)", ja: "PagerDuty・インシデント推移（24時間）", en: "PagerDuty · Incidents (24h)" },
+  "pd.open": { ko: "열림", ja: "未解決", en: "Open" },
+  "pd.triggered": { ko: "미확인", ja: "未確認", en: "Unacked" },
+  "pd.mtta": { ko: "평균 확인 시간", ja: "平均確認時間", en: "MTTA" },
+  "pd.mttr": { ko: "평균 해결 시간", ja: "平均解決時間", en: "MTTR" },
+  "pd.high": { ko: "High", ja: "High", en: "High" },
+  "pd.low": { ko: "Low", ja: "Low", en: "Low" },
+  "pd.min": { ko: "분", ja: "分", en: "m" },
+  "pd.sample": { ko: "샘플 (PagerDuty API 형식)", ja: "サンプル（PagerDuty API 形式）", en: "Sample (PagerDuty API format)" },
+  "pd.total": { ko: "24시간 {n}건", ja: "24時間で{n}件", en: "{n} in 24h" },
+
   // 대시보드
   "dash.integrated.title": { ko: "통합 대시보드", ja: "統合ダッシュボード", en: "Integrated dashboard" },
   "dash.integrated.desc": {
