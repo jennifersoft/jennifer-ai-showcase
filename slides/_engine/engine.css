@@ -172,3 +172,8 @@ h1+.kr,h2+.kr,h1+.kr.s,h2+.kr.s{margin-top:18px}
 .playlist.turning .pl-phone{opacity:1}
 .pl-phone.landscape{transform:rotate(-90deg) scale(1.836,1.754);background:#050608}
 .pl-phone.go{transition:transform .85s cubic-bezier(.6,0,.25,1),background .85s ease}
+
+/* 채팅과 연동되는 강조 카드 */
+[data-active-step]{transition:border-color .4s ease,box-shadow .4s ease,transform .4s ease,opacity .4s ease}
+.slide.on [data-active-step]:not(.active){opacity:.55}
+[data-active-step].active{border-color:var(--hot);box-shadow:0 0 0 1px var(--hot),0 12px 40px rgba(124,115,194,.25);transform:translateX(-6px)}

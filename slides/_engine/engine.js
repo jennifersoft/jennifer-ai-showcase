@@ -55,6 +55,9 @@ function showStep(){const n=steps();document.getElementById('st').textContent=n?
     else{e._t=setTimeout(()=>e.classList.add('shown'),delay)}});
   scrollChat(s)}
 function scrollChat(s){
+  // data-active-step="N": 지금 보이는 마지막 채팅 메시지의 단계와 같은 요소를 강조한다(예: 오른쪽 설명 카드)
+  const lastMsg=[...s.querySelectorAll('.chat .msg[data-step].shown')].pop();
+  s.querySelectorAll('[data-active-step]').forEach(el=>el.classList.toggle('active',!!lastMsg&&el.dataset.activeStep===lastMsg.dataset.step));
   // 처음에는 맨 위부터 보여 주고, 새 메시지가 아래로 넘칠 때만 그 메시지의 '시작'이 보이도록 올린다(끝부분만 보이지 않게)
   s.querySelectorAll('.chat').forEach(c=>{const last=[...c.querySelectorAll('[data-step].shown')].pop();
     if(!last){c.scrollTop=0;return}
