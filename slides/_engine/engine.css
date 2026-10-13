@@ -150,3 +150,7 @@ body.ov [data-step]{opacity:1;transform:none}
 .chat .msg.me.tr.translated::before{color:#fff}
 .chat .msg.typing::before{content:none}
 @keyframes trin{from{opacity:0;filter:blur(4px)}to{opacity:1;filter:none}}
+
+/* 한국어 보조 줄: 일본어 제목과 간격을 일정하게, 너무 길게 퍼지지 않게 */
+h1+.kr,h2+.kr,h1+.kr.s,h2+.kr.s{margin-top:18px}
+.kr{max-width:1500px;line-height:1.5}
