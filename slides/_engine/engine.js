@@ -39,7 +39,7 @@ document.getElementById('next').onclick=fwd;
 function steps(){return +(slides[cur].dataset.steps||0)}
 // 단계 표시. data-step="N" 인 요소는 N 단계부터 보이고(.shown), .chat 은 새 메시지가 보이도록 아래로 스크롤한다.
 const TR_HOLD=900; // 원문(한국어)이 보인 뒤 번역 스트리밍을 시작하기까지
-const TR_CPS=90;   // 번역 스트리밍 속도(글자/초)
+const TR_CPS=35;   // 번역 스트리밍 속도(글자/초)
 // 번역 스트리밍: .ko 와 .ja 의 글자 마디(text node)를 순서대로 짝지어, 한국어 문장을 하나씩 일본어로 흘려 쓰듯 바꾼다.
 // 마디 수가 다르면 한 번에 바꾼다. 끝나면 .translated 로 원래 .ja 를 보여 주므로 T 키 토글은 그대로 동작한다.
 const textNodes=el=>{const w=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,{acceptNode:n=>n.nodeValue.trim()?1:3});const a=[];while(w.nextNode())a.push(w.currentNode);return a};
