@@ -87,3 +87,10 @@
 .shots figure[data-step]:not(.shown)>*{opacity:0}
 .shots figure[data-step]:not(.shown)::after{content:"📷 キャプチャ待ち…";position:absolute;inset:0;display:grid;place-items:center;color:var(--sub);font:500 18px var(--kr)}
 .shots figure[data-step]>*{transition:opacity .5s ease}
+/* 21장: jennifer5-mcp 질문이 핵심이라 대화 전체가 스크롤 없이 한 화면에 들어가게 줄인다 */
+.chat.gpt{font-size:18px;line-height:1.5;gap:10px}
+.chat.gpt .msg.me{font-size:18px;padding:10px 18px}
+.chat.gpt .msg.tool{gap:1px;font-size:13px}
+.chat.gpt .msg.tool code{font-size:12.5px}
+.chat.gpt .msg ol{margin-top:2px}.chat.gpt .msg li{margin:1px 0}
+.chat.gpt .composer{padding:7px 10px 7px 16px;font-size:15px}.chat.gpt .composer .send{width:28px;height:28px}

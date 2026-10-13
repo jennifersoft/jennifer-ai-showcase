@@ -26,11 +26,11 @@ html.compact,html.compact body{height:100%;overflow:hidden}
 html.compact main{height:100vh;display:flex;flex-direction:column;padding:14px 16px;max-width:none}
 html.compact .eyebrow,html.compact .status,html.compact .footer,html.compact .data-note,html.compact .call-log,html.compact .kpi-note,html.compact .kpi:after,html.compact #event-note,html.compact .topbar{display:none!important}html.compact .error-card{display:none!important}
 html.compact .topbar{margin-bottom:10px}html.compact .title{font-size:18px}html.compact .subtitle{margin-top:4px;font-size:11px}
-html.compact .kpis{gap:8px;margin-bottom:8px}html.compact .kpi{min-height:0;padding:9px 12px;display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+html.compact .kpis{gap:8px;margin-bottom:8px;grid-template-columns:repeat(4,minmax(0,1fr))!important}html.compact .kpi{min-height:0;padding:9px 12px;display:flex;align-items:baseline;justify-content:space-between;gap:8px}
 html.compact .kpi-value{font-size:20px;margin:0}
-html.compact .charts{flex:1;min-height:0;gap:8px;grid-template-rows:minmax(0,1fr) minmax(0,1fr)}
+html.compact .charts{grid-template-columns:repeat(6,minmax(0,1fr))!important;flex:1;min-height:0;gap:8px;grid-template-rows:minmax(0,1fr) minmax(0,1fr)}
 html.compact .chart-card{display:flex;flex-direction:column;padding:10px 12px 6px;min-height:0}
-html.compact .span-3{grid-column:span 2}html.compact .span-4{grid-column:span 3}html.compact .events{grid-column:span 3}
+html.compact .span-3,html.compact .span-2{grid-column:span 2!important}html.compact .span-4{grid-column:span 3!important}html.compact .events{grid-column:span 3!important}
 html.compact .chart-head{margin-bottom:4px}html.compact .chart-wrap,html.compact .chart-wrap.short{flex:1;height:auto;min-height:0}
 html.compact .cpu-legend{margin:4px 0 0}html.compact .chart-wrap{position:relative;overflow:hidden}html.compact .chart-wrap canvas{position:absolute;inset:0}html.compact .events{display:flex;flex-direction:column;overflow:hidden}
 html.compact .events .table-scroll{overflow:hidden}html.compact th,html.compact td{padding:6px 8px}html.compact #event-rows tr:nth-child(n+5){display:none}
