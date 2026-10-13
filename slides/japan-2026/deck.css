@@ -26,3 +26,8 @@
 .pd b{font:700 18px var(--mono);color:var(--hot);min-width:170px}
 .pd li.ack b{color:#FFC24B}
 .pd i{margin-left:auto;font-style:normal;color:var(--sub);font-size:18px}
+.pdshot{position:absolute;inset:60px 80px;margin:0;display:flex;flex-direction:column;align-items:center;gap:14px;opacity:0;transform:scale(.96);transition:opacity .5s,transform .5s;pointer-events:none;z-index:5}
+.pdshot.in{opacity:1;transform:none}
+.pdshot::before{content:"";position:absolute;inset:-60px -80px;background:var(--ink);opacity:.94;z-index:-1}
+.pdshot img{flex:1;min-height:0;max-width:100%;object-fit:contain;border-radius:14px;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.pdshot figcaption{font-size:26px;text-align:center}.pdshot figcaption .kr{display:block}

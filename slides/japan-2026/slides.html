@@ -167,7 +167,7 @@
   <h3 data-a style="--d:11;font-size:44px">一貫して「お客様が拡張できる構造」を目指してきました。</h3>
   <p class="kr s" data-a style="--d:11">일관되게 '고객이 직접 확장할 수 있는 구조'를 지향해 왔고, 이제 AI가 그 문턱을 크게 낮췄습니다.</p>
 </section>
-<section class="slide" id="s-adapter" data-steps="4" data-notes="[데모] 일본 고객 요청으로 실제로 만든 PagerDuty 어댑터. 코드는 jennifer-view-adapter-pagerduty의 PagerDutyAdapter.kt 실제 코드(발췌). 빌드는 mvn clean package, Adapter ID는 pagerduty." data-script="이것이 일본 고객의 요청으로 실제로 만든 PagerDuty 어댑터입니다. 제니퍼 장애 이벤트를 PagerDuty로 보내는 어댑터를 만들어 달라고 프롬프트 한 줄을 입력하면, AI가 코드를 만들고, 빌드하고, 제니퍼에 등록합니다. 그러면 제니퍼에서 장애가 났을 때 PagerDuty에 인시던트가 바로 생깁니다.">
+<section class="slide" id="s-adapter" data-steps="5" data-notes="[데모] 일본 고객 요청으로 실제로 만든 PagerDuty 어댑터. 코드는 jennifer-view-adapter-pagerduty의 PagerDutyAdapter.kt 실제 코드(발췌). 빌드는 mvn clean package, Adapter ID는 pagerduty." data-script="이것이 일본 고객의 요청으로 실제로 만든 PagerDuty 어댑터입니다. 제니퍼 장애 이벤트를 PagerDuty로 보내는 어댑터를 만들어 달라고 프롬프트 한 줄을 입력하면, AI가 코드를 만들고, 빌드하고, 제니퍼에 등록합니다. 그러면 제니퍼에서 장애가 났을 때 PagerDuty에 인시던트가 바로 생깁니다. 이것이 PagerDuty에 생긴 인시던트입니다. 장애 종류와 인스턴스, 트랜잭션 ID가 함께 오고, 링크를 누르면 제니퍼 트랜잭션 분석 화면으로 바로 갑니다.">
   <div>
     <p class="eyebrow" data-a>Live</p>
     <h2 data-a style="--d:1;font-size:64px">PagerDuty アダプターをAIで</h2>
@@ -182,7 +182,8 @@
     <div class="step" data-s="2">登録<span class="kr s">등록 · Adapter ID: pagerduty</span></div>
     <div class="step" data-s="3">インシデント<span class="kr s">인시던트 · PagerDuty에 생성</span></div>
   </div>
-  <div class="toast" id="toast"><div class="ico" style="background:#06AC38">P</div><div><b>Triggered · Critical</b><span>[JENNIFER] Groupware · SERVICE_EXCEPTION<br>View in JENNIFER5 → X-View</span></div></div>
+  <div class="toast" id="toast"><div class="ico" style="background:#06AC38">P</div><div><b>Triggered · Critical</b><span>SERVICE_EXCEPTION: approval line not found (groupware-01)<br>Transaction Analysis →</span></div></div>
+  <figure class="pdshot" id="pdshot"><img src="/media/japan-2026/pagerduty-incident.jpg" alt="PagerDuty incident from JENNIFER5"><figcaption>PagerDuty に届いたインシデント<span class="kr s">PagerDuty에 생긴 인시던트입니다. 오른쪽은 어댑터가 실제로 보내는 데이터입니다.</span></figcaption></figure>
 </section>
 <section class="slide" data-notes="고백 하나: 저는 PagerDuty라는 서비스를 이 요청으로 처음 알았습니다. (잠시 멈춤) 그래도 AI와 스킬로 만들 수 있었습니다. 심각도 매핑, 자동 해소, X-View 직링크(README 기준)." data-script="고백을 하나 하겠습니다. 저는 PagerDuty라는 서비스를 이 요청을 받고 처음 알았습니다. (잠시 멈춤) 그래도 AI와 함께 만들 수 있었습니다. 요청을 받고, AI와 구현하고, 문서와 설정을 정리해서 GitHub에 공개했습니다. 장애 심각도 매핑, 복구되면 인시던트 자동 해소, 알림에서 제니퍼 트랜잭션 분석 화면으로 바로 가는 링크까지 들어 있습니다.">
   <div>

@@ -33,6 +33,7 @@ hooks['s-adapter']=async st=>{
   const P='JENNIFERの障害イベントをPagerDutyに送るアダプターを作って';
   const p=document.getElementById('ptext2'),code=document.getElementById('code'),toast=document.getElementById('toast'),steps=[...document.querySelectorAll('.step')];
   const run=code._run=(code._run||0)+1,alive=()=>code._run===run&&cur===slides.indexOf(document.getElementById('s-adapter'));
+  document.getElementById('pdshot').classList.toggle('in',st===5);
   if(st===0){toast.classList.remove('in');steps.forEach(s=>s.classList.remove('done'));code.innerHTML='';delete code.dataset.done;p._tok=(p._tok||0)+1;p.textContent='';return}
   if(st===1){typer(p,P,45);return}
   p._tok++;p.textContent=P;
@@ -41,4 +42,4 @@ hooks['s-adapter']=async st=>{
   const full=()=>{if(code.dataset.done)return;code.innerHTML='';for(const[cls,txt]of CODE){const sp=document.createElement('span');if(cls!==' ')sp.className=cls;sp.textContent=txt;code.appendChild(sp);if(cls==='c')code.appendChild(document.createTextNode('\n'))}code.dataset.done='1'};
   if(st>=3)full();
   if(st===3){for(let i=0;i<3;i++){if(!alive())return;steps[i].classList.add('done');await wait(450)}return}
-  if(st===4){steps.forEach(s=>s.classList.add('done'));toast.classList.add('in')}};
+  if(st>=4){steps.forEach(s=>s.classList.add('done'));toast.classList.add('in')}};
