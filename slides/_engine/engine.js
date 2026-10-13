@@ -39,29 +39,22 @@ document.getElementById('next').onclick=fwd;
 function steps(){return +(slides[cur].dataset.steps||0)}
 // 단계 표시. data-step="N" 인 요소는 N 단계부터 보이고(.shown), .chat 은 새 메시지가 보이도록 아래로 스크롤한다.
 const TR_HOLD=900; // 원문(한국어)이 보인 뒤 번역 스트리밍을 시작하기까지
-const TR_CPS=35;   // 번역 스트리밍 속도(글자/초)
-// 번역 스트리밍: .ko 와 .ja 의 글자 마디(text node)를 순서대로 짝지어, 한국어 문장을 하나씩 일본어로 흘려 쓰듯 바꾼다.
-// 마디 수가 다르면 한 번에 바꾼다. 끝나면 .translated 로 원래 .ja 를 보여 주므로 T 키 토글은 그대로 동작한다.
+const TR_STEP=260; // 번역 전환 간격(마디마다, ms)
+// 번역 전환: .ko 와 .ja 의 글자 마디(text node)를 순서대로 짝지어, 마디마다 흐려지며 사라졌다 일본어로 또렷하게 나타난다.
+// 마디 수가 다르면 말풍선 전체를 한 번에 바꾼다. 끝나면 .translated 로 원래 .ja 를 보여 주므로 T 키 토글은 그대로 동작한다.
 const textNodes=el=>{const w=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,{acceptNode:n=>n.nodeValue.trim()?1:3});const a=[];while(w.nextNode())a.push(w.currentNode);return a};
-// 번역 중인 마디: 번역된 앞부분(일본어) + 아직 안 바뀐 뒷문장(한국어). 문장 수가 같으면 문장 단위로, 다르면 길이 비율로 남긴다.
-const sents=t=>t.match(/[^.!?。！？]+[.!?。！？]*\s*|\s+/g)||[t];
-function mix(ko,ja,c){const a=sents(ko),b=sents(ja);
-  if(a.length===b.length){let n=0,k=0;while(k<b.length&&n+b[k].length<=c){n+=b[k].length;k++}return ja.slice(0,c)+a.slice(k+(c>n?1:0)).join('')}
-  return ja.slice(0,c)+ko.slice(Math.round(c/ja.length*ko.length))}
-const trLen=e=>{const j=e.querySelector('.ja');return j?j.textContent.replace(/\s+/g,'').length:0};
+const trUnits=e=>{const k=e.querySelector('.ko');return k?textNodes(k).length:0};
 function streamTranslate(e,done){
   const ko=e.querySelector('.ko'),ja=e.querySelector('.ja');if(!ko||!ja){e.classList.add('translated');done();return}
   const st=ko.cloneNode(true);st.className='st';const dst=textNodes(st),src=textNodes(ja);
   if(dst.length!==src.length){e.classList.add('translated');done();return}
+  const units=dst.map(n=>{const sp=document.createElement('span');sp.className='tu';n.replaceWith(sp);sp.appendChild(n);return sp});
   e.querySelector('.st')?.remove();ko.after(st);e.classList.add('streaming');
-  const orig=dst.map(n=>n.nodeValue);const tok=e._tok=(e._tok||0)+1;let i=0,c=0;
-  const tick=()=>{if(e._tok!==tok)return;
-    if(i>=dst.length){e.classList.add('streamed','translated');e.classList.remove('streaming');st.remove();done();return}
-    const t=src[i].nodeValue;c=Math.min(t.length,c+Math.max(1,Math.round(TR_CPS/30)));
-    dst[i].nodeValue=mix(orig[i],t,c);dst[i].parentElement.classList.add('cur');
-    if(c>=t.length){dst[i].parentElement.classList.remove('cur');i++;c=0}
-    done(true);e._tr=setTimeout(tick,33)};
-  tick()}
+  const tok=e._tok=(e._tok||0)+1;
+  units.forEach((u,i)=>{
+    setTimeout(()=>{if(e._tok===tok)u.classList.add('out')},i*TR_STEP);
+    setTimeout(()=>{if(e._tok!==tok)return;u.firstChild.nodeValue=src[i].nodeValue;u.classList.remove('out');u.classList.add('in');done(true)},i*TR_STEP+220)});
+  e._tr=setTimeout(()=>{if(e._tok!==tok)return;e.classList.add('streamed','translated');e.classList.remove('streaming');st.remove();done()},units.length*TR_STEP+700)}
 function showStep(){const n=steps();document.getElementById('st').textContent=n?`▸ ${step}/${n}`:'';
   const s=slides[cur];
   // 이번 단계에서 새로 나타나는 채팅 메시지는 하나씩: 내 말풍선은 바로, AI 말풍선은 '입력 중…' 뒤에 나타난다
@@ -74,7 +67,7 @@ function showStep(){const n=steps();document.getElementById('st').textContent=n?
       // .tr 말풍선: 원문(한국어)이 먼저 보이고, 잠시 뒤 번역(일본어)으로 바뀐다
       // 원문(한국어)을 TR_HOLD ms 동안 읽을 수 있게 보여 준 뒤 번역(일본어)으로 바꾼다
       if(e.classList.contains('tr'))e._tr=setTimeout(()=>streamTranslate(e,()=>scrollChat(s)),delay+(ai?900:0)+TR_HOLD);
-      delay+=(+e.dataset.hold||0)+(e.classList.contains('tr')?(ai?900:0)+TR_HOLD+trLen(e)/TR_CPS*1000+600:(ai?1500:500))}
+      delay+=(+e.dataset.hold||0)+(e.classList.contains('tr')?(ai?900:0)+TR_HOLD+trUnits(e)*TR_STEP+900:(ai?1500:500))}
     else{e._t=setTimeout(()=>e.classList.add('shown'),delay)}});
   scrollChat(s);
   // 단계 연출(채팅 등)이 모두 끝나면 '다음 장' 안내를 띄운다
