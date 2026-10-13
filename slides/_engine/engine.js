@@ -18,7 +18,7 @@ function go(i){
   document.getElementById('pg').textContent=`${i+1} / ${slides.length}`;
   document.getElementById('bar').style.width=`${(i+1)/slides.length*100}%`;
   document.getElementById('notes').textContent=s.dataset.notes||'';
-  renderScript();
+  renderScript();hideNextHint();
   // data-autoplay 장은 들어오자마자 모든 단계를 순서대로 자동 재생한다(→ 는 바로 다음 장)
   step=s.hasAttribute('data-autoplay')?steps():0;showStep();hooks[s.id]&&hooks[s.id](step);
   try{history.replaceState(null,'','#s'+(i+1))}catch(e){}
@@ -53,7 +53,9 @@ function showStep(){const n=steps();document.getElementById('st').textContent=n?
       if(e.classList.contains('tr'))e._tr=setTimeout(()=>{e.classList.add('translated');scrollChat(s)},delay+(ai?900:0)+TR_HOLD);
       delay+=e.classList.contains('tr')?(ai?900+TR_HOLD+700:TR_HOLD+500):(ai?1500:500)}
     else{e._t=setTimeout(()=>e.classList.add('shown'),delay)}});
-  scrollChat(s)}
+  scrollChat(s);
+  // 단계 연출(채팅 등)이 모두 끝나면 '다음 장' 안내를 띄운다
+  clearTimeout(s._doneT);if(steps()&&step>=steps()&&s.querySelector('[data-step]'))s._doneT=setTimeout(()=>{if(slides[cur]===s)showNextHint()},delay+(s.querySelector('.msg.tr')?TR_HOLD+900:900))}
 function scrollChat(s){
   // data-active-step="N": 지금 보이는 마지막 채팅 메시지의 단계와 같은 요소를 강조한다(예: 오른쪽 설명 카드)
   const lastMsg=[...s.querySelectorAll('.chat .msg[data-step].shown')].pop();
@@ -142,11 +144,11 @@ draw();
       busy=true;v.pause();pl.classList.add('turning');phone.className='pl-phone '+from;void phone.offsetWidth;
       requestAnimationFrame(()=>{phone.className='pl-phone '+to+' go'});
       setTimeout(()=>{start();setTimeout(()=>{pl.classList.remove('turning');phone.className='pl-phone';busy=false},250)},900)};
-    v.addEventListener('ended',()=>play(idx+1));
+    v.addEventListener('ended',()=>{if(idx===tabs.length-1&&slides[cur]===pl.closest('.slide'))showNextHint();play(idx+1)});
     // data-max="초": 그 시간까지만 재생하고 다음 영상으로 (긴 영상을 줄여 보여줄 때)
     v.addEventListener('timeupdate',()=>{const max=+tabs[idx].dataset.max||v.duration;if(!max)return;
       tabs[idx].style.setProperty('--p',Math.min(100,v.currentTime/max*100)+'%');
-      if(tabs[idx].dataset.max&&v.currentTime>=max)play(idx+1)});
+      if(tabs[idx].dataset.max&&v.currentTime>=max){if(idx===tabs.length-1)showNextHint();play(idx+1)}});
     tabs.forEach((t,k)=>t.addEventListener('click',e=>{e.stopPropagation();play(k)}));
     pl.addEventListener('click',e=>e.stopPropagation());
     const slide=pl.closest('.slide');let wasOn=false;
@@ -164,3 +166,9 @@ function toggleScript(){const b=document.getElementById('script');b.hidden=!b.hi
 document.getElementById('sc')&&(document.getElementById('sc').onclick=toggleScript);
 document.getElementById('script')&&document.getElementById('script').addEventListener('click',e=>e.stopPropagation());
 renderScript();
+
+// '다음 장' 안내: 채팅·영상 장이 끝나면 오른쪽에 반투명 큰 화살표. 누르면 다음 장
+const nextHint=document.createElement('button');nextHint.id='next-hint';nextHint.setAttribute('aria-label','次へ');nextHint.textContent='→';
+nextHint.addEventListener('click',e=>{e.stopPropagation();go(cur+1)});document.body.appendChild(nextHint);
+function showNextHint(){if(cur<slides.length-1&&!document.body.classList.contains('ov'))nextHint.classList.add('show')}
+function hideNextHint(){nextHint.classList.remove('show');slides.forEach(s=>clearTimeout(s._doneT))}

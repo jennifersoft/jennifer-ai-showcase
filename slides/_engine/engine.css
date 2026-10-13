@@ -185,3 +185,9 @@ h1+.kr,h2+.kr,h1+.kr.s,h2+.kr.s{margin-top:18px}
 .playlist[data-o="portrait"] .pl-dim{opacity:1;left:38.85%;top:5.93%;width:22.19%;height:87.96%;border-radius:3.1cqw}
 .playlist[data-o="landscape"] .pl-dim{opacity:1;left:6.56%;top:13.7%;width:86.77%;height:72.41%;border-radius:5.7cqw}
 .playlist.turning .pl-dim{opacity:0}
+
+/* 다음 장 안내 화살표 */
+#next-hint{position:fixed;right:28px;top:50%;width:84px;height:84px;margin-top:-42px;border-radius:50%;border:2px solid rgba(255,255,255,.35);background:rgba(124,115,194,.28);backdrop-filter:blur(4px);color:#fff;font:700 40px/1 var(--mono);cursor:pointer;z-index:8;opacity:0;pointer-events:none;transform:translateX(16px);transition:opacity .4s ease,transform .4s ease}
+#next-hint.show{opacity:.85;pointer-events:auto;transform:none;animation:nudge 1.6s ease-in-out infinite}
+#next-hint:hover{opacity:1;background:rgba(124,115,194,.55)}
+@keyframes nudge{0%,100%{transform:none}50%{transform:translateX(8px)}}
