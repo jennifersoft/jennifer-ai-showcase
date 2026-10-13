@@ -83,7 +83,7 @@ function liveFrame(src: string | null, title: string): string {
     return `<div class="empty">${escapeHtml(title)} 未設定 / 주소 미설정</div>`;
   }
   // 보호막(shield)이 덮여 있어 클릭·키보드는 슬라이드가 받는다. I 키로 iframe을 직접 조작하는 모드로 바꾼다.
-  return `<div class="frame"><iframe src="${escapeHtml(src)}" title="${escapeHtml(title)}" loading="lazy" allow="fullscreen"></iframe><div class="shield"></div></div><p class="hint">I : 画面操作 / 조작 모드 전환</p>`;
+  return `<div class="frame"><iframe src="${escapeHtml(src)}" title="${escapeHtml(title)}" loading="lazy" allow="fullscreen"></iframe><div class="shield"></div></div><p class="hint"><span class="off">I : 画面を直接操作 / 조작 모드 켜기 (마우스로 차트 값 보기·클릭)</span><span class="on">● 操作中 · 余白クリックで戻る / 조작 중 · 슬라이드 여백을 클릭하면 돌아옵니다</span></p>`;
 }
 
 /** {{live:...}} 자리표시자를 iframe으로 바꾼다. 이 서버 페이지에는 덱의 언어(lang)를 넘겨 위젯 문구를 맞춘다. */

@@ -191,3 +191,10 @@ h1+.kr,h2+.kr,h1+.kr.s,h2+.kr.s{margin-top:18px}
 #next-hint.show{opacity:.85;pointer-events:auto;transform:none;animation:nudge 1.6s ease-in-out infinite}
 #next-hint:hover{opacity:1;background:rgba(124,115,194,.55)}
 @keyframes nudge{0%,100%{transform:none}50%{transform:translateX(8px)}}
+
+/* 라이브 조작 모드 표시 */
+.live .hint .on{display:none;color:var(--hot);font-weight:700}
+.live.interact .hint .on{display:inline}
+.live.interact .hint .off{display:none}
+.live.interact .frame{outline:3px solid var(--hot);outline-offset:4px;border-radius:16px}
+.playlist[data-o] .pl-dim{box-shadow:0 0 0 200vmax rgba(9,13,24,.62)}
