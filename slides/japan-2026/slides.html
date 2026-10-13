@@ -8,16 +8,15 @@
   <p data-a style="--d:4;font:500 28px var(--mono);color:var(--sub)">洪在錫（ホン・ジェソク） · JenniferSoft R&amp;Dチーム Frontend Tech Lead</p>
   <p class="kr s" data-a style="--d:4">발표자: 홍재석(洪在錫) · 제니퍼소프트 R&amp;D팀 Frontend Tech Lead</p>
 </section>
-<section class="slide" id="s-agenda" data-notes="오늘의 네 가지 이야기. 1) 개발자인 제가 AI를 쓰는 방법 2) 사용자가 AI로 제니퍼를 확장하는 방법(PagerDuty) 3) 통합 대시보드에서 제니퍼 데이터를 보는 방법 4) MCP로 Open API 대시보드를 바로 만드는 방법(ChatGPT)." data-script="오늘은 네 가지 이야기를 준비했습니다. 첫 번째는 개발자인 제가 AI를 어떻게 쓰는지입니다. 두 번째는 제니퍼 사용자가 AI로 제니퍼를 직접 확장하는 방법으로, PagerDuty 사례를 보여드리겠습니다. 세 번째는 이미 쓰고 계신 통합 대시보드에서 제니퍼 데이터를 보는 방법이고, 네 번째는 MCP를 이용해 대화만으로 대시보드를 만드는 방법입니다.">
+<section class="slide" id="s-agenda" data-notes="오늘의 세 가지 이야기. 1) 개발자인 제가 AI를 쓰는 방법 2) 사용자가 AI로 제니퍼를 확장하는 방법(PagerDuty) 3) MCP로 Open API 대시보드를 바로 만드는 방법(ChatGPT)." data-script="오늘은 세 가지 이야기를 준비했습니다. 첫 번째는 개발자인 제가 AI를 어떻게 쓰는지입니다. 두 번째는 제니퍼 사용자가 AI로 제니퍼를 직접 확장하는 방법으로, PagerDuty 사례를 보여드리겠습니다. 세 번째는 MCP를 이용해 대화만으로 대시보드를 만드는 방법입니다.">
   <div>
-    <h2 data-a style="--d:1">今日の4つの話</h2>
-    <p class="kr s" data-a style="--d:1">오늘은 네 가지를 이야기합니다. 개발자인 제가 AI를 쓰는 방법, 사용자가 AI로 제니퍼를 확장하는 방법, 그리고 제니퍼 데이터를 밖에서 활용하는 두 가지 방법입니다.</p>
+    <h2 data-a style="--d:1">今日の3つの話</h2>
+    <p class="kr s" data-a style="--d:1">오늘은 세 가지를 이야기합니다. 개발자인 제가 AI를 쓰는 방법, 사용자가 AI로 제니퍼를 확장하는 방법, 그리고 MCP로 대시보드를 바로 만드는 방법입니다.</p>
   </div>
-  <div class="skill" style="margin:auto 0;align-items:stretch;grid-template-columns:repeat(4,minmax(0,1fr))">
+  <div class="skill" style="margin:auto 0;align-items:stretch;grid-template-columns:repeat(3,minmax(0,1fr))">
     <div class="card" data-a style="--d:2"><span class="ic" style="font-size:72px">01</span><h3 style="font-size:31px;line-height:1.35;word-break:keep-all;white-space:nowrap">開発者は<br>AIをどう使うか</h3><p class="kr s">제니퍼 개발자가 AI를 활용하는 방법</p></div>
     <div class="card" data-a style="--d:3"><span class="ic" style="font-size:72px">02</span><h3 style="font-size:31px;line-height:1.35;word-break:keep-all;white-space:nowrap">ユーザーは<br>AIをどう使うか</h3><p class="kr s">제니퍼 사용자가 AI를 활용하는 방법 · PagerDuty</p></div>
-    <div class="card" data-a style="--d:4"><span class="ic" style="font-size:72px">03</span><h3 style="font-size:31px;line-height:1.35;word-break:keep-all;white-space:nowrap">統合ダッシュボードで<br>JENNIFERを見る</h3><p class="kr s">통합 대시보드에서 제니퍼 데이터를 보고 싶을 때</p></div>
-    <div class="card" data-a style="--d:5"><span class="ic" style="font-size:72px">04</span><h3 style="font-size:31px;line-height:1.35;word-break:keep-all;white-space:nowrap">MCPで<br>ダッシュボードを作る</h3><p class="kr s">MCP로 Open API 대시보드를 바로 만들기 · ChatGPT</p></div>
+    <div class="card" data-a style="--d:4"><span class="ic" style="font-size:72px">03</span><h3 style="font-size:31px;line-height:1.35;word-break:keep-all;white-space:nowrap">MCPで<br>ダッシュボードを作る</h3><p class="kr s">MCP로 Open API 대시보드를 바로 만들기 · ChatGPT</p></div>
   </div>
 </section>
 <section class="slide sec" data-notes="첫 번째 이야기: 개발자인 제가 AI와 어떻게 일하는지." data-script="먼저 첫 번째 이야기입니다. 제니퍼를 만드는 개발자인 제가 매일 AI와 어떻게 일하는지 보여드리겠습니다.">
@@ -239,71 +238,14 @@
   </div>
   <div class="live" data-a style="--d:2">{{live:jennifer}}</div>
 </section>
-<section class="slide sec" data-notes="세 번째 이야기: 이미 통합 대시보드를 운영 중이라면, 그 안에 제니퍼 데이터를 넣을 수 있습니다." data-script="세 번째 이야기입니다. 이번에는 방향이 반대입니다. 이미 다른 통합 대시보드를 운영하고 계신다면, 그 안에 제니퍼 데이터를 넣을 수 있습니다.">
+<section class="slide sec" data-notes="세 번째 이야기: 대시보드를 직접 개발하지 않아도, ChatGPT에 제니퍼 MCP를 연결하면 대화만으로 Open API 대시보드를 만들 수 있습니다." data-script="세 번째 이야기입니다. 대시보드를 직접 개발하지 않아도 됩니다. ChatGPT에 제니퍼 MCP를 연결하면 대화만으로 대시보드를 만들 수 있습니다.">
   <div class="spacer"></div>
   <p class="num" data-a="left">03</p>
-  <h2 data-a style="--d:2;font-size:96px">統合ダッシュボードで、<br>JENNIFERを見る</h2>
-  <p class="kr" data-a style="--d:3">세 번째, 이미 통합 대시보드를 운영 중이라면 그 안에 제니퍼 데이터를 넣을 수 있습니다. 이번에는 방향이 반대입니다.</p>
-  <div class="spacer"></div>
-</section>
-<section class="slide" data-notes="방향을 반대로. 고객의 통합 관제판이 주인공이고, 제니퍼 차트는 부품이 됩니다. 제니퍼 차트는 /popup/chartIframe 주소로 넣고, 같은 브라우저의 제니퍼 로그인 세션을 씁니다." data-script="고객이 이미 쓰고 계신 통합 대시보드에 제니퍼 차트를 iframe으로 넣습니다. 주인공은 고객의 화면이고, 제니퍼는 인프라나 업무 지표 옆에 들어가는 부품이 됩니다.">
-  <div>
-    <h2 data-a style="--d:1;font-size:64px">お客様の統合ダッシュボードに、JENNIFERチャートを</h2>
-    <p class="kr s" data-a style="--d:1">고객이 이미 쓰는 통합 대시보드에 제니퍼 차트를 iframe으로 넣습니다. 제니퍼가 인프라·업무 지표 옆에 부품으로 들어갑니다.</p>
-  </div>
-  <div class="row" style="flex:1;align-items:center">
-    <div class="dash" data-a="scale" style="--d:3;flex:1.6;grid-template-rows:200px 200px">
-      <div class="tile"><span class="t">インフラ · 인프라</span><canvas data-chart="line" data-c="#5D6B83" data-unit="%"></canvas></div>
-      <div class="tile"><span class="t">業務KPI · 업무 KPI</span><canvas data-chart="bars" data-c="#5D6B83" data-max="500"></canvas></div>
-      <div class="tile"><span class="t">ネットワーク · 네트워크</span><canvas data-chart="line" data-c="#5D6B83" data-unit="M"></canvas></div>
-      <div class="tile" style="grid-column:span 2;outline:3px solid var(--cool);outline-offset:-3px"><span class="t cl">JENNIFER · X-View</span><canvas data-chart="xview"></canvas></div>
-      <div class="tile" style="outline:3px solid var(--cool);outline-offset:-3px"><span class="t cl">JENNIFER · TPS</span><canvas data-chart="line" data-c="#4FB3FF" data-max="200"></canvas></div>
-    </div>
-    <div data-a style="--d:6;display:flex;flex-direction:column;gap:16px">
-      <h3 style="font-size:52px;font-weight:900">主役は<br>お客様の画面。</h3>
-      <p style="font-size:34px;color:var(--sub)">JENNIFERは部品になります。</p>
-      <p class="kr s">주인공은 고객의 화면, 제니퍼는 부품입니다.</p>
-    </div>
-  </div>
-</section>
-<section class="slide" id="s-live-integrated" data-notes="[라이브] 우리가 만든 통합 대시보드. 왼쪽 제니퍼 차트(chartIframe), 오른쪽 외부 데이터 소스(Prometheus 데모). 서로 다른 서버의 데이터임을 말합니다." data-script="실제 화면입니다. 왼쪽은 제니퍼 차트이고, 오른쪽은 외부 데이터 소스, 여기서는 공개된 Prometheus 데모의 서버 지표입니다. 서로 다른 서버의 데이터라는 점은 참고해 주십시오. 이렇게 제니퍼 데이터를 고객의 화면 안으로 가져갈 수 있습니다.">
-  <div>
-    <p class="eyebrow" data-a style="color:var(--cool)">Live · Outside JENNIFER</p>
-    <h2 data-a style="--d:1;font-size:56px">統合ダッシュボード（実画面）</h2>
-    <p class="kr s" data-a style="--d:1">실제 화면입니다. 왼쪽은 제니퍼 차트, 오른쪽은 외부 데이터 소스(Prometheus 데모)의 서버 지표입니다. 서로 다른 서버의 데이터입니다.</p>
-  </div>
-  <div class="live" data-a style="--d:2">{{live:/dashboards/integrated}}</div>
-</section>
-<section class="slide" id="s-both" data-notes="02와 03을 한 장으로. 제니퍼 안에 외부를(02), 외부 안에 제니퍼를(03). 경계는 양방향입니다." data-script="정리하면, 경계는 양방향으로 넘을 수 있습니다. 제니퍼 안에 외부 화면을 넣을 수도 있고, 외부 화면 안에 제니퍼를 넣을 수도 있습니다.">
-    <div>
-    <h2 data-a style="--d:1">境界は、どちら向きにも越えられる</h2>
-    <p class="kr s" data-a style="--d:1">경계는 양방향으로 넘을 수 있습니다. 제니퍼 안에 외부 화면을, 외부 화면 안에 제니퍼를 넣을 수 있습니다.</p>
-  </div>
-  <div class="both">
-    <figure class="win jen" data-a="left" style="--d:2">
-      <div class="bar"><i></i><i></i><i></i><b>JENNIFER</b><em>ユーザー定義ダッシュボード</em></div>
-      <div class="grid"><div class="mt "><span>TPS</span><svg viewBox="0 0 100 40" preserveAspectRatio="none"><polyline points="0,30 10,26 20,28 30,18 40,22 50,12 60,16 70,8 80,14 90,10 100,4" fill="none" stroke="#9A91E6" stroke-width="2.5" vector-effect="non-scaling-stroke"/></svg></div><div class="mt "><span>Response</span><svg viewBox="0 0 100 40" preserveAspectRatio="none"><polyline points="0,30 10,26 20,28 30,18 40,22 50,12 60,16 70,8 80,14 90,10 100,4" fill="none" stroke="#3DDC97" stroke-width="2.5" vector-effect="non-scaling-stroke"/></svg></div><div class="mt "><span>Active</span><svg viewBox="0 0 100 40" preserveAspectRatio="none"><rect x="2" y="22" width="6" height="18" fill="#4FB3FF"/><rect x="12" y="14" width="6" height="26" fill="#4FB3FF"/><rect x="22" y="26" width="6" height="14" fill="#4FB3FF"/><rect x="32" y="10" width="6" height="30" fill="#4FB3FF"/><rect x="42" y="18" width="6" height="22" fill="#4FB3FF"/><rect x="52" y="6" width="6" height="34" fill="#4FB3FF"/><rect x="62" y="20" width="6" height="20" fill="#4FB3FF"/><rect x="72" y="12" width="6" height="28" fill="#4FB3FF"/><rect x="82" y="24" width="6" height="16" fill="#4FB3FF"/><rect x="92" y="16" width="6" height="24" fill="#4FB3FF"/></svg></div><div class="mt emb in-ext"><i class="tag">iframe</i><span>PagerDuty</span><ul><li><b class="r"></b>SERVICE_EXCEPTION</li><li><b class="y"></b>SQL_EXCEPTION</li><li><b class="y"></b>DB_CONNECTION_FAIL</li></ul></div></div>
-      <figcaption><span class="no">02</span>JENNIFERの中に、外部の画面を<small>제니퍼 안에 외부 화면 · PagerDuty 위젯</small></figcaption>
-    </figure>
-    <div class="links" data-a style="--d:3">
-      <div class="lnk to-left"><span>外部 → JENNIFER</span><svg viewBox="0 0 200 20"><path d="M196 10H8m10-8-10 8 10 8"/></svg></div>
-      <div class="lnk to-right"><svg viewBox="0 0 200 20"><path d="M4 10h188m-10-8 10 8-10 8"/></svg><span>JENNIFER → 外部</span></div>
-    </div>
-    <figure class="win cus" data-a style="--d:4">
-      <div class="bar"><i></i><i></i><i></i><b>お客様の画面</b><em>統合ダッシュボード</em></div>
-      <div class="grid"><div class="mt "><span>CPU</span><svg viewBox="0 0 100 40" preserveAspectRatio="none"><polyline points="0,30 10,26 20,28 30,18 40,22 50,12 60,16 70,8 80,14 90,10 100,4" fill="none" stroke="#8E9CB3" stroke-width="2.5" vector-effect="non-scaling-stroke"/></svg></div><div class="mt "><span>Network</span><svg viewBox="0 0 100 40" preserveAspectRatio="none"><rect x="2" y="22" width="6" height="18" fill="#8E9CB3"/><rect x="12" y="14" width="6" height="26" fill="#8E9CB3"/><rect x="22" y="26" width="6" height="14" fill="#8E9CB3"/><rect x="32" y="10" width="6" height="30" fill="#8E9CB3"/><rect x="42" y="18" width="6" height="22" fill="#8E9CB3"/><rect x="52" y="6" width="6" height="34" fill="#8E9CB3"/><rect x="62" y="20" width="6" height="20" fill="#8E9CB3"/><rect x="72" y="12" width="6" height="28" fill="#8E9CB3"/><rect x="82" y="24" width="6" height="16" fill="#8E9CB3"/><rect x="92" y="16" width="6" height="24" fill="#8E9CB3"/></svg></div><div class="mt "><span>業務KPI</span><svg viewBox="0 0 100 40" preserveAspectRatio="none"><polyline points="0,30 10,26 20,28 30,18 40,22 50,12 60,16 70,8 80,14 90,10 100,4" fill="none" stroke="#8E9CB3" stroke-width="2.5" vector-effect="non-scaling-stroke"/></svg></div><div class="mt emb in-jen"><i class="tag">iframe</i><span>JENNIFER · X-View</span><svg viewBox="0 0 100 40" preserveAspectRatio="none"><circle cx="0" cy="8" r="1.6" fill="#9A91E6"/><circle cx="37" cy="31" r="1.6" fill="#9A91E6"/><circle cx="74" cy="24" r="1.6" fill="#9A91E6"/><circle cx="11" cy="17" r="1.6" fill="#9A91E6"/><circle cx="48" cy="10" r="1.6" fill="#9A91E6"/><circle cx="85" cy="33" r="1.6" fill="#9A91E6"/><circle cx="22" cy="26" r="1.6" fill="#9A91E6"/><circle cx="59" cy="19" r="1.6" fill="#9A91E6"/><circle cx="96" cy="12" r="1.6" fill="#9A91E6"/><circle cx="33" cy="35" r="1.6" fill="#9A91E6"/><circle cx="70" cy="28" r="1.6" fill="#9A91E6"/><circle cx="7" cy="21" r="1.6" fill="#9A91E6"/><circle cx="44" cy="14" r="1.6" fill="#9A91E6"/><circle cx="81" cy="37" r="1.6" fill="#9A91E6"/><circle cx="18" cy="30" r="1.6" fill="#9A91E6"/><circle cx="55" cy="23" r="1.6" fill="#9A91E6"/><circle cx="92" cy="16" r="1.6" fill="#9A91E6"/><circle cx="29" cy="9" r="1.6" fill="#9A91E6"/><circle cx="66" cy="32" r="1.6" fill="#9A91E6"/><circle cx="3" cy="25" r="1.6" fill="#9A91E6"/><circle cx="40" cy="18" r="1.6" fill="#9A91E6"/><circle cx="77" cy="11" r="1.6" fill="#9A91E6"/><circle cx="14" cy="34" r="1.6" fill="#9A91E6"/><circle cx="51" cy="27" r="1.6" fill="#9A91E6"/><circle cx="88" cy="20" r="1.6" fill="#9A91E6"/><circle cx="25" cy="13" r="1.6" fill="#9A91E6"/><circle cx="62" cy="36" r="1.6" fill="#9A91E6"/><circle cx="99" cy="29" r="1.6" fill="#9A91E6"/><circle cx="36" cy="22" r="1.6" fill="#9A91E6"/><circle cx="73" cy="15" r="1.6" fill="#9A91E6"/><circle cx="10" cy="8" r="1.6" fill="#9A91E6"/><circle cx="47" cy="31" r="1.6" fill="#9A91E6"/><circle cx="84" cy="24" r="1.6" fill="#9A91E6"/><circle cx="21" cy="17" r="1.6" fill="#9A91E6"/><circle cx="58" cy="10" r="1.6" fill="#9A91E6"/><circle cx="95" cy="33" r="1.6" fill="#9A91E6"/><circle cx="32" cy="26" r="1.6" fill="#9A91E6"/><circle cx="69" cy="19" r="1.6" fill="#9A91E6"/><circle cx="6" cy="12" r="1.6" fill="#9A91E6"/><circle cx="43" cy="35" r="1.6" fill="#9A91E6"/></svg></div></div>
-      <figcaption><span class="no">03</span>お客様の画面の中に、JENNIFERを<small>고객 화면 안에 제니퍼 · X-View 차트</small></figcaption>
-    </figure>
-  </div>
-</section>
-<section class="slide sec" data-notes="네 번째 이야기: 대시보드를 직접 개발하지 않아도, ChatGPT에 제니퍼 MCP를 연결하면 대화만으로 Open API 대시보드를 만들 수 있습니다." data-script="네 번째 이야기입니다. 대시보드를 직접 개발하지 않아도 됩니다. ChatGPT에 제니퍼 MCP를 연결하면 대화만으로 대시보드를 만들 수 있습니다.">
-  <div class="spacer"></div>
-  <p class="num" data-a="left">04</p>
   <h2 data-a style="--d:2;font-size:96px">MCPで、<br>Open APIからダッシュボードを</h2>
-  <p class="kr" data-a style="--d:3">네 번째, 대시보드를 직접 개발하지 않아도 됩니다. ChatGPT에 제니퍼 MCP를 연결하면 대화만으로 Open API 대시보드를 만들 수 있습니다.</p>
+  <p class="kr" data-a style="--d:3">세 번째, 대시보드를 직접 개발하지 않아도 됩니다. ChatGPT에 제니퍼 MCP를 연결하면 대화만으로 Open API 대시보드를 만들 수 있습니다.</p>
   <div class="spacer"></div>
 </section>
-<section class="slide" id="s-mcp" data-autoplay data-steps="3" data-notes="ChatGPT에 jennifer5-mcp 플러그인(제니퍼 MCP, https://insight-dev.jennifersoft.com/mcp)을 연결하고 한 줄로 요청. AI가 get_domain_list → get_instance_list → get_domain_metric_values → get_transaction_list_by_time → get_event_list → get_error_list 를 호출해 도메인 2000 Simula 대시보드를 만들었습니다. 오른쪽은 그 결과물(jennifer-mcp-dashboard.html?compact)이고, 지금은 제니퍼 Open API로 KPI·X-View 2초, 나머지 차트 10초마다 실시간 갱신합니다(오른쪽 아래 LIVE). 왼쪽 답변의 숫자는 만들 당시(11:39~12:39) 값이라 실시간 값과 다를 수 있습니다." data-script="네 번째 이야기의 실제 화면입니다. ChatGPT에 jennifer5-mcp 플러그인을 연결하고, 최근 1시간 운영 대시보드를 만들어 달라고 한 줄로 요청했습니다. AI가 제니퍼 MCP 도구를 차례로 호출해서 도메인과 인스턴스를 찾고, TPS와 응답시간, X-View 트랜잭션, 이벤트 데이터를 가져옵니다. 그리고 눈에 띄는 점까지 정리해서 대시보드를 만들어 줍니다. 오른쪽 화면이 그 결과물입니다. 지금도 제니퍼 Open API로 2초마다 실제 값을 받아서 살아 있는 대시보드입니다. 오른쪽 아래에 LIVE 표시와 갱신 시각이 보이실 겁니다.">
+<section class="slide" id="s-mcp" data-autoplay data-steps="3" data-notes="ChatGPT에 jennifer5-mcp 플러그인(제니퍼 MCP, https://insight-dev.jennifersoft.com/mcp)을 연결하고 한 줄로 요청. AI가 get_domain_list → get_instance_list → get_domain_metric_values → get_transaction_list_by_time → get_event_list → get_error_list 를 호출해 도메인 2000 Simula 대시보드를 만들었습니다. 오른쪽은 그 결과물(jennifer-mcp-dashboard.html?compact)이고, 지금은 제니퍼 Open API로 KPI·X-View 2초, 나머지 차트 10초마다 실시간 갱신합니다(오른쪽 아래 LIVE). 왼쪽 답변의 숫자는 만들 당시(11:39~12:39) 값이라 실시간 값과 다를 수 있습니다." data-script="세 번째 이야기의 실제 화면입니다. ChatGPT에 jennifer5-mcp 플러그인을 연결하고, 최근 1시간 운영 대시보드를 만들어 달라고 한 줄로 요청했습니다. AI가 제니퍼 MCP 도구를 차례로 호출해서 도메인과 인스턴스를 찾고, TPS와 응답시간, X-View 트랜잭션, 이벤트 데이터를 가져옵니다. 그리고 눈에 띄는 점까지 정리해서 대시보드를 만들어 줍니다. 오른쪽 화면이 그 결과물입니다. 지금도 제니퍼 Open API로 2초마다 실제 값을 받아서 살아 있는 대시보드입니다. 오른쪽 아래에 LIVE 표시와 갱신 시각이 보이실 겁니다.">
   <div>
     <h2 data-a style="--d:1;font-size:56px">MCPで、Open APIから直接ダッシュボードを</h2>
     <p class="kr s" data-a style="--d:1">ChatGPT에 jennifer5-mcp 플러그인을 연결하고 말로 요청하면, AI가 Open API를 직접 호출해 대시보드까지 만듭니다.</p>
