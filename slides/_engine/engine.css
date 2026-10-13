@@ -213,3 +213,12 @@ h1+.kr,h2+.kr,h1+.kr.s,h2+.kr.s{margin-top:18px}
 @keyframes hintarrow{0%,100%{transform:none}50%{transform:translateX(4px)}}
 /* 보라 배경(섹션 표지) 위에서는 어두운 버튼으로 */
 #next-hint.on-sec{background:rgba(7,11,20,.82);border-color:rgba(255,255,255,.35);box-shadow:0 8px 28px rgba(0,0,0,.35)}
+/* 모바일·작은 화면: HUD는 한 줄로 줄이고(이전·쪽수·다음만), 키보드용 버튼과 타이머는 숨긴다. NEXT 버튼도 작게 */
+#hud,#hud *{white-space:nowrap}
+@media (max-width:900px),(max-height:500px){
+  #hud{right:10px;bottom:calc(10px + env(safe-area-inset-bottom));gap:8px;font-size:12px;background:rgba(14,15,18,.72);backdrop-filter:blur(6px);padding:4px;border-radius:10px}
+  #hud #sc,#hud #nt,#hud #fs,#hud #ov,#hud #tm,#hud #st{display:none}
+  #hud button{padding:5px 9px}
+  #next-hint{top:calc(10px + env(safe-area-inset-top));right:10px;height:36px;padding:0 12px 0 14px;font-size:11px;gap:6px}
+  #next-hint svg{width:16px;height:16px}
+}
