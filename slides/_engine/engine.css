@@ -128,3 +128,14 @@ body.ov [data-step]{opacity:1;transform:none}
 .shots figure{margin:0;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#fff;position:relative}
 .shots img{display:block;width:100%;height:100%;object-fit:cover;object-position:top left}
 .shots figcaption{position:absolute;left:8px;bottom:8px;padding:4px 10px;border-radius:6px;background:rgba(7,11,20,.8);color:#fff;font:500 15px var(--kr)}
+
+/* 채팅 활기: 말풍선 팝업, AI 입력 중 표시 */
+.chat .msg[data-step]{transform:translateY(16px) scale(.96);transform-origin:left bottom}
+.chat .msg.me[data-step]{transform-origin:right bottom}
+.chat .msg[data-step].shown{transform:none;transition:opacity .35s ease,transform .45s cubic-bezier(.2,1.4,.4,1)}
+.chat .msg.typing{min-width:96px}
+.chat .msg.typing>*,.chat .msg.typing{color:transparent}
+.chat .msg.typing>*{display:none}
+.chat .msg.typing::after{content:"● ● ●";display:block;font:700 18px/1 var(--mono);letter-spacing:2px;color:var(--sub);animation:typing 1.2s ease-in-out infinite}
+@keyframes typing{0%,100%{opacity:.25}50%{opacity:1}}
+.chat .msg.typing{font-size:0;line-height:0;padding:20px 22px}

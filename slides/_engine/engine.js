@@ -35,8 +35,19 @@ document.getElementById('next').onclick=fwd;
 function steps(){return +(slides[cur].dataset.steps||0)}
 // 단계 표시. data-step="N" 인 요소는 N 단계부터 보이고(.shown), .chat 은 새 메시지가 보이도록 아래로 스크롤한다.
 function showStep(){const n=steps();document.getElementById('st').textContent=n?`▸ ${step}/${n}`:'';
-  const s=slides[cur];s.querySelectorAll('[data-step]').forEach(e=>e.classList.toggle('shown',+e.dataset.step<=step));
-  s.querySelectorAll('.chat').forEach(c=>{const last=[...c.querySelectorAll('[data-step].shown')].pop();if(last)c.scrollTo({top:last.offsetTop-c.offsetTop-12,behavior:reduce?'auto':'smooth'});else c.scrollTop=0})}
+  const s=slides[cur];
+  // 이번 단계에서 새로 나타나는 채팅 메시지는 하나씩: 내 말풍선은 바로, AI 말풍선은 '입력 중…' 뒤에 나타난다
+  let delay=0;
+  s.querySelectorAll('[data-step]').forEach(e=>{const show=+e.dataset.step<=step,was=e.classList.contains('shown');
+    if(!show){e.classList.remove('shown','typing');clearTimeout(e._t);return}
+    if(was)return;
+    if(e.matches('.chat .msg')&&!reduce){const ai=e.classList.contains('ai');
+      e._t=setTimeout(()=>{e.classList.add('shown');if(ai){e.classList.add('typing');e._t=setTimeout(()=>{e.classList.remove('typing');scrollChat(s)},900)}scrollChat(s)},delay);
+      delay+=ai?1500:500}
+    else{e._t=setTimeout(()=>e.classList.add('shown'),delay)}});
+  scrollChat(s)}
+function scrollChat(s){
+  s.querySelectorAll('.chat').forEach(c=>{const last=[...c.querySelectorAll('[data-step].shown')].pop();if(last)c.scrollTo({top:Math.max(0,last.offsetTop+last.offsetHeight-c.offsetTop-c.clientHeight+20),behavior:reduce?'auto':'smooth'});else c.scrollTop=0})}
 function fwd(){t0??=Date.now();if(step<steps()){step++;showStep();hooks[slides[cur].id]&&hooks[slides[cur].id](step)}else go(cur+1)}
 setInterval(()=>{if(t0==null)return;const e=Math.floor((Date.now()-t0)/1000);const tm=document.getElementById('tm');tm.textContent=String(e/60|0).padStart(2,'0')+':'+String(e%60).padStart(2,'0');tm.style.color=e>780?'#FF6B35':''},1000);
 // 라이브 iframe 조작 모드: 켜면 iframe이 클릭·키보드를 받는다. 끄려면 iframe 바깥(슬라이드 여백)을 클릭한다.
