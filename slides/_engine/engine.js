@@ -20,6 +20,8 @@ function go(i){
   document.getElementById('notes').textContent=s.dataset.notes||'';
   renderScript();hideNextHint();
   // data-autoplay 장은 들어오자마자 모든 단계를 순서대로 자동 재생한다(→ 는 바로 다음 장)
+  // 다시 들어와도 처음부터 재생되게, 이전 방문에서 나타난 단계 요소를 되돌린다
+  s.querySelectorAll('[data-step]').forEach(e=>{e.classList.remove('shown','typing','translated');clearTimeout(e._t);clearTimeout(e._tr)});
   step=s.hasAttribute('data-autoplay')?steps():0;showStep();hooks[s.id]&&hooks[s.id](step);
   try{history.replaceState(null,'','#s'+(i+1))}catch(e){}
 }
