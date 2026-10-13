@@ -161,12 +161,20 @@
 .feel li{opacity:0}
 .slide.on .feel li{animation:feelstep 1.4s ease var(--at) both}
 .slide.on .feel li.now{animation:feelnow .9s cubic-bezier(.2,1.2,.4,1) var(--at) both,feelglow 2.6s ease-in-out calc(var(--at) + .9s) infinite}
-.feel::before{content:"";position:absolute;left:23px;top:24px;width:2px;height:0;background:linear-gradient(var(--sub),var(--hot));z-index:1}
+.feel::before{content:"";position:absolute;left:24px;top:36px;width:2px;height:0;background:linear-gradient(var(--sub),var(--hot));z-index:1}
 .slide.on .feel::before{animation:feelline 3s ease 1.8s forwards}
 .feel li{z-index:2}
-@keyframes feelstep{0%{opacity:0;transform:translateX(-16px)}25%{opacity:1;transform:none;border-color:rgba(154,145,230,.7);box-shadow:0 0 24px rgba(154,145,230,.25)}70%{opacity:1;border-color:rgba(154,145,230,.7)}100%{opacity:.5;transform:none}}
+@keyframes feelstep{0%{opacity:0;transform:translateX(-16px)}25%{opacity:1;transform:none;border-color:rgba(154,145,230,.7);box-shadow:0 0 24px rgba(154,145,230,.25)}70%{opacity:1;border-color:rgba(154,145,230,.7)}100%{opacity:1;transform:none}}
 @keyframes feelnow{0%{opacity:0;transform:translateX(-16px) scale(.97)}100%{opacity:1;transform:none}}
 @keyframes feelglow{50%{box-shadow:0 0 60px rgba(154,145,230,.38)}}
-@keyframes feelline{to{height:calc(100% - 48px)}}
+@keyframes feelline{to{height:calc(100% - 72px)}}
 .slide.on .feel li:nth-child(1) b,.slide.on .feel li:nth-child(2) b{animation:feeltext 1.4s ease var(--at) both}
 @keyframes feeltext{25%,70%{color:var(--fg)}}
+/* 원은 불투명하게(선이 비치지 않게) 하고 선 한가운데에 맞춘다. 지난 단계는 투명도 대신 글자색으로 흐리게 */
+.feel li::before{left:19px;width:12px;height:12px;margin-top:-6px;background:var(--sub);box-shadow:0 0 0 4px var(--panel);z-index:3}
+.feel li:not(:last-child)::after{display:none}
+.feel li.now::before{background:var(--hot);box-shadow:0 0 0 4px #1b1f3a,0 0 12px var(--hot)}
+.slide.on .feel li:not(.now) b{animation:feeltext 1.4s ease var(--at) both}
+@keyframes feeltext{0%,100%{color:#4a5670}25%,70%{color:var(--fg)}}
+.slide.on .feel li:not(.now) span{animation:feelsub 1.4s ease var(--at) both}
+@keyframes feelsub{0%,100%{color:#4a5670}25%,70%{color:var(--sub)}}
