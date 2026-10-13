@@ -82,3 +82,8 @@
 .dash .slot b{font-size:24px;color:var(--fg)}
 .dash .slot span:last-child{font:400 17px var(--kr)}
 .dash:has(.tile.ai.in) .slot{opacity:0}
+/* 5장 오른쪽: 대화가 진행되는 동안 캡처 자리를 먼저 보여 주고, 단계마다 한 장씩 채운다 */
+.shots figure[data-step]:not(.shown){opacity:1;transform:none;background:repeating-linear-gradient(135deg,rgba(154,145,230,.05) 0 14px,transparent 14px 28px);border:2px dashed rgba(154,145,230,.35)}
+.shots figure[data-step]:not(.shown)>*{opacity:0}
+.shots figure[data-step]:not(.shown)::after{content:"📷 キャプチャ待ち…";position:absolute;inset:0;display:grid;place-items:center;color:var(--sub);font:500 18px var(--kr)}
+.shots figure[data-step]>*{transition:opacity .5s ease}

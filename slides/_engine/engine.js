@@ -38,13 +38,14 @@ document.getElementById('prev').onclick=()=>go(cur-1);
 document.getElementById('next').onclick=fwd;
 function steps(){return +(slides[cur].dataset.steps||0)}
 // 단계 표시. data-step="N" 인 요소는 N 단계부터 보이고(.shown), .chat 은 새 메시지가 보이도록 아래로 스크롤한다.
-const TR_HOLD=2200; // 원문(한국어)이 보인 뒤 번역 스트리밍을 시작하기까지
+const TR_HOLD=1500; // 원문(한국어)이 보인 뒤 번역 스트리밍을 시작하기까지
 // 번역 전환: 말풍선 전체를 한 번에 크로스페이드한다. 원문(.ko)과 번역(.ja)을 CSS 에서 같은 칸에 겹쳐 두어 말풍선 크기가 바뀌지 않는다.
 function streamTranslate(e,done){e.classList.add('translated');done()}
 function showStep(){const n=steps();document.getElementById('st').textContent=n?`▸ ${step}/${n}`:'';
   const s=slides[cur];
   // 이번 단계에서 새로 나타나는 채팅 메시지는 하나씩: 내 말풍선은 바로, AI 말풍선은 '입력 중…' 뒤에 나타난다
-  let delay=0;
+  // at[단계] = 그 단계 채팅이 끝나는 시각. 채팅이 아닌 [data-step](캡처·화면)은 자기 단계의 채팅이 끝난 뒤 나타난다
+  let delay=0;const at={};
   s.querySelectorAll('[data-step]').forEach(e=>{const show=+e.dataset.step<=step,was=e.classList.contains('shown');
     if(!show){e.classList.remove('shown','typing','translated','streaming','streamed');e.querySelector('.st')?.remove();e._tok=(e._tok||0)+1;clearTimeout(e._t);clearTimeout(e._tr);return}
     if(was)return;
@@ -53,8 +54,8 @@ function showStep(){const n=steps();document.getElementById('st').textContent=n?
       // .tr 말풍선: 원문(한국어)이 먼저 보이고, 잠시 뒤 번역(일본어)으로 바뀐다
       // 원문(한국어)을 TR_HOLD ms 동안 읽을 수 있게 보여 준 뒤 번역(일본어)으로 바꾼다
       if(e.classList.contains('tr'))e._tr=setTimeout(()=>streamTranslate(e,()=>scrollChat(s)),delay+(ai?900:0)+TR_HOLD);
-      delay+=(+e.dataset.hold||0)+(e.classList.contains('tr')?(ai?900:0)+TR_HOLD+1400:(ai?1500:500))}
-    else{e._t=setTimeout(()=>e.classList.add('shown'),delay)}});
+      delay+=(+e.dataset.hold||0)+(e.classList.contains('tr')?(ai?900:0)+TR_HOLD+700:(ai?1500:500));at[e.dataset.step]=delay}
+    else{e._t=setTimeout(()=>e.classList.add('shown'),at[e.dataset.step]??delay)}});
   scrollChat(s);
   // 단계 연출(채팅 등)이 모두 끝나면 '다음 장' 안내를 띄운다
   // 모든 장 공통: 마지막 단계까지 왔으면 연출이 끝난 뒤 띄운다. 영상 장(.playlist)은 영상이 끝날 때 따로 띄운다.
