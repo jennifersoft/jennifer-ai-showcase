@@ -39,6 +39,7 @@ html.compact table{table-layout:fixed;height:auto}html.compact td{vertical-align
 .live-badge b{font-weight:700;letter-spacing:.08em;color:#c1cadb}.live-badge i{width:7px;height:7px;border-radius:50%;background:#59677f}
 .live-badge.on b{color:#4dd6a0}.live-badge.on i{background:#4dd6a0;box-shadow:0 0 8px #4dd6a0;animation:livepulse 1.6s ease-in-out infinite}
 @keyframes livepulse{50%{opacity:.35}}
+html.compact .message summary{list-style:none;cursor:default;pointer-events:none}html.compact .message summary::-webkit-details-marker{display:none}html.compact .message summary::marker{content:""}
 </style>
 <script>if(/[?&]compact\b/.test(location.search))document.documentElement.classList.add("compact")</script>
 </head>
