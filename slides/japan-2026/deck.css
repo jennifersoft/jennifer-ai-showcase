@@ -127,3 +127,18 @@
 .lnk.to-left{color:#4FB3FF}.lnk.to-left path{stroke:#4FB3FF;animation-direction:reverse}
 .lnk.to-right{color:#9A91E6}.lnk.to-right path{stroke:#9A91E6}
 @keyframes dash{to{stroke-dashoffset:-18}}
+/* 마지막 전 장: 1인당 커밋 수 */
+.cstat{flex:1;display:grid;grid-template-columns:1.55fr 1fr;gap:48px;align-items:stretch;min-height:0;margin-top:10px}
+.cbars{display:grid;grid-template-columns:repeat(7,1fr);gap:18px;align-items:end;margin-bottom:64px;border-bottom:2px solid var(--line);position:relative}
+.cb{position:relative;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center}
+.cb i{display:block;width:100%;height:var(--h);border-radius:10px 10px 0 0;background:linear-gradient(180deg,#3a4866,#26324a);transform-origin:bottom;animation:grow 1s cubic-bezier(.2,.9,.3,1) both;animation-delay:inherit}
+.cb.hi i{background:linear-gradient(180deg,#B9B2F5,#7C73C2);box-shadow:0 0 40px rgba(154,145,230,.35)}
+.cb b{font:800 30px var(--mono);color:var(--sub);margin-bottom:10px;font-variant-numeric:tabular-nums}
+.cb.hi b{color:var(--fg);font-size:40px}
+.cb span{position:absolute;bottom:-58px;font:700 24px var(--mono);color:var(--sub);text-align:center;line-height:1.1}
+.cb.hi span{color:var(--hot)}
+.cb span small{display:block;font:500 14px var(--mono)}
+.cb em{position:absolute;bottom:-78px;font:400 14px var(--mono);font-style:normal;color:#5d6b84;white-space:nowrap}
+@keyframes grow{from{transform:scaleY(0)}}
+.cmsg{border:2px dashed rgba(154,145,230,.4);border-radius:18px;display:grid;place-items:center;color:var(--sub);font:500 22px var(--kr)}
+.cfoot{margin:40px 0 0;font:400 16px var(--kr);color:var(--sub)}
