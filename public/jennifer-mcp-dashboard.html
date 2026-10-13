@@ -35,11 +35,16 @@ html.compact .chart-head{margin-bottom:4px}html.compact .chart-wrap,html.compact
 html.compact .cpu-legend{margin:4px 0 0}html.compact .chart-wrap{position:relative;overflow:hidden}html.compact .chart-wrap canvas{position:absolute;inset:0}html.compact .events{display:flex;flex-direction:column;overflow:hidden}
 html.compact .events .table-scroll{overflow:hidden}html.compact th,html.compact td{padding:6px 8px}html.compact #event-rows tr:nth-child(n+5){display:none}
 html.compact table{table-layout:fixed;height:auto}html.compact td{vertical-align:middle;overflow:hidden;text-overflow:ellipsis}html.compact .message{min-width:0;white-space:nowrap}html.compact .message pre{display:none}html.compact .message details,html.compact .message summary{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}html.compact .events .table-scroll{flex:none}html.compact th:nth-child(3),html.compact td:nth-child(3){display:none}
+.live-badge{position:fixed;right:12px;bottom:10px;z-index:5;display:flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:rgba(11,18,32,.88);border:1px solid #26344b;font-size:11px;color:#9aa8bd}
+.live-badge b{font-weight:700;letter-spacing:.08em;color:#c1cadb}.live-badge i{width:7px;height:7px;border-radius:50%;background:#59677f}
+.live-badge.on b{color:#4dd6a0}.live-badge.on i{background:#4dd6a0;box-shadow:0 0 8px #4dd6a0;animation:livepulse 1.6s ease-in-out infinite}
+@keyframes livepulse{50%{opacity:.35}}
 </style>
 <script>if(/[?&]compact\b/.test(location.search))document.documentElement.classList.add("compact")</script>
 </head>
 <body>
 <main>
+<div id="live-badge" class="live-badge"><i></i><b>…</b><span></span></div>
 <header class="topbar">
  <div><div class="eyebrow">運用モニタリング</div><h1 class="title">JENNIFER ダッシュボード(MCP・Open API)</h1>
  <p class="subtitle" id="subtitle"></p><div class="status"><span class="dot"></span><span><b id="instance-name"></b></span></div></div>
@@ -69,9 +74,15 @@ html.compact table{table-layout:fixed;height:auto}html.compact td{vertical-align
 
 (() => {
   'use strict';
-  const data = JSON.parse(document.getElementById('dashboard-data').textContent);
-  const { meta, instances, domainMetrics, instanceMetrics, events, errors } = data;
+  const embedded = JSON.parse(document.getElementById('dashboard-data').textContent);
   const byId = id => document.getElementById(id);
+  const hiddenCpu = new Set(); // CPU 범례에서 끈 인스턴스(다시 그려도 유지)
+  // 처음에는 GPT가 jennifer5-mcp로 받아 둔 스냅샷을 그리고, 이후 2초마다 /api/mcp-dashboard(제니퍼 Open API 실시간)로 다시 그린다.
+  function render(data) {
+  const { meta, instances, domainMetrics, instanceMetrics, events, errors } = data;
+  if (window.Chart) document.querySelectorAll('canvas').forEach(c => Chart.getChart(c)?.destroy());
+  document.querySelectorAll('.chart-wrap.empty').forEach(w => w.classList.remove('empty'));
+  byId('cpu-legend').textContent = ''; byId('event-rows').textContent = '';
   const finite = value => typeof value === 'number' && Number.isFinite(value);
   const format = value => finite(value) ? value.toLocaleString('ja-JP', { maximumFractionDigits: 2 }) : 'データなし';
   const domainSeries = key => domainMetrics[meta.domainId + ',' + key]?.points ?? [];
@@ -89,10 +100,11 @@ html.compact table{table-layout:fixed;height:auto}html.compact td{vertical-align
   byId('instance-name').textContent = '稼働中 ' + instances.filter(i => i.status === 'LIVE').length + ' / 全 ' + instances.length + ' インスタンス';
   byId('observed').textContent = meta.observedAt.slice(0, 19).replace('T', ' ') + ' (UTC+9)';
   byId('domain-id').textContent = meta.domainId;
-  byId('call-log').textContent = JSON.stringify(data.calls, null, 2);
-  setKpi('kpi-tps', latest('service_rate'), 'TPS');
-  setKpi('kpi-time', latest('service_time'), 'ms');
-  setKpi('kpi-active', latest('active_service'));
+  if (data.calls) byId('call-log').textContent = JSON.stringify(data.calls, null, 2);
+  const rt = data.realtime;
+  setKpi('kpi-tps', rt ? rt.tps : latest('service_rate'), 'TPS');
+  setKpi('kpi-time', rt ? Math.round(rt.responseTime) : latest('service_time'), 'ms');
+  setKpi('kpi-active', rt ? rt.activeService : latest('active_service'));
   setKpi('kpi-errors', data.errorTotal.value, '件');
   byId('error-sample-note').textContent = Array.isArray(errors) ? 'API取得サンプル ' + errors.length + '件 · 全件数ではありません' : 'データなし';
 
@@ -187,13 +199,14 @@ html.compact table{table-layout:fixed;height:auto}html.compact td{vertical-align
   }).filter((set, index) => instances[index].status !== 'STOPPED' && set.data.some(v => finite(v) && v > 0));
   if (cpuDatasets.some(set => set.data.some(finite))) {
     const opts = options('%'); opts.interaction.mode = 'nearest'; opts.scales.y.max = 100;
+    cpuDatasets.forEach(set => (set.hidden = hiddenCpu.has(set.label)));
     const cpu = new Chart(byId('cpu-chart'), {type: 'line', data: {labels: cpuTimes.map(displayTime),datasets: cpuDatasets}, options: opts});
     cpuDatasets.forEach((set, index) => {
       const button = document.createElement('button'), dot = document.createElement('span');
-      button.type = 'button'; button.setAttribute('aria-pressed', 'true');
+      button.type = 'button'; button.setAttribute('aria-pressed', String(!hiddenCpu.has(set.label)));
       dot.className = 'legend-dot'; dot.style.background = set.borderColor;
       button.append(dot, document.createTextNode(set.label));
-      button.addEventListener('click', () => { const visible = !cpu.isDatasetVisible(index); cpu.setDatasetVisibility(index, visible); button.setAttribute('aria-pressed', String(visible)); cpu.update(); });
+      button.addEventListener('click', () => { const visible = !cpu.isDatasetVisible(index); cpu.setDatasetVisibility(index, visible); visible ? hiddenCpu.delete(set.label) : hiddenCpu.add(set.label); button.setAttribute('aria-pressed', String(visible)); cpu.update(); });
       byId('cpu-legend').append(button);
     });
   } else empty('cpu-chart');
@@ -205,6 +218,30 @@ html.compact table{table-layout:fixed;height:auto}html.compact td{vertical-align
   errorOptions.plugins.tooltip.callbacks.label = context => '取得サンプル: ' + format(context.parsed.x) + '件';
   errorOptions.scales = { x: { beginAtZero:true, grid:{color:'rgba(133,151,178,.12)'}, ticks:{precision:0} }, y: {grid:{display:false},border:{display:false}} };
   new Chart(byId('errors-chart'), { type:'bar', data:{labels:categories.map(([name]) => name),datasets:[{label:'取得サンプル',data:categories.map(([,count]) => count),backgroundColor:'#E5484Dcc',borderRadius:4,maxBarThickness:20}]},options:errorOptions });
+  }
+  render(embedded);
+
+  // 실시간: 2초마다 폴링. 실패하면 마지막 화면을 그대로 두고 표시만 바꾼다.
+  const badge = byId('live-badge');
+  let busy = false;
+  const poll = async () => {
+    if (busy || document.hidden) return;
+    busy = true;
+    try {
+      const res = await fetch('/api/mcp-dashboard', { cache: 'no-store' });
+      if (!res.ok) throw new Error(String(res.status));
+      const data = await res.json();
+      render(data);
+      badge.className = 'live-badge on';
+      badge.querySelector('b').textContent = 'LIVE';
+      badge.querySelector('span').textContent = data.meta.observedAt.slice(11, 19) + ' 更新';
+    } catch {
+      badge.className = 'live-badge off';
+      badge.querySelector('b').textContent = 'SNAPSHOT';
+      badge.querySelector('span').textContent = embedded.meta.observedAt.slice(5, 16).replace('T', ' ');
+    } finally { busy = false; }
+  };
+  poll(); setInterval(poll, 2000);
 })();
 
 </script>
