@@ -38,6 +38,7 @@ document.getElementById('prev').onclick=()=>go(cur-1);
 document.getElementById('next').onclick=fwd;
 function steps(){return +(slides[cur].dataset.steps||0)}
 // 단계 표시. data-step="N" 인 요소는 N 단계부터 보이고(.shown), .chat 은 새 메시지가 보이도록 아래로 스크롤한다.
+const TR_HOLD=3000;
 function showStep(){const n=steps();document.getElementById('st').textContent=n?`▸ ${step}/${n}`:'';
   const s=slides[cur];
   // 이번 단계에서 새로 나타나는 채팅 메시지는 하나씩: 내 말풍선은 바로, AI 말풍선은 '입력 중…' 뒤에 나타난다
@@ -48,8 +49,9 @@ function showStep(){const n=steps();document.getElementById('st').textContent=n?
     if(e.matches('.chat .msg')&&!reduce){const ai=e.classList.contains('ai');
       e._t=setTimeout(()=>{e.classList.add('shown');if(ai){e.classList.add('typing');e._t=setTimeout(()=>{e.classList.remove('typing');scrollChat(s)},900)}scrollChat(s)},delay);
       // .tr 말풍선: 원문(한국어)이 먼저 보이고, 잠시 뒤 번역(일본어)으로 바뀐다
-      if(e.classList.contains('tr'))e._tr=setTimeout(()=>{e.classList.add('translated');scrollChat(s)},delay+(ai?900:0)+1600);
-      delay+=e.classList.contains('tr')?(ai?2900:2100):(ai?1500:500)}
+      // 원문(한국어)을 TR_HOLD ms 동안 읽을 수 있게 보여 준 뒤 번역(일본어)으로 바꾼다
+      if(e.classList.contains('tr'))e._tr=setTimeout(()=>{e.classList.add('translated');scrollChat(s)},delay+(ai?900:0)+TR_HOLD);
+      delay+=e.classList.contains('tr')?(ai?900+TR_HOLD+700:TR_HOLD+500):(ai?1500:500)}
     else{e._t=setTimeout(()=>e.classList.add('shown'),delay)}});
   scrollChat(s)}
 function scrollChat(s){
