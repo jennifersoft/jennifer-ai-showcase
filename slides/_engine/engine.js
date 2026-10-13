@@ -27,6 +27,7 @@ addEventListener('keydown',e=>{
   else if(e.key==='n'||e.key==='N')toggleNotes();
   else if(e.key==='f'||e.key==='F')full();
   else if(e.key==='i'||e.key==='I')toggleInteract();
+  else if(e.key==='t'||e.key==='T'){const tr=[...slides[cur].querySelectorAll('.msg.tr.shown')];const to=!tr.every(m=>m.classList.contains('translated'));tr.forEach(m=>m.classList.toggle('translated',to));scrollChat(slides[cur])}
   else if(e.key==='o'||e.key==='O')overview();else if(e.key==='Home')go(0);else if(e.key==='End')go(slides.length-1);
 });
 document.getElementById('viewport').addEventListener('click',e=>{if(e.target.closest('button'))return;if(slides[cur].querySelector('.live.interact')){e.target.closest('.live')||toggleInteract();return}e.clientX>innerWidth/3?fwd():go(cur-1)});
@@ -39,11 +40,13 @@ function showStep(){const n=steps();document.getElementById('st').textContent=n?
   // 이번 단계에서 새로 나타나는 채팅 메시지는 하나씩: 내 말풍선은 바로, AI 말풍선은 '입력 중…' 뒤에 나타난다
   let delay=0;
   s.querySelectorAll('[data-step]').forEach(e=>{const show=+e.dataset.step<=step,was=e.classList.contains('shown');
-    if(!show){e.classList.remove('shown','typing');clearTimeout(e._t);return}
+    if(!show){e.classList.remove('shown','typing','translated');clearTimeout(e._t);clearTimeout(e._tr);return}
     if(was)return;
     if(e.matches('.chat .msg')&&!reduce){const ai=e.classList.contains('ai');
       e._t=setTimeout(()=>{e.classList.add('shown');if(ai){e.classList.add('typing');e._t=setTimeout(()=>{e.classList.remove('typing');scrollChat(s)},900)}scrollChat(s)},delay);
-      delay+=ai?1500:500}
+      // .tr 말풍선: 원문(한국어)이 먼저 보이고, 잠시 뒤 번역(일본어)으로 바뀐다
+      if(e.classList.contains('tr'))e._tr=setTimeout(()=>{e.classList.add('translated');scrollChat(s)},delay+(ai?900:0)+1600);
+      delay+=e.classList.contains('tr')?(ai?2900:2100):(ai?1500:500)}
     else{e._t=setTimeout(()=>e.classList.add('shown'),delay)}});
   scrollChat(s)}
 function scrollChat(s){
