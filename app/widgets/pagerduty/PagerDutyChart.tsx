@@ -56,7 +56,7 @@ export default function PagerDutyChart({ lang }: { lang: Lang }) {
           </div>
         ))}
       </div>
-      <div style={{ display: "flex", gap: 12, fontSize: 11, color: "var(--text-2)", marginBottom: 2 }}>
+      <div className="pd-legend" style={{ display: "flex", gap: 12, fontSize: 11, color: "var(--text-2)", marginBottom: 2 }}>
         <span><i style={{ display: "inline-block", width: 10, height: 10, borderRadius: 2, background: "var(--danger)", marginRight: 4 }} />{t(lang, "pd.high")}</span>
         <span><i style={{ display: "inline-block", width: 10, height: 10, borderRadius: 2, background: "var(--warn)", marginRight: 4 }} />{t(lang, "pd.low")}</span>
         {data && <span style={{ marginLeft: "auto", color: "var(--text-3)" }}>{t(lang, "pd.total", { n: data.total })}</span>}
@@ -85,7 +85,7 @@ export default function PagerDutyChart({ lang }: { lang: Lang }) {
         )}
       </div>
       {data && data.recent.length > 0 && (
-        <div style={{ marginTop: 6, borderTop: "1px solid var(--grid)", paddingTop: 4 }}>
+        <div className="pd-recent" style={{ marginTop: 6, borderTop: "1px solid var(--grid)", paddingTop: 4, flex: "none" }}>
           {data.recent.map((r) => (
             <div key={r.no} style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 11, lineHeight: "18px", minWidth: 0 }}>
               <i style={{ flex: "none", width: 7, height: 7, borderRadius: 4, background: r.urgency === "high" ? "var(--danger)" : "var(--warn)" }} />

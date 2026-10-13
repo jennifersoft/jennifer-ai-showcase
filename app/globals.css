@@ -57,7 +57,7 @@ a.card:hover { border-color: var(--series-1); transform: translateY(-1px); }
 .chip { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; background: var(--surface-2); color: var(--text-2); }
 
 /* iframe 위젯: 화면 전체를 쓰는 패널 */
-.widget { height: 100vh; display: flex; flex-direction: column; padding: 12px 14px; background: var(--surface); }
+.widget { height: 100vh; box-sizing: border-box; overflow: hidden; display: flex; flex-direction: column; padding: 12px 14px; background: var(--surface); }
 .widget-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
 .widget-title { font-size: 13px; font-weight: 700; color: var(--text-2); }
 .widget-value { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; }
@@ -83,3 +83,7 @@ a.card:hover { border-color: var(--series-1); transform: translateY(-1px); }
 
 /* 패널 안에 넣은 위젯은 패널 높이를 따른다 */
 .frame > .widget { height: 100%; }
+
+/* PagerDuty 위젯: 칸이 낮으면 덜 중요한 줄부터 숨겨 스크롤이 생기지 않게 */
+@media (max-height: 300px) { .pd-recent { display: none; } }
+@media (max-height: 210px) { .pd-legend { display: none !important; } .pd-kpi-note { display: none; } }
