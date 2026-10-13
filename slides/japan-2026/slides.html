@@ -116,7 +116,7 @@
   <div class="row" style="flex:1;align-items:center;gap:40px;min-height:0">
     <div style="width:600px;flex:none;display:flex;flex-direction:column;gap:24px">
       <div class="stats" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-        <div class="stat" data-a style="--d:2;padding:22px 26px"><b style="font-size:64px">3日</b><span>基本機能<i class="kr" style="display:block;font-size:20px;font-style:normal">기본 레이아웃·기능</i></span></div>
+        <div class="stat" data-a style="--d:2;padding:22px 26px"><b style="font-size:64px">3日</b><span>基本レイアウト・機能<i class="kr" style="display:block;font-size:20px;font-style:normal">기본 레이아웃·기능</i></span></div>
         <div class="stat" data-a style="--d:3;padding:22px 26px"><b style="font-size:64px">約1か月</b><span>リリースまで<i class="kr" style="display:block;font-size:20px;font-style:normal">출시까지</i></span></div>
         <div class="stat" data-a style="--d:4;padding:22px 26px"><b style="font-size:64px">1,021</b><span>テスト<i class="kr" style="display:block;font-size:20px;font-style:normal">테스트</i></span></div>
         <div class="stat" data-a style="--d:5;padding:22px 26px"><b style="font-size:64px">77%</b><span>カバレッジ<i class="kr" style="display:block;font-size:20px;font-style:normal">커버리지</i></span></div>
@@ -216,9 +216,9 @@
     <div class="card" data-a style="--d:4"><span class="ic">⚙</span><h3>共通パターン</h3><p class="kr s">공통 패턴</p><p style="font:400 22px/1.6 var(--mono);color:var(--sub)">認証 · HTTP · エラー処理<br>ログ · メッセージ形式</p></div>
   </div>
   <div class="prompt" data-a style="--d:6;font-size:24px"><span class="hl">⬇ </span>github.com/jennifersoft/jennifer-view-extension-tutorial · skills/jennifer-extension.zip</div>
-  <p class="kr s" data-a style="--d:6">zip을 받아 ChatGPT 설정 → Skills에 업로드하면 끝입니다</p>
+  <p class="kr s" data-a style="--d:6">zip을 받아 ChatGPT 설정 → Skills에 업로드하면 끝입니다.</p>
 </section>
-<section class="slide" id="s-dash" data-steps="2" data-notes="[데모] 어댑터로 PagerDuty에 보낸 인시던트를, 이번에는 제니퍼 사용자정의 대시보드에서 봅니다. 프롬프트 한 줄로 AI가 위젯을 만들고 iframe 칸에 들어갑니다. [확인 필요] 현재 버전의 사용자정의 대시보드 iframe 설정 방식." data-script="이제 어댑터로 보낸 인시던트를 제니퍼 안에서 보겠습니다. 제니퍼의 사용자정의 대시보드에는 외부 화면을 넣을 수 있는 iframe 칸이 있습니다. AI에게 PagerDuty 인시던트를 대시보드에 보여 달라고 하면, AI가 위젯을 만들고 그 칸에 들어갑니다.">
+<section class="slide" id="s-dash" data-steps="2" data-notes="[데모] 어댑터로 PagerDuty에 보낸 인시던트를, 이번에는 제니퍼 사용자정의 대시보드에서 봅니다. 프롬프트 한 줄로 AI가 위젯을 만들고 iframe 칸에 들어갑니다. [확인 필요] 현재 버전의 사용자정의 대시보드 iframe 설정 방식." data-script="이제 어댑터로 보낸 인시던트를 제니퍼 안에서 보겠습니다. 제니퍼의 사용자정의 대시보드에는 외부 화면을 넣을 수 있는 iframe 칸이 있습니다. AI에게 PagerDuty 인시던트를 대시보드에 보여 달라고 하면, AI가 위젯을 만들어 그 칸에 넣어 줍니다.">
   <div class="row" style="align-items:flex-end">
     <div style="flex:1.4">
       <p class="eyebrow" data-a>Inside JENNIFER</p>
@@ -240,11 +240,11 @@
     </ul></div>
   </div>
 </section>
-<section class="slide" id="s-live-jennifer" data-notes="[라이브] 제니퍼 사용자정의 대시보드 실제 화면. 제니퍼 차트 옆에 PagerDuty 인시던트 위젯(/widgets/incidents?lang=ja)과 배포 타임라인 위젯이 iframe으로 들어간 통합 대시보드입니다. 화면을 직접 만지려면 I 키, 끝나면 여백 클릭." data-script="이것이 실제 화면입니다. 제니퍼 차트 옆에 PagerDuty 인시던트와 배포 타임라인이 함께 있는 통합 대시보드입니다. 장애가 나면 제니퍼 지표와 인시던트, 배포 이력을 한 화면에서 함께 볼 수 있습니다.">
+<section class="slide" id="s-live-jennifer" data-notes="[라이브] 제니퍼 사용자정의 대시보드 실제 화면. 제니퍼 차트 옆에 PagerDuty 위젯(/widgets/pagerduty?lang=ja&amp;theme=dark)을 iframe으로 넣은 사용자정의 대시보드입니다. dev.jennifersoft.com에 미리 로그인해 두세요. 화면을 직접 만지려면 I 키, 끝나면 여백 클릭." data-script="이것이 실제 화면입니다. 제니퍼 차트 옆에 AI가 만든 PagerDuty 인시던트 위젯을 넣은 사용자정의 대시보드입니다. 장애가 나면 제니퍼 지표와 PagerDuty 인시던트를 한 화면에서 함께 볼 수 있습니다.">
   <div>
     <p class="eyebrow" data-a style="color:var(--hot)">Live · Inside JENNIFER</p>
     <h2 data-a style="--d:1;font-size:56px">ユーザー定義ダッシュボード（実画面）</h2>
-    <p class="kr s" data-a style="--d:1">실제 화면입니다. 제니퍼 차트 옆에 PagerDuty 인시던트와 배포 타임라인이 함께 있는 통합 대시보드입니다.</p>
+    <p class="kr s" data-a style="--d:1">실제 화면입니다. 제니퍼 차트 옆에 AI가 만든 PagerDuty 인시던트 위젯을 넣은 사용자정의 대시보드입니다.</p>
   </div>
   <div class="live" data-a style="--d:2">{{live:jennifer}}</div>
 </section>
