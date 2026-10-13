@@ -154,3 +154,16 @@
 .feel li.now b{color:var(--fg);font-size:26px}.feel li.now span{color:var(--hot)}
 .cfoot{margin:40px 0 0;font:400 16px var(--kr);color:var(--sub)}
 .cb u{text-decoration:none;font:700 18px var(--mono);color:#071019;background:var(--hot);padding:4px 12px;border-radius:999px;margin-bottom:10px;white-space:nowrap}
+/* 22장 감정 단계: 한 단계씩 켜졌다가 다음 단계로 넘어가면 흐려지고, 마지막 '희망'은 계속 빛난다 */
+.feel li{opacity:0}
+.slide.on .feel li{animation:feelstep 1.4s ease var(--at) both}
+.slide.on .feel li.now{animation:feelnow .9s cubic-bezier(.2,1.2,.4,1) var(--at) both,feelglow 2.6s ease-in-out calc(var(--at) + .9s) infinite}
+.feel::before{content:"";position:absolute;left:23px;top:24px;width:2px;height:0;background:linear-gradient(var(--sub),var(--hot));z-index:1}
+.slide.on .feel::before{animation:feelline 3s ease 1.8s forwards}
+.feel li{z-index:2}
+@keyframes feelstep{0%{opacity:0;transform:translateX(-16px)}25%{opacity:1;transform:none;border-color:rgba(154,145,230,.7);box-shadow:0 0 24px rgba(154,145,230,.25)}70%{opacity:1;border-color:rgba(154,145,230,.7)}100%{opacity:.5;transform:none}}
+@keyframes feelnow{0%{opacity:0;transform:translateX(-16px) scale(.97)}100%{opacity:1;transform:none}}
+@keyframes feelglow{50%{box-shadow:0 0 60px rgba(154,145,230,.38)}}
+@keyframes feelline{to{height:calc(100% - 48px)}}
+.slide.on .feel li:nth-child(1) b,.slide.on .feel li:nth-child(2) b{animation:feeltext 1.4s ease var(--at) both}
+@keyframes feeltext{25%,70%{color:var(--fg)}}
