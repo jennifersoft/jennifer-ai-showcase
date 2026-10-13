@@ -149,3 +149,34 @@ ${deckJs}
 </body>
 </html>`;
 }
+
+export type ScriptItem = { no: number; title: string; subtitle: string; script: string; notes: string };
+
+function decodeEntities(v: string): string {
+  return v
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#x27;|&#39;/g, "'")
+    .replace(/&amp;/g, "&");
+}
+
+function textOf(fragment: string): string {
+  return decodeEntities(fragment.replace(/<br\s*\/?>/g, " ").replace(/<[^>]+>/g, "")).replace(/\s+/g, " ").trim();
+}
+
+/** 덱의 장마다 제목(일본어)·보조 줄(한국어)·대본(data-script)·노트(data-notes)를 뽑는다. 인쇄용 대본 페이지에서 쓴다. */
+export async function readDeckScript(name: string): Promise<{ meta: DeckMeta; items: ScriptItem[] } | null> {
+  const meta = await readDeckMeta(name);
+  if (meta === null) return null;
+  const html = await readOptional(path.join(SLIDES_DIR, name, "slides.html"));
+  const sections = html.match(/<section class="slide[^"]*"[\s\S]*?<\/section>/g) ?? [];
+  const items = sections.map((sec, i) => {
+    const open = sec.slice(0, sec.indexOf(">") + 1);
+    const attr = (k: string) => decodeEntities(new RegExp(`${k}="([^"]*)"`).exec(open)?.[1] ?? "");
+    const heading = /<h[12][^>]*>([\s\S]*?)<\/h[12]>/.exec(sec)?.[1] ?? "";
+    const sub = /<p class="kr[^"]*"[^>]*>([\s\S]*?)<\/p>/.exec(sec)?.[1] ?? "";
+    return { no: i + 1, title: textOf(heading), subtitle: textOf(sub), script: attr("data-script"), notes: attr("data-notes") };
+  });
+  return { meta, items };
+}

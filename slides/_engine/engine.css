@@ -154,3 +154,10 @@ body.ov [data-step]{opacity:1;transform:none}
 /* 한국어 보조 줄: 일본어 제목과 간격을 일정하게, 너무 길게 퍼지지 않게 */
 h1+.kr,h2+.kr,h1+.kr.s,h2+.kr.s{margin-top:18px}
 .kr{max-width:1500px;line-height:1.5}
+
+/* 대본 모드(S): 현재 장의 대본(data-script)을 화면 아래에 크게 띄운다. 통역사·발표자용 */
+#script{position:fixed;left:24px;right:24px;bottom:56px;max-width:1400px;margin:auto;z-index:7;background:var(--notes-bg);border:1px solid var(--line);border-left:4px solid var(--hot);border-radius:12px;padding:18px 24px;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+#script .sc-head{display:flex;gap:12px;align-items:baseline;font:600 14px var(--kr);color:var(--sub);margin-bottom:8px}
+#script .sc-head b{color:var(--hot)}
+#script .sc-head a{margin-left:auto;color:var(--sub);text-decoration:none}
+#script p{margin:0;font:400 24px/1.65 var(--kr);color:var(--fg);white-space:pre-wrap}

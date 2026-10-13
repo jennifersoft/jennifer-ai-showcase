@@ -18,6 +18,7 @@ function go(i){
   document.getElementById('pg').textContent=`${i+1} / ${slides.length}`;
   document.getElementById('bar').style.width=`${(i+1)/slides.length*100}%`;
   document.getElementById('notes').textContent=s.dataset.notes||'';
+  renderScript();
   // data-autoplay 장은 들어오자마자 모든 단계를 순서대로 자동 재생한다(→ 는 바로 다음 장)
   step=s.hasAttribute('data-autoplay')?steps():0;showStep();hooks[s.id]&&hooks[s.id](step);
   try{history.replaceState(null,'','#s'+(i+1))}catch(e){}
@@ -26,6 +27,7 @@ addEventListener('keydown',e=>{
   if(['ArrowRight','PageDown',' ','Enter'].includes(e.key)){e.preventDefault();fwd()}
   else if(['ArrowLeft','PageUp','Backspace'].includes(e.key)){e.preventDefault();go(cur-1)}
   else if(e.key==='n'||e.key==='N')toggleNotes();
+  else if(e.key==='s'||e.key==='S')toggleScript();
   else if(e.key==='f'||e.key==='F')full();
   else if(e.key==='i'||e.key==='I')toggleInteract();
   else if(e.key==='t'||e.key==='T'){const tr=[...slides[cur].querySelectorAll('.msg.tr.shown')];const to=!tr.every(m=>m.classList.contains('translated'));tr.forEach(m=>m.classList.toggle('translated',to));scrollChat(slides[cur])}
@@ -130,3 +132,13 @@ draw();
       if(on&&!wasOn)play(0); else if(!on&&wasOn)v.pause(); wasOn=on},300);
   }
 })();
+
+// 대본 모드: data-script 를 화면 아래에 띄운다(S). 인쇄용 대본은 /slides/<덱>/script
+function renderScript(){const box=document.getElementById('script');if(!box)return;const s=slides[cur];
+  document.getElementById('sc-text').textContent=s.dataset.script||'(대본 없음)';
+  document.getElementById('sc-pg').textContent=`${cur+1} / ${slides.length}`;
+  document.getElementById('sc-print').href=location.pathname.replace(/\/$/,'')+'/script'+location.search}
+function toggleScript(){const b=document.getElementById('script');b.hidden=!b.hidden;renderScript()}
+document.getElementById('sc')&&(document.getElementById('sc').onclick=toggleScript);
+document.getElementById('script')&&document.getElementById('script').addEventListener('click',e=>e.stopPropagation());
+renderScript();

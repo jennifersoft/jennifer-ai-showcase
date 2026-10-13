@@ -42,6 +42,7 @@ export default async function SlidesIndex() {
                 {d.date && <span className="chip">{d.date}</span>}
               </div>
               <span className="card-meta">/slides/{d.name}</span>
+              <span className="card-meta">대본: /slides/{d.name}/script</span>
             </div>
           </Link>
         ))}
