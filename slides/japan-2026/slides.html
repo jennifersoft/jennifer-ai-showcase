@@ -303,22 +303,21 @@
   <p class="kr" data-a style="--d:3">네 번째, 대시보드를 따로 만들지 않아도 됩니다. ChatGPT나 Claude에 제니퍼 MCP를 연결하면 대화만으로 Open API 차트를 만들 수 있습니다.</p>
   <div class="spacer"></div>
 </section>
-<section class="slide" id="s-mcp" data-notes="대시보드를 따로 만들지 않아도, 제니퍼 MCP(Streamable HTTP)를 Claude나 ChatGPT에 연결하면 AI가 Open API를 직접 호출해 차트를 구현합니다. 등록할 것은 MCP 주소(LLM 프록시 서버의 /mcp)와 헤더 X-Jennifer-Api-Url, X-Jennifer-Api-Token(설정 → JENNIFER 서버에서 발급) 두 가지뿐. 고객 환경에서는 고객이 설치한 제니퍼 LLM 서버의 /mcp에 연결하고, 오늘 화면은 데모 서버(insight-dev)에 연결한 것." data-script="방법은 간단합니다. ChatGPT나 Claude에 제니퍼 MCP 주소와 접속 정보를 등록하고, 보고 싶은 지표를 말로 요청하면 됩니다. 그러면 AI가 제니퍼 Open API를 직접 호출해서 데이터를 가져오고 차트까지 그려 줍니다. 오른쪽 화면은 GPT에 제니퍼 MCP를 연결하고 말로 요청해서 만든 대시보드입니다. 데이터는 모두 실제 값입니다.">
+<section class="slide" id="s-mcp" data-autoplay data-steps="3" data-notes="ChatGPT에 jennifer5-mcp 플러그인(제니퍼 MCP, https://insight-dev.jennifersoft.com/mcp)을 연결하고 한 줄로 요청. AI가 get_domain_list → get_instance_list → get_domain_metric_values → get_instance_metric_values → get_event_list → get_error_list 를 직접 호출해 도메인 2000 Simula의 실제 1시간 데이터(2026-10-13 11:39~12:39)로 대시보드 HTML을 만들었습니다. 오른쪽은 그 결과물(jennifer-mcp-dashboard.html, 자동 갱신 없는 스냅샷). 대화 문구는 실제 결과 보고를 줄인 것." data-script="네 번째 이야기의 실제 화면입니다. ChatGPT에 jennifer5-mcp 플러그인을 연결하고, 최근 1시간 운영 대시보드를 만들어 달라고 한 줄로 요청했습니다. AI가 제니퍼 MCP 도구를 차례로 호출해서 도메인과 인스턴스를 찾고, TPS와 응답시간, CPU, 에러와 이벤트 데이터를 가져옵니다. 그리고 눈에 띄는 점까지 정리해서 대시보드를 만들어 줍니다. 오른쪽 화면이 그 결과물이고, 데이터는 모두 실제 값입니다.">
   <div>
     <p class="eyebrow" data-a style="color:var(--cool)">MCP · Open API</p>
-    <h2 data-a style="--d:1;font-size:60px">MCPで、Open APIから直接チャートを</h2>
-    <p class="kr s" data-a style="--d:1">제니퍼 MCP를 연결하면 AI가 Open API를 직접 호출해 데이터를 가져오고 차트까지 그려 줍니다.</p>
+    <h2 data-a style="--d:1;font-size:56px">MCPで、Open APIから直接ダッシュボードを</h2>
+    <p class="kr s" data-a style="--d:1">ChatGPT에 jennifer5-mcp 플러그인을 연결하고 말로 요청하면, AI가 Open API를 직접 호출해 대시보드까지 만듭니다.</p>
   </div>
-  <div class="row" style="align-items:stretch;gap:40px;margin-top:16px;flex:1;min-height:0">
-    <div style="flex:1;display:flex;flex-direction:column;gap:14px">
-      <div class="card" data-a style="--d:2"><h3>① Claude・ChatGPT に接続</h3><p style="font:400 22px/1.6 var(--mono);color:var(--sub)">https://insight-dev.jennifersoft.com/mcp</p><p class="kr s">Claude·ChatGPT에 제니퍼 MCP 주소와 접속 정보 등록</p></div>
-      <div class="card" data-a style="--d:3"><h3>② 言葉で頼む</h3><p class="kr s">원하는 지표를 말로 요청</p></div>
-      <div class="card" data-a style="--d:4"><h3>③ AI がチャートを実装</h3><p class="kr s">AI가 Open API로 데이터를 가져와 차트를 직접 구현</p></div>
+  <div class="row" style="flex:1;min-height:0;gap:28px;align-items:stretch">
+    <div class="chat" data-a style="--d:2;flex:1">
+      <div class="who"><i style="background:linear-gradient(135deg,#10A37F,#4FB3FF)"></i>ChatGPT · jennifer5-mcp</div>
+      <div class="msg me tr" data-step="1"><div class="ko">jennifer5-mcp로 도메인 2000(Simula)의 최근 1시간 운영 대시보드를 만들어 줘. TPS·응답시간·액티브 서비스·인스턴스별 CPU·에러·이벤트를 보여 줘.</div><div class="ja">jennifer5-mcp で、ドメイン 2000（Simula）の直近1時間の運用ダッシュボードを作って。TPS・応答時間・アクティブサービス・インスタンス別 CPU・エラー・イベントを見せて。</div></div>
+      <div class="msg ai" data-step="1"><div style="font:400 15px/1.7 var(--mono);color:var(--sub)">🔧 get_domain_list<br>🔧 get_instance_list · domainId 2000<br>🔧 get_domain_metric_values · service_rate, service_time, active_service, error_count<br>🔧 get_instance_metric_values · 27 instances · max_sys_cpu, heap_usage<br>🔧 get_event_list · warning, fatal<br>🔧 get_error_list</div></div>
+      <div class="msg ai tr" data-step="2"><div class="ko">도메인 2000 · Simula, 11:39~12:39 데이터로 만들었어. 눈에 띄는 점은 3가지야.<ol><li>TPS는 13.0~13.9로 안정적이고, 지금은 13.62야.</li><li>응답시간은 지금 68ms인데 구간 최고는 185ms였어. CPU는 인스턴스 5개가 100%를 찍었어.</li><li>에러는 1시간에 342건이야. 12:08에 FATAL · AGENT_STOP 이벤트가 있었어.</li></ol></div><div class="ja">ドメイン 2000・Simula、11:39〜12:39 のデータで作りました。目立つ点は3つです。<ol><li>TPS は 13.0〜13.9 で安定、現在は 13.62。</li><li>応答時間は現在 68ms、区間の最大は 185ms。CPU は 5 インスタンスが 100% に達しました。</li><li>エラーは1時間で 342 件。12:08 に FATAL・AGENT_STOP イベントがありました。</li></ol></div></div>
+      <div class="msg ai tr" data-step="3"><div class="ko">대시보드 HTML을 만들었어. 호출한 도구와 인자는 화면 아래에 남겨 뒀어. →</div><div class="ja">ダッシュボードの HTML を作りました。呼び出したツールと引数は画面の下に残してあります。→</div></div>
     </div>
-    <div class="live" data-a style="--d:5;flex:1.6;height:660px">
-      <p class="kr s" style="margin:0">GPT에 제니퍼 MCP를 연결하고 "최근 1시간 운영 대시보드를 만들어 줘"라고 요청해 만든 화면입니다. 데이터는 Simula 도메인의 실제 값입니다.</p>
-      {{live:/jennifer-mcp-dashboard.html}}
-    </div>
+    <div class="live" data-step="3" style="flex:1.45">{{live:/jennifer-mcp-dashboard.html}}</div>
   </div>
 </section>
 <section class="slide" id="closing" data-notes="다음 사례 발표는 여러분의 차례입니다. 스킬과 가이드 위치 안내. [확인 필요] 배포 위치 URL." data-script="오늘 보여드린 스킬과 가이드는 모두 공개되어 있습니다. 다음 사례 발표는 여러분의 차례입니다. 감사합니다.">
