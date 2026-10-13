@@ -187,10 +187,6 @@ h1+.kr,h2+.kr,h1+.kr.s,h2+.kr.s{margin-top:18px}
 .playlist.turning .pl-dim{opacity:0}
 
 /* 다음 장 안내 화살표 */
-#next-hint{position:fixed;right:28px;top:28px;width:64px;height:64px;border-radius:50%;border:2px solid rgba(255,255,255,.35);background:rgba(124,115,194,.28);backdrop-filter:blur(4px);color:#fff;font:700 30px/1 var(--mono);cursor:pointer;z-index:8;opacity:0;pointer-events:none;transform:translateX(16px);transition:opacity .4s ease,transform .4s ease}
-#next-hint.show{opacity:.85;pointer-events:auto;transform:none;animation:nudge 1.6s ease-in-out infinite}
-#next-hint:hover{opacity:1;background:rgba(124,115,194,.55)}
-@keyframes nudge{0%,100%{transform:none}50%{transform:translateX(8px)}}
 
 /* 라이브 조작 모드 표시 */
 .live .hint .on{display:none;color:var(--hot);font-weight:700}
@@ -214,3 +210,11 @@ h1+.kr,h2+.kr,h1+.kr.s,h2+.kr.s{margin-top:18px}
 .chat .msg.tr.translated .st{display:none}
 /* 스트리밍으로 이미 일본어가 다 보였으면 .ja 로 바꿀 때 페이드를 하지 않는다(깜빡임 방지) */
 .chat .msg.tr.streamed .ja{animation:none}
+/* 다음 장 안내: 오른쪽 위 알약 버튼. 보라 그라데이션 + 은은한 빛 번짐, 화살표만 살짝 움직인다 */
+#next-hint{position:fixed;right:32px;top:30px;display:flex;align-items:center;gap:10px;height:48px;padding:0 18px 0 22px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:linear-gradient(135deg,#7C73C2,#9A91E6);color:#fff;font:700 15px var(--mono);letter-spacing:.18em;cursor:pointer;z-index:8;opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity .45s ease,transform .45s ease;box-shadow:0 8px 28px rgba(124,115,194,.45)}
+#next-hint::before{content:"";position:absolute;inset:-1px;border-radius:inherit;box-shadow:0 0 0 0 rgba(154,145,230,.55);animation:hintring 2.2s ease-out infinite}
+#next-hint svg{animation:hintarrow 1.6s ease-in-out infinite}
+#next-hint.show{opacity:.95;pointer-events:auto;transform:none}
+#next-hint:hover{opacity:1;filter:brightness(1.08)}
+@keyframes hintring{0%{box-shadow:0 0 0 0 rgba(154,145,230,.55)}100%{box-shadow:0 0 0 14px rgba(154,145,230,0)}}
+@keyframes hintarrow{0%,100%{transform:none}50%{transform:translateX(4px)}}

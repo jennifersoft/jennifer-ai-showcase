@@ -192,7 +192,7 @@ document.getElementById('script')&&document.getElementById('script').addEventLis
 renderScript();
 
 // '다음 장' 안내: 채팅·영상 장이 끝나면 오른쪽에 반투명 큰 화살표. 누르면 다음 장
-const nextHint=document.createElement('button');nextHint.id='next-hint';nextHint.setAttribute('aria-label','次へ');nextHint.textContent='→';
+const nextHint=document.createElement('button');nextHint.id='next-hint';nextHint.setAttribute('aria-label','次へ');nextHint.innerHTML='<span>NEXT</span><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>';
 nextHint.addEventListener('click',e=>{e.stopPropagation();go(cur+1)});document.body.appendChild(nextHint);
 function showNextHint(){if(cur<slides.length-1&&!document.body.classList.contains('ov'))nextHint.classList.add('show')}
 function hideNextHint(){nextHint.classList.remove('show');slides.forEach(s=>clearTimeout(s._doneT))}

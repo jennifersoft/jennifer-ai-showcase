@@ -31,3 +31,23 @@
 .pdshot::before{content:"";position:absolute;inset:-60px -80px;background:var(--ink);opacity:.94;z-index:-1}
 .pdshot img{flex:1;min-height:0;max-width:100%;object-fit:contain;border-radius:14px;box-shadow:0 30px 80px rgba(0,0,0,.5)}
 .pdshot figcaption{font-size:26px;text-align:center}.pdshot figcaption .kr{display:block}
+/* 21장: ChatGPT 앱처럼 보이는 대화 */
+.chat.gpt{background:#212121;border-color:#2f2f2f;font-family:"Noto Sans JP",system-ui,sans-serif;color:#ececec;padding:18px 26px 16px}
+.chat.gpt .who{gap:8px;color:#ececec;font:600 19px system-ui,sans-serif;padding-bottom:6px}
+.chat.gpt .who .ver{color:#9b9b9b;font-weight:500}
+.chat.gpt .who .plug{margin-left:auto;font:500 13px system-ui;color:#cfcfcf;background:#2f2f2f;border:1px solid #3a3a3a;border-radius:999px;padding:4px 10px}
+.chat.gpt .msg{color:#ececec}
+.chat.gpt .msg.me{background:#303030;color:#ececec;border-radius:24px;padding:12px 20px;max-width:82%}
+.chat.gpt .msg.ai{background:none;border-radius:0;padding:2px 2px;max-width:100%}
+.chat.gpt .msg.tr::before{color:#8f8f8f}
+.chat.gpt .msg.tool{font:400 15px/1.5 system-ui,sans-serif;color:#b4b4b4;display:flex;flex-direction:column;gap:4px}
+.chat.gpt .msg.tool .hd{color:#8f8f8f;font-size:14px;margin-bottom:2px}
+.chat.gpt .msg.tool .call{display:flex;align-items:center;gap:8px}
+.chat.gpt .msg.tool .ok{color:#10A37F;font-weight:700}
+.chat.gpt .msg.tool .sep{color:#6b6b6b}
+.chat.gpt .msg.tool code{font:500 14px var(--mono);color:#dcdcdc;background:#2a2a2a;border-radius:6px;padding:1px 7px}
+.chat.gpt .composer{position:sticky;bottom:0;margin-top:auto;display:flex;align-items:center;gap:12px;background:#303030;border:1px solid #3a3a3a;border-radius:28px;padding:10px 12px 10px 18px;color:#8f8f8f;font:400 17px system-ui,sans-serif;box-shadow:0 -12px 18px #212121}
+.chat.gpt .composer .plus{font-size:20px;color:#cfcfcf}
+.chat.gpt .composer .ph{flex:1}
+.chat.gpt .composer .send{width:34px;height:34px;border-radius:50%;background:#ececec;color:#212121;display:grid;place-items:center;font-weight:700}
+.chat.gpt .who{position:sticky;top:-18px;z-index:2;background:#212121;margin:-18px -26px 0;padding:18px 26px 10px}

@@ -310,12 +310,13 @@
     <p class="kr s" data-a style="--d:1">ChatGPT에 jennifer5-mcp 플러그인을 연결하고 말로 요청하면, AI가 Open API를 직접 호출해 대시보드까지 만듭니다.</p>
   </div>
   <div class="row" style="flex:1;min-height:0;gap:28px;align-items:stretch">
-    <div class="chat" data-a style="--d:2;flex:1">
-      <div class="who"><i style="background:linear-gradient(135deg,#10A37F,#4FB3FF)"></i>ChatGPT · jennifer5-mcp</div>
+    <div class="chat gpt" data-a style="--d:2;flex:1">
+      <div class="who"><b>ChatGPT</b><span class="ver">5 ⌄</span><span class="plug">⚡ jennifer5-mcp</span></div>
       <div class="msg me tr" data-step="1"><div class="ko">jennifer5-mcp로 도메인 2000(Simula)의 최근 1시간 운영 대시보드를 만들어 줘. TPS·응답시간·액티브 서비스·인스턴스별 CPU·에러·이벤트를 보여 줘.</div><div class="ja">jennifer5-mcp で、ドメイン 2000（Simula）の直近1時間の運用ダッシュボードを作って。TPS・応答時間・アクティブサービス・インスタンス別 CPU・エラー・イベントを見せて。</div></div>
-      <div class="msg ai" data-step="1"><div style="font:400 15px/1.7 var(--mono);color:var(--sub)">🔧 get_domain_list<br>🔧 get_instance_list · domainId 2000<br>🔧 get_domain_metric_values · service_rate, service_time, active_service, error_count<br>🔧 get_instance_metric_values · 27 instances · max_sys_cpu, heap_usage<br>🔧 get_event_list · warning, fatal<br>🔧 get_error_list</div></div>
+      <div class="msg ai tool" data-step="1"><div class="hd">ツールを呼び出しました · 6</div><div class="call"><span class="ok">✓</span>jennifer5-mcp<span class="sep">›</span><code>get_domain_list</code></div><div class="call"><span class="ok">✓</span>jennifer5-mcp<span class="sep">›</span><code>get_instance_list</code></div><div class="call"><span class="ok">✓</span>jennifer5-mcp<span class="sep">›</span><code>get_domain_metric_values</code></div><div class="call"><span class="ok">✓</span>jennifer5-mcp<span class="sep">›</span><code>get_instance_metric_values</code></div><div class="call"><span class="ok">✓</span>jennifer5-mcp<span class="sep">›</span><code>get_event_list</code></div><div class="call"><span class="ok">✓</span>jennifer5-mcp<span class="sep">›</span><code>get_error_list</code></div></div>
       <div class="msg ai tr" data-step="2"><div class="ko">도메인 2000 · Simula, 11:39~12:39 데이터로 만들었어. 눈에 띄는 점은 3가지야.<ol><li>TPS는 13.0~13.9로 안정적이고, 지금은 13.62야.</li><li>응답시간은 지금 68ms인데 구간 최고는 185ms였어. CPU는 인스턴스 5개가 100%를 찍었어.</li><li>에러는 1시간에 342건이야. 12:08에 FATAL · AGENT_STOP 이벤트가 있었어.</li></ol></div><div class="ja">ドメイン 2000・Simula、11:39〜12:39 のデータで作りました。目立つ点は3つです。<ol><li>TPS は 13.0〜13.9 で安定、現在は 13.62。</li><li>応答時間は現在 68ms、区間の最大は 185ms。CPU は 5 インスタンスが 100% に達しました。</li><li>エラーは1時間で 342 件。12:08 に FATAL・AGENT_STOP イベントがありました。</li></ol></div></div>
       <div class="msg ai tr" data-step="3"><div class="ko">대시보드 HTML을 만들었어. 호출한 도구와 인자는 화면 아래에 남겨 뒀어. →</div><div class="ja">ダッシュボードの HTML を作りました。呼び出したツールと引数は画面の下に残してあります。→</div></div>
+      <div class="composer"><span class="plus">＋</span><span class="ph">質問してみましょう</span><span class="send">↑</span></div>
     </div>
     <div class="live" data-step="3" style="flex:1.45">{{live:/jennifer-mcp-dashboard.html}}</div>
   </div>
