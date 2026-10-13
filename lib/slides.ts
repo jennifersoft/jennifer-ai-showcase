@@ -8,7 +8,7 @@ import path from "node:path";
 //
 // slides.html 안의 라이브 자리표시자
 // {{live:jennifer}}        제니퍼 사용자정의 대시보드 (JENNIFER_DASHBOARD_URL 또는 ?jennifer=)
-// {{live:/경로}}            이 서버의 페이지 (예: {{live:/dashboards/integrated}})
+// {{live:/경로}}            이 서버의 페이지 (예: {{live:/widgets/pagerduty}})
 export const SLIDES_DIR = path.join(process.cwd(), "slides");
 const DECK_NAME = /^[a-z0-9][a-z0-9-]*$/;
 

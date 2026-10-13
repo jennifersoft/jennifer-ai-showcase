@@ -7,7 +7,6 @@ const DICT = {
   // 공통
   loading: { ko: "불러오는 중", ja: "読み込み中", en: "Loading" },
   demoData: { ko: "데모 데이터", ja: "デモデータ", en: "Demo data" },
-  recordedData: { ko: "녹화 데이터", ja: "録画データ", en: "Recorded data" },
   sampleData: { ko: "샘플 데이터", ja: "サンプルデータ", en: "Sample data" },
   count: { ko: "건", ja: "件", en: "" },
 
@@ -19,11 +18,6 @@ const DICT = {
   "unit.count": { ko: "건", ja: "件", en: "" },
   "unit.services": { ko: "개", ja: "件", en: "" },
 
-  // 서버 지표 (Prometheus)
-  "infra.node-cpu": { ko: "CPU 사용률", ja: "CPU使用率", en: "CPU usage" },
-  "infra.node-memory": { ko: "메모리 사용률", ja: "メモリ使用率", en: "Memory usage" },
-  "infra.node-load": { ko: "Load 1m", ja: "ロードアベレージ 1m", en: "Load 1m" },
-  "infra.node-network": { ko: "네트워크 수신", ja: "ネットワーク受信", en: "Network in" },
 
   // 배포 타임라인
   "deploy.title": { ko: "배포 · 변경", ja: "デプロイ・変更", en: "Deploys & changes" },
@@ -70,13 +64,6 @@ const DICT = {
   "pd.total": { ko: "24시간 {n}건", ja: "24時間で{n}件", en: "{n} in 24h" },
 
   // 대시보드
-  "dash.integrated.title": { ko: "통합 대시보드", ja: "統合ダッシュボード", en: "Integrated dashboard" },
-  "dash.integrated.desc": {
-    ko: "APM은 JENNIFER, 서버 지표는 외부 데이터 소스(Prometheus 데모). 서로 다른 서버의 데이터입니다.",
-    ja: "APMはJENNIFER、サーバー指標は外部データソース（Prometheusデモ）。別々のサーバーのデータです。",
-    en: "APM from JENNIFER, server metrics from an external source (Prometheus demo). They come from different servers.",
-  },
-  "dash.infra": { ko: "Infra · Prometheus (외부 데이터 소스)", ja: "インフラ・Prometheus（外部データソース）", en: "Infra · Prometheus (external source)" },
   "dash.noJennifer": {
     ko: "JENNIFER_URL 환경변수 또는 ?src= 로 제니퍼 chartIframe 주소를 지정하세요.",
     ja: "環境変数 JENNIFER_URL または ?src= で JENNIFER の chartIframe アドレスを指定してください。",

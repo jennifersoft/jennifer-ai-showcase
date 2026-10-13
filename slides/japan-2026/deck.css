@@ -100,40 +100,6 @@
 .chat.gpt .msg.tool code{font-size:12.5px}
 .chat.gpt .msg ol{margin-top:2px}.chat.gpt .msg li{margin:1px 0}
 .chat.gpt .composer{padding:7px 10px 7px 16px;font-size:15px}.chat.gpt .composer .send{width:28px;height:28px}
-/* 19장: 양방향 — 두 창 목업과 서로를 향한 연결선 */
-.both{flex:1;display:grid;grid-template-columns:1fr 240px 1fr;align-items:center;gap:0;margin-top:10px}
-.win{margin:0;border-radius:18px;background:linear-gradient(160deg,#131d31,#0c1424);border:1px solid var(--line);box-shadow:0 30px 70px rgba(0,0,0,.45);overflow:visible;position:relative}
-.win.jen{box-shadow:0 30px 70px rgba(0,0,0,.45),0 0 0 1px rgba(124,115,194,.45)}
-.win.cus{box-shadow:0 30px 70px rgba(0,0,0,.45),0 0 0 1px rgba(79,179,255,.35)}
-.win .bar{display:flex;align-items:center;gap:8px;padding:14px 18px;border-bottom:1px solid var(--line)}
-.win .bar i{width:11px;height:11px;border-radius:50%;background:#2a3852}
-.win .bar b{margin-left:10px;font:800 20px var(--jp)}.win .bar em{font:400 15px var(--jp);color:var(--sub);font-style:normal}
-.win .grid{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:130px;gap:12px;padding:16px}
-.mt{background:#0f1a2c;border:1px solid #1d2a42;border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;position:relative;overflow:hidden}
-.mt>span{font:600 14px var(--mono);color:var(--sub)}
-.mt svg{flex:1;width:100%}
-.mt.emb{border:2px solid}
-.mt.in-ext{border-color:#4FB3FF;background:rgba(79,179,255,.08)}
-.mt.in-jen{border-color:#9A91E6;background:rgba(124,115,194,.1)}
-.mt.emb>span{color:var(--fg)}
-.mt .tag{position:absolute;top:8px;right:8px;font:700 12px var(--mono);font-style:normal;padding:2px 8px;border-radius:5px;color:#071019}
-.in-ext .tag{background:#4FB3FF}.in-jen .tag{background:#9A91E6}
-.mt ul{list-style:none;margin:0;padding:0;font:500 13px var(--mono);color:#c9d3e3}
-.mt li{display:flex;align-items:center;gap:8px;line-height:1.75}.mt li b{width:8px;height:8px;border-radius:50%}
-.mt li b.r{background:#E5484D}.mt li b.y{background:#F6A621}
-@keyframes embglow{50%{box-shadow:0 0 24px currentColor}}
-.in-ext{color:rgba(79,179,255,.6)}.in-jen{color:rgba(124,115,194,.6)}
-.win figcaption{position:absolute;left:0;right:0;top:calc(100% + 22px);font:800 26px var(--jp);display:flex;flex-direction:column;gap:4px;padding-left:4px}
-.win figcaption .no{font:700 16px var(--mono);color:var(--hot);letter-spacing:.1em}
-.win.cus figcaption .no{color:var(--cool)}
-.win figcaption small{font:400 18px var(--kr);color:var(--sub)}
-.links{display:flex;flex-direction:column;gap:46px;padding:0 14px}
-.lnk{display:flex;flex-direction:column;align-items:center;gap:6px;font:700 14px var(--mono);letter-spacing:.06em}
-.lnk svg{width:100%;height:20px;overflow:visible}
-.lnk path{fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:10 8;animation:dash 1s linear infinite}
-.lnk.to-left{color:#4FB3FF}.lnk.to-left path{stroke:#4FB3FF;animation-direction:reverse}
-.lnk.to-right{color:#9A91E6}.lnk.to-right path{stroke:#9A91E6}
-@keyframes dash{to{stroke-dashoffset:-18}}
 /* 마지막 전 장: 1인당 커밋 수 */
 .cstat{flex:1;display:grid;grid-template-columns:1.55fr 1fr;gap:48px;align-items:stretch;min-height:0;margin-top:10px}
 .cbars{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;align-items:end;margin-bottom:64px;border-bottom:2px solid var(--line);position:relative}

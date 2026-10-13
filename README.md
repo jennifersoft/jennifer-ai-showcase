@@ -1,7 +1,7 @@
 # jennifer-ai-showcase
 
 JENNIFER × AI 발표 슬라이드와 데모를 모은 Next.js 서버다.
-제니퍼 사용자정의 대시보드에 넣는 차트·위젯, 제니퍼 차트를 바깥에 넣는 통합 대시보드, 웹 슬라이드 덱을 한 앱에서 제공한다.
+제니퍼 사용자정의 대시보드에 넣는 차트·위젯과 웹 슬라이드 덱을 한 앱에서 제공한다.
 
 ## 실행
 
@@ -24,7 +24,7 @@ npm run dev                  # http://localhost:3000
 
 | 경로 | 용도 |
 |---|---|
-| `/charts/[id]` | 레이아웃 없는 차트 단독 페이지 (예: `/charts/tps`, `/charts/node-cpu`) |
+| `/charts/[id]` | 레이아웃 없는 차트 단독 페이지 (예: `/charts/tps`) |
 | `/widgets/incidents` | 열린 PagerDuty 인시던트와 담당자. `PAGERDUTY_API_KEY`가 없으면 샘플 데이터 |
 | `/widgets/deploy-timeline?hours=24` | 배포·변경 타임라인. 제니퍼 응답시간 차트 옆에 같은 시간 범위로 두면 "배포 직후 느려짐"을 바로 본다 |
 
@@ -32,7 +32,6 @@ npm run dev                  # http://localhost:3000
 
 | 경로 | 용도 |
 |---|---|
-| `/dashboards/integrated` | 통합 대시보드. 제니퍼 APM 차트와 Prometheus 서버 지표를 한 화면에 |
 | `/embed` | 제니퍼 `/popup/chartIframe`과 AI 차트를 나란히 보여준다 |
 
 **API**
@@ -40,7 +39,6 @@ npm run dev                  # http://localhost:3000
 | 경로 | 용도 |
 |---|---|
 | `/api/jennifer/*` | 제니퍼 OpenAPI 프록시. 토큰은 서버에만 둔다 |
-| `/api/prometheus/[key]` | 허용한 PromQL만 실행. 응답이 없으면 `lib/prometheus-fallback.json`(녹화 데이터)으로 대체 |
 | `/api/incidents` | PagerDuty 열린 인시던트 |
 | `/api/deploys` | 배포 이벤트. `GET ?hours=N` 조회, `POST`는 CI가 배포 직후 호출 |
 
@@ -73,7 +71,7 @@ slides/
 1. `cp -r slides/_template slides/<덱이름>` (덱이름은 소문자·숫자·하이픈)
 2. `meta.json`의 `title`, `theme`(`dark`|`light`, 템플릿은 `light`), `lang`, `date`, `description`을 고친다. `?theme=light` 로 테마를 바꿔 미리볼 수 있다.
 3. `slides.html`에 `<section class="slide">`를 한 장씩 쓴다. `data-notes`는 발표자 노트, `data-a`는 등장 애니메이션(`style="--d:n"`으로 순서).
-4. 실제 화면은 한 줄로 넣는다. `{{live:jennifer}}`는 제니퍼 대시보드, `{{live:/경로}}`는 이 서버 페이지(예: `{{live:/dashboards/integrated}}`).
+4. 실제 화면은 한 줄로 넣는다. `{{live:jennifer}}`는 제니퍼 대시보드, `{{live:/경로}}`는 이 서버 페이지(예: `{{live:/widgets/pagerduty}}`).
    움직이는 목업 차트는 `<canvas data-chart="line|bars|xview|heat" data-max="200" data-unit="ms">`로 넣는다. line·bars·xview는 Y축(0·절반·최대)과 시간축을 같이 그린다.
 5. 단계 연출이 필요하면 섹션에 `data-steps="N"`을 주고 `deck.js`에 `hooks['<섹션 id>']=st=>{...}`를 쓴다.
 6. 여러 덱에 쓸 만한 스타일·컴포넌트가 생기면 덱 폴더가 아니라 `_engine`으로 올린다.
@@ -88,7 +86,6 @@ slides/
 
 ## 서버 지표 데모 주의
 
-- 공개 Prometheus 데모(`prometheus.demo.prometheus.io`)는 제니퍼가 감시하는 서버와 다른 서버다. 같은 서버의 상관 분석처럼 보이지 않게 "외부 데이터 소스 연동 예시"로 소개한다.
 - 공개 데모는 가용성 보장이 없다. 응답이 없으면 차트에 "녹화 데이터"로 표시된다. fallback은 2026-10-11에 녹화한 실제 응답(15분)이다.
 
 ## 배포 타임라인 연동
@@ -111,9 +108,7 @@ curl -X POST "$SHOWCASE_URL/api/deploys" -H "Authorization: Bearer $DEPLOY_WEBHO
 | `JENNIFER_URL` | 제니퍼 뷰서버 주소 (OpenAPI 프록시, chartIframe) | 제니퍼 연동 |
 | `JENNIFER_API_TOKEN` | 제니퍼 OPEN_API 토큰. 서버에서만 쓴다 | 제니퍼 연동 |
 | `FRAME_ANCESTORS` | 이 서버 페이지를 iframe으로 넣을 수 있는 origin(공백 구분). 제니퍼 도메인을 넣는다 | 대시보드 위젯 |
-| `JENNIFER_CHART_URL` | 통합 대시보드 왼쪽 큰 칸에 넣을 제니퍼 차트 iframe 주소 (예: X-View `popup/chartIframe?...`). `?src=`로 덮어쓰기 | 선택 |
 | `JENNIFER_DASHBOARD_URL` | 슬라이드 라이브 화면의 제니퍼 대시보드 기본 주소 (`?jennifer=`로 덮어쓰기) | 선택 |
-| `PROMETHEUS_URL` | 서버 지표 소스 (기본: 공개 데모) | 선택 |
 | `PAGERDUTY_API_KEY`, `PAGERDUTY_SERVICE_ID` | 인시던트 위젯 (읽기 전용 키 권장) | 선택 |
 | `DEPLOY_WEBHOOK_SECRET`, `DEPLOY_GITHUB_REPO`, `GITHUB_TOKEN` | 배포 타임라인 | 선택 |
 
