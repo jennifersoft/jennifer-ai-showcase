@@ -38,25 +38,48 @@ document.getElementById('prev').onclick=()=>go(cur-1);
 document.getElementById('next').onclick=fwd;
 function steps(){return +(slides[cur].dataset.steps||0)}
 // 단계 표시. data-step="N" 인 요소는 N 단계부터 보이고(.shown), .chat 은 새 메시지가 보이도록 아래로 스크롤한다.
-const TR_HOLD=3000;
+const TR_HOLD=900; // 원문(한국어)이 보인 뒤 번역 스트리밍을 시작하기까지
+const TR_CPS=90;   // 번역 스트리밍 속도(글자/초)
+// 번역 스트리밍: .ko 와 .ja 의 글자 마디(text node)를 순서대로 짝지어, 한국어 문장을 하나씩 일본어로 흘려 쓰듯 바꾼다.
+// 마디 수가 다르면 한 번에 바꾼다. 끝나면 .translated 로 원래 .ja 를 보여 주므로 T 키 토글은 그대로 동작한다.
+const textNodes=el=>{const w=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,{acceptNode:n=>n.nodeValue.trim()?1:3});const a=[];while(w.nextNode())a.push(w.currentNode);return a};
+// 번역 중인 마디: 번역된 앞부분(일본어) + 아직 안 바뀐 뒷문장(한국어). 문장 수가 같으면 문장 단위로, 다르면 길이 비율로 남긴다.
+const sents=t=>t.match(/[^.!?。！？]+[.!?。！？]*\s*|\s+/g)||[t];
+function mix(ko,ja,c){const a=sents(ko),b=sents(ja);
+  if(a.length===b.length){let n=0,k=0;while(k<b.length&&n+b[k].length<=c){n+=b[k].length;k++}return ja.slice(0,c)+a.slice(k+(c>n?1:0)).join('')}
+  return ja.slice(0,c)+ko.slice(Math.round(c/ja.length*ko.length))}
+const trLen=e=>{const j=e.querySelector('.ja');return j?j.textContent.replace(/\s+/g,'').length:0};
+function streamTranslate(e,done){
+  const ko=e.querySelector('.ko'),ja=e.querySelector('.ja');if(!ko||!ja){e.classList.add('translated');done();return}
+  const st=ko.cloneNode(true);st.className='st';const dst=textNodes(st),src=textNodes(ja);
+  if(dst.length!==src.length){e.classList.add('translated');done();return}
+  e.querySelector('.st')?.remove();ko.after(st);e.classList.add('streaming');
+  const orig=dst.map(n=>n.nodeValue);const tok=e._tok=(e._tok||0)+1;let i=0,c=0;
+  const tick=()=>{if(e._tok!==tok)return;
+    if(i>=dst.length){st.remove();e.classList.remove('streaming');e.classList.add('translated');done();return}
+    const t=src[i].nodeValue;c=Math.min(t.length,c+Math.max(1,Math.round(TR_CPS/30)));
+    dst[i].nodeValue=mix(orig[i],t,c);dst[i].parentElement.classList.add('cur');
+    if(c>=t.length){dst[i].parentElement.classList.remove('cur');i++;c=0}
+    done(true);e._tr=setTimeout(tick,33)};
+  tick()}
 function showStep(){const n=steps();document.getElementById('st').textContent=n?`▸ ${step}/${n}`:'';
   const s=slides[cur];
   // 이번 단계에서 새로 나타나는 채팅 메시지는 하나씩: 내 말풍선은 바로, AI 말풍선은 '입력 중…' 뒤에 나타난다
   let delay=0;
   s.querySelectorAll('[data-step]').forEach(e=>{const show=+e.dataset.step<=step,was=e.classList.contains('shown');
-    if(!show){e.classList.remove('shown','typing','translated');clearTimeout(e._t);clearTimeout(e._tr);return}
+    if(!show){e.classList.remove('shown','typing','translated','streaming');e.querySelector('.st')?.remove();e._tok=(e._tok||0)+1;clearTimeout(e._t);clearTimeout(e._tr);return}
     if(was)return;
     if(e.matches('.chat .msg')&&!reduce){const ai=e.classList.contains('ai');
       e._t=setTimeout(()=>{e.classList.add('shown');if(ai){e.classList.add('typing');e._t=setTimeout(()=>{e.classList.remove('typing');scrollChat(s)},900)}scrollChat(s)},delay);
       // .tr 말풍선: 원문(한국어)이 먼저 보이고, 잠시 뒤 번역(일본어)으로 바뀐다
       // 원문(한국어)을 TR_HOLD ms 동안 읽을 수 있게 보여 준 뒤 번역(일본어)으로 바꾼다
-      if(e.classList.contains('tr'))e._tr=setTimeout(()=>{e.classList.add('translated');scrollChat(s)},delay+(ai?900:0)+TR_HOLD);
-      delay+=e.classList.contains('tr')?(ai?900+TR_HOLD+700:TR_HOLD+500):(ai?1500:500)}
+      if(e.classList.contains('tr'))e._tr=setTimeout(()=>streamTranslate(e,()=>scrollChat(s)),delay+(ai?900:0)+TR_HOLD);
+      delay+=e.classList.contains('tr')?(ai?900:0)+TR_HOLD+trLen(e)/TR_CPS*1000+600:(ai?1500:500)}
     else{e._t=setTimeout(()=>e.classList.add('shown'),delay)}});
   scrollChat(s);
   // 단계 연출(채팅 등)이 모두 끝나면 '다음 장' 안내를 띄운다
   // 모든 장 공통: 마지막 단계까지 왔으면 연출이 끝난 뒤 띄운다. 영상 장(.playlist)은 영상이 끝날 때 따로 띄운다.
-  clearTimeout(s._doneT);if(step>=steps()&&!s.querySelector('.playlist')){const wait=s.querySelector('[data-step]')?delay+(s.querySelector('.msg.tr')?TR_HOLD+900:900):(hooks[s.id]?2500:1200);s._doneT=setTimeout(()=>{if(slides[cur]===s)showNextHint()},wait)}}
+  clearTimeout(s._doneT);if(step>=steps()&&!s.querySelector('.playlist')){const wait=s.querySelector('[data-step]')?delay+900:(hooks[s.id]?2500:1200);s._doneT=setTimeout(()=>{if(slides[cur]===s)showNextHint()},wait)}}
 function scrollChat(s){
   // data-active-step="N": 지금 보이는 마지막 채팅 메시지의 단계와 같은 요소를 강조한다(예: 오른쪽 설명 카드)
   const lastMsg=[...s.querySelectorAll('.chat .msg[data-step].shown')].pop();

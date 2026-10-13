@@ -205,3 +205,10 @@ h1+.kr,h2+.kr,h1+.kr.s,h2+.kr.s{margin-top:18px}
 .live .hint{display:flex;align-items:center;gap:10px}
 .live .hint kbd{font:700 15px var(--mono);color:var(--fg);background:var(--panel);border:1px solid var(--line);border-bottom-width:3px;border-radius:6px;padding:1px 8px}
 .live.interact .hint kbd{border-color:var(--hot);color:var(--hot)}
+.chat .msg.tr .st{display:none}
+.chat .msg.tr.streaming .ko{display:none}
+.chat .msg.tr.streaming .st{display:block}
+.chat .msg.tr.streaming::before{content:"翻訳中…";color:var(--hot)}
+.chat .msg.tr .st .cur::after{content:"";display:inline-block;width:.5em;height:1em;margin-left:2px;vertical-align:-2px;background:var(--hot);animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.chat .msg.tr.translated .st{display:none}
