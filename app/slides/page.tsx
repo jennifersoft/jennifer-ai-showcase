@@ -30,7 +30,7 @@ export default async function SlidesIndex() {
                 borderBottom: "1px solid var(--border)",
               }}
             >
-              <span style={{ font: "700 11px var(--mono)", letterSpacing: "0.2em", color: "#ff6b35" }}>JENNIFER</span>
+              <span style={{ font: "700 11px var(--mono)", letterSpacing: "0.2em", color: "#7c73c2" }}>JENNIFER</span>
               <span style={{ fontSize: 20, fontWeight: 800, lineHeight: 1.3 }}>{d.title}</span>
             </div>
             <div style={{ padding: "14px 20px 16px", display: "flex", flexDirection: "column", gap: 8 }}>

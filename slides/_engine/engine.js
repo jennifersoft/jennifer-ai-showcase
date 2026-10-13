@@ -49,7 +49,7 @@ function showStep(){const n=steps();document.getElementById('st').textContent=n?
 function scrollChat(s){
   s.querySelectorAll('.chat').forEach(c=>{const last=[...c.querySelectorAll('[data-step].shown')].pop();if(last)c.scrollTo({top:Math.max(0,last.offsetTop+last.offsetHeight-c.offsetTop-c.clientHeight+20),behavior:reduce?'auto':'smooth'});else c.scrollTop=0})}
 function fwd(){t0??=Date.now();if(step<steps()){step++;showStep();hooks[slides[cur].id]&&hooks[slides[cur].id](step)}else go(cur+1)}
-setInterval(()=>{if(t0==null)return;const e=Math.floor((Date.now()-t0)/1000);const tm=document.getElementById('tm');tm.textContent=String(e/60|0).padStart(2,'0')+':'+String(e%60).padStart(2,'0');tm.style.color=e>780?'#FF6B35':''},1000);
+setInterval(()=>{if(t0==null)return;const e=Math.floor((Date.now()-t0)/1000);const tm=document.getElementById('tm');tm.textContent=String(e/60|0).padStart(2,'0')+':'+String(e%60).padStart(2,'0');tm.style.color=e>780?'#F6A621':''},1000);
 // 라이브 iframe 조작 모드: 켜면 iframe이 클릭·키보드를 받는다. 끄려면 iframe 바깥(슬라이드 여백)을 클릭한다.
 function toggleInteract(){const l=slides[cur].querySelector('.live');if(!l||!l.querySelector('iframe'))return;l.classList.toggle('interact');if(!l.classList.contains('interact'))window.focus()}
 function toggleNotes(){const n=document.getElementById('notes');n.hidden=!n.hidden}
@@ -75,13 +75,13 @@ function net(id){const c=document.getElementById(id),x=c.getContext('2d');c.widt
     for(const p of P){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>1920)p.vx*=-1;if(p.y<0||p.y>1080)p.vy*=-1}
     for(let i=0;i<P.length;i++)for(let j=i+1;j<P.length;j++){const a=P[i],b=P[j],d=Math.hypot(a.x-b.x,a.y-b.y);
       if(d<220){x.strokeStyle=`rgba(79,179,255,${(1-d/220)*.25})`;x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.stroke()}}
-    for(const p of P){x.fillStyle='rgba(255,107,53,.7)';x.beginPath();x.arc(p.x,p.y,2.5,0,7);x.fill()}
+    for(const p of P){x.fillStyle='rgba(154,145,230,.8)';x.beginPath();x.arc(p.x,p.y,2.5,0,7);x.fill()}
     if(!reduce)requestAnimationFrame(f)})()}
 
 
 // 움직이는 목업 차트: <canvas data-chart="line|bars|heat|xview" data-c="#색" data-max="100" data-unit="ms">
 // line·bars·xview 는 Y축 눈금(0·절반·최대)과 X축(시간)을 같이 그린다. 축 색은 테마 토큰(--sub, --line)을 따른다.
-const charts=[...document.querySelectorAll('canvas[data-chart]')].map(c=>({c,x:c.getContext('2d'),type:c.dataset.chart,col:c.dataset.c||'#FF6B35',max:+(c.dataset.max||100),unit:c.dataset.unit||'',d:Array.from({length:60},(_,i)=>50+Math.sin(i/5)*20+Math.random()*15),pts:[]}));
+const charts=[...document.querySelectorAll('canvas[data-chart]')].map(c=>({c,x:c.getContext('2d'),type:c.dataset.chart,col:c.dataset.c||'#9A91E6',max:+(c.dataset.max||100),unit:c.dataset.unit||'',d:Array.from({length:60},(_,i)=>50+Math.sin(i/5)*20+Math.random()*15),pts:[]}));
 function size(o){const w=o.c.clientWidth||400,h=o.c.clientHeight||150;if(o.c.width!==w*2){o.c.width=w*2;o.c.height=h*2}return[o.c.width,o.c.height]}
 const tokens={};
 function token(name,fb){return tokens[name]??=(getComputedStyle(document.documentElement).getPropertyValue(name).trim()||fb)}
@@ -101,9 +101,9 @@ function draw(){tick++;
     if(tick%6===0){o.d.shift();o.d.push(Math.max(5,Math.min(95,o.d[o.d.length-1]+(Math.random()-.5)*18)))}
     if(o.type==='line'){const a=axes(x,w,h,o.max,o.unit,['-10m','-5m','now']);x.beginPath();o.d.forEach((v,i)=>{const px=a.x+i/(o.d.length-1)*a.w,py=a.y+a.h-v/100*a.h;i?x.lineTo(px,py):x.moveTo(px,py)});
       x.strokeStyle=o.col;x.lineWidth=4;x.lineJoin='round';x.stroke();x.lineTo(a.x+a.w,a.y+a.h);x.lineTo(a.x,a.y+a.h);x.fillStyle=o.col+'22';x.fill()}
-    else if(o.type==='bars'){const a=axes(x,w,h,o.max,o.unit,['-12m','-6m','now']),n=12,bw=a.w/n;for(let i=0;i<n;i++){const v=o.d[o.d.length-n+i];x.fillStyle=o.c.dataset.c||(v>75?'#FF6B35':'#4FB3FF');x.fillRect(a.x+i*bw+6,a.y+a.h-v/100*a.h,bw-12,v/100*a.h)}}
+    else if(o.type==='bars'){const a=axes(x,w,h,o.max,o.unit,['-12m','-6m','now']),n=12,bw=a.w/n;for(let i=0;i<n;i++){const v=o.d[o.d.length-n+i];x.fillStyle=o.c.dataset.c||(v>75?'#F6A621':'#4FB3FF');x.fillRect(a.x+i*bw+6,a.y+a.h-v/100*a.h,bw-12,v/100*a.h)}}
     else if(o.type==='heat'){const cols=30,rows=6,cw=w/cols,rh=h/rows;for(let i=0;i<cols;i++)for(let j=0;j<rows;j++){
-      const v=(Math.sin((i+tick/20)/3+j)+1)/2;x.fillStyle=`rgba(255,107,53,${.12+v*.8})`;x.fillRect(i*cw+2,j*rh+2,cw-4,rh-4)}}
+      const v=(Math.sin((i+tick/20)/3+j)+1)/2;x.fillStyle=`rgba(154,145,230,${.12+v*.8})`;x.fillRect(i*cw+2,j*rh+2,cw-4,rh-4)}}
     else if(o.type==='xview'){const a=axes(x,w,h,+(o.c.dataset.max||8000),o.c.dataset.unit||'ms',['-5m','-2.5m','now']);
       if(o.pts.length<400||tick%2===0){for(let k=0;k<3;k++)o.pts.push({t:tick,y:Math.random()<.08?Math.random()*.9:Math.random()*.3})}
       o.pts=o.pts.filter(p=>tick-p.t<300);for(const p of o.pts){const px=a.x+a.w-(tick-p.t)/300*a.w,py=a.y+a.h-p.y*a.h-4;x.fillStyle=p.y>.6?'#FF6B35':p.y>.3?'#FFC24B':'#4FB3FF';x.fillRect(px,py,5,5)}}

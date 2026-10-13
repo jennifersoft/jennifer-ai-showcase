@@ -10,7 +10,7 @@ hooks['s-dash']=st=>{const t=document.getElementById('aiTile'),p=document.getEle
 // slide 7: particles flowing both ways
 (function(){const c=document.getElementById('flow'),x=c.getContext('2d');c.width=1920;c.height=1080;const P=[];
   (function f(){if(document.getElementById('s-both').classList.contains('on')){
-    if(Math.random()<.5)P.push({x:700,y:560+Math.random()*40,v:6+Math.random()*4,c:'#FF6B35'});
+    if(Math.random()<.5)P.push({x:700,y:560+Math.random()*40,v:6+Math.random()*4,c:'#9A91E6'});
     if(Math.random()<.5)P.push({x:1220,y:680+Math.random()*40,v:-(6+Math.random()*4),c:'#4FB3FF'});
     x.clearRect(0,0,1920,1080);
     for(const p of P){p.x+=p.v;x.fillStyle=p.c;x.globalAlpha=.9;x.beginPath();x.arc(p.x,p.y,5,0,7);x.fill();
