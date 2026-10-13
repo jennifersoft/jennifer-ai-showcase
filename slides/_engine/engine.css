@@ -198,3 +198,7 @@ h1+.kr,h2+.kr,h1+.kr.s,h2+.kr.s{margin-top:18px}
 .live.interact .hint .off{display:none}
 .live.interact .frame{outline:3px solid var(--hot);outline-offset:4px;border-radius:16px}
 .playlist[data-o] .pl-dim{box-shadow:0 0 0 200vmax rgba(9,13,24,.62)}
+
+/* 라이브 화면이 있는 장은 여백을 줄여 화면을 크게 */
+.slide:has(> .live){padding:56px 80px 36px;gap:18px}
+.slide:has(> .live) .hint{font-size:16px}

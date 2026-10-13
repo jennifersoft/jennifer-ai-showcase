@@ -26,12 +26,12 @@ function go(i){
 addEventListener('keydown',e=>{
   if(['ArrowRight','PageDown',' ','Enter'].includes(e.key)){e.preventDefault();fwd()}
   else if(['ArrowLeft','PageUp','Backspace'].includes(e.key)){e.preventDefault();go(cur-1)}
-  else if(e.key==='n'||e.key==='N')toggleNotes();
-  else if(e.key==='s'||e.key==='S')toggleScript();
-  else if(e.key==='f'||e.key==='F')full();
-  else if(e.key==='i'||e.key==='I')toggleInteract();
-  else if(e.key==='t'||e.key==='T'){const tr=[...slides[cur].querySelectorAll('.msg.tr.shown')];const to=!tr.every(m=>m.classList.contains('translated'));tr.forEach(m=>m.classList.toggle('translated',to));scrollChat(slides[cur])}
-  else if(e.key==='o'||e.key==='O')overview();else if(e.key==='Home')go(0);else if(e.key==='End')go(slides.length-1);
+  else if(e.code==='KeyN')toggleNotes();
+  else if(e.code==='KeyS')toggleScript();
+  else if(e.code==='KeyF')full();
+  else if(e.code==='KeyI')toggleInteract();
+  else if(e.code==='KeyT'){const tr=[...slides[cur].querySelectorAll('.msg.tr.shown')];const to=!tr.every(m=>m.classList.contains('translated'));tr.forEach(m=>m.classList.toggle('translated',to));scrollChat(slides[cur])}
+  else if(e.code==='KeyO')overview();else if(e.key==='Home')go(0);else if(e.key==='End')go(slides.length-1);
 });
 document.getElementById('viewport').addEventListener('click',e=>{if(e.target.closest('button'))return;if(slides[cur].querySelector('.live.interact')){e.target.closest('.live')||toggleInteract();return}e.clientX>innerWidth/3?fwd():go(cur-1)});
 document.getElementById('prev').onclick=()=>go(cur-1);
