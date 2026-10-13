@@ -55,7 +55,8 @@ function showStep(){const n=steps();document.getElementById('st').textContent=n?
     else{e._t=setTimeout(()=>e.classList.add('shown'),delay)}});
   scrollChat(s);
   // 단계 연출(채팅 등)이 모두 끝나면 '다음 장' 안내를 띄운다
-  clearTimeout(s._doneT);if(steps()&&step>=steps()&&s.querySelector('[data-step]'))s._doneT=setTimeout(()=>{if(slides[cur]===s)showNextHint()},delay+(s.querySelector('.msg.tr')?TR_HOLD+900:900))}
+  // 모든 장 공통: 마지막 단계까지 왔으면 연출이 끝난 뒤 띄운다. 영상 장(.playlist)은 영상이 끝날 때 따로 띄운다.
+  clearTimeout(s._doneT);if(step>=steps()&&!s.querySelector('.playlist')){const wait=s.querySelector('[data-step]')?delay+(s.querySelector('.msg.tr')?TR_HOLD+900:900):(hooks[s.id]?2500:1200);s._doneT=setTimeout(()=>{if(slides[cur]===s)showNextHint()},wait)}}
 function scrollChat(s){
   // data-active-step="N": 지금 보이는 마지막 채팅 메시지의 단계와 같은 요소를 강조한다(예: 오른쪽 설명 카드)
   const lastMsg=[...s.querySelectorAll('.chat .msg[data-step].shown')].pop();
