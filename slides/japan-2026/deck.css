@@ -186,3 +186,4 @@
    세로는 deck.js 가 첫 원~마지막 원 중심을 재서 --lt(시작)·--lh(길이)로 넣는다 */
 .feel::before{left:25px;top:var(--lt,36px)}
 @keyframes feelline{to{height:var(--lh,calc(100% - 72px))}}
+.card .kr,.slide .kr{word-break:keep-all}
