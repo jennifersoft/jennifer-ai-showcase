@@ -20,7 +20,23 @@ main{max-width:1440px;margin:auto;padding:32px 34px 46px}.topbar{display:flex;al
 .span-4{grid-column:span 4}.cpu-legend{display:flex;flex-wrap:nowrap;gap:5px;overflow-x:auto;overflow-y:hidden;margin:8px 0;padding-bottom:4px;-webkit-mask-image:linear-gradient(90deg,#000 92%,transparent);mask-image:linear-gradient(90deg,#000 92%,transparent)}.cpu-legend button{flex:none;white-space:nowrap}.cpu-legend button{font:inherit;font-size:10px;color:#b7c3d8;background:#0b1424;border:1px solid #2a3851;border-radius:5px;padding:5px 7px;cursor:pointer;display:flex;align-items:center;gap:5px}.cpu-legend button[aria-pressed="false"]{opacity:.4;text-decoration:line-through}.legend-dot{width:10px;height:3px;display:inline-block}.message{white-space:normal;min-width:280px}.message summary{cursor:pointer;overflow-wrap:anywhere;line-height:1.6}.message pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:10px;line-height:1.6;max-height:240px;overflow:auto}.data-note{font-size:10px;color:#8492aa;line-height:1.7}.call-log{color:#8492aa;font-size:11px;margin-top:16px}.call-log summary{cursor:pointer}.call-log pre{background:#101A2C;padding:16px;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:11px;max-height:320px;overflow:auto}button:focus-visible,summary:focus-visible{outline:2px solid #9A91E6;outline-offset:3px}.chart-wrap.empty canvas{visibility:hidden}
 @media(max-width:900px){.span-4{grid-column:span 3}}
 @media(max-width:640px){.span-4{grid-column:span 1}.source{white-space:normal}}
+
+/* ?compact : 슬라이드 칸에 스크롤 없이 한 화면으로 (원본 레이아웃은 그대로) */
+html.compact,html.compact body{height:100%;overflow:hidden}
+html.compact main{height:100vh;display:flex;flex-direction:column;padding:14px 16px;max-width:none}
+html.compact .eyebrow,html.compact .status,html.compact .footer,html.compact .data-note,html.compact .call-log,html.compact .kpi-note,html.compact .kpi:after,html.compact #event-note{display:none}html.compact .error-card{display:none!important}
+html.compact .topbar{margin-bottom:10px}html.compact .title{font-size:18px}html.compact .subtitle{margin-top:4px;font-size:11px}
+html.compact .kpis{gap:8px;margin-bottom:8px}html.compact .kpi{min-height:0;padding:9px 12px;display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+html.compact .kpi-value{font-size:20px;margin:0}
+html.compact .charts{flex:1;min-height:0;gap:8px;grid-template-rows:minmax(0,1fr) minmax(0,1fr)}
+html.compact .chart-card{display:flex;flex-direction:column;padding:10px 12px 6px;min-height:0}
+html.compact .span-3{grid-column:span 2}html.compact .span-4{grid-column:span 3}html.compact .events{grid-column:span 3}
+html.compact .chart-head{margin-bottom:4px}html.compact .chart-wrap,html.compact .chart-wrap.short{flex:1;height:auto;min-height:0}
+html.compact .cpu-legend{margin:4px 0 0}html.compact .chart-wrap{position:relative;overflow:hidden}html.compact .chart-wrap canvas{position:absolute;inset:0}html.compact .events{display:flex;flex-direction:column;overflow:hidden}
+html.compact .events .table-scroll{overflow:hidden}html.compact th,html.compact td{padding:6px 8px}html.compact #event-rows tr:nth-child(n+5){display:none}
+html.compact table{table-layout:fixed;height:auto}html.compact td{vertical-align:middle;overflow:hidden;text-overflow:ellipsis}html.compact .message{min-width:0;white-space:nowrap}html.compact .message pre{display:none}html.compact .message details,html.compact .message summary{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}html.compact .events .table-scroll{flex:none}html.compact th:nth-child(3),html.compact td:nth-child(3){display:none}
 </style>
+<script>if(/[?&]compact\b/.test(location.search))document.documentElement.classList.add("compact")</script>
 </head>
 <body>
 <main>
