@@ -106,3 +106,25 @@ body.ov .slide.on{outline-color:var(--hot)}
 .pl-tabs li span{display:block;font:300 16px var(--kr);margin-top:2px}
 .pl-tabs li.on{color:var(--fg);border-color:var(--hot)}
 .pl-tabs li.on::after{content:"";position:absolute;left:0;bottom:0;height:3px;width:var(--p,0%);background:var(--hot)}
+
+/* data-step: 단계마다 하나씩 나타나는 요소 */
+[data-step]{opacity:0;transform:translateY(24px);transition:opacity .5s ease,transform .5s ease}
+[data-step].shown{opacity:1;transform:none}
+body.ov [data-step]{opacity:1;transform:none}
+/* chat: 메신저 대화 재연. <div class="chat"><div class="msg me" data-step="1">…</div><div class="msg ai" data-step="2">…</div></div> */
+.chat{display:flex;flex-direction:column;gap:14px;overflow:hidden;min-height:0;padding:20px 24px;border-radius:20px;background:var(--panel);border:1px solid var(--line);font:400 21px/1.55 var(--kr)}
+.chat .msg{max-width:88%;padding:14px 20px;border-radius:18px;background:var(--panel2);color:var(--fg)}
+.chat .msg.me{align-self:flex-end;background:#5B7CB8;color:#fff;border-bottom-right-radius:6px}
+.chat .msg.ai{align-self:flex-start;border-bottom-left-radius:6px}
+.chat .msg h4{margin:0 0 6px;font:700 22px var(--kr)}
+.chat .msg ol,.chat .msg ul{margin:4px 0 0;padding-left:26px}
+.chat .msg li{margin:3px 0}
+.chat .msg b{color:var(--fg)}
+.chat .msg .sub{color:var(--sub);font-size:18px}
+.chat .meta{align-self:center;color:var(--sub);font:400 16px var(--mono)}
+.chat .who{display:flex;align-items:center;gap:10px;color:var(--sub);font:600 16px var(--kr)}
+.chat .who i{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#7B5CD6,#C084FC);display:inline-block}
+.shots{display:grid;grid-template-columns:1fr 1fr;gap:14px;min-height:0}
+.shots figure{margin:0;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#fff;position:relative}
+.shots img{display:block;width:100%;height:100%;object-fit:cover;object-position:top left}
+.shots figcaption{position:absolute;left:8px;bottom:8px;padding:4px 10px;border-radius:6px;background:rgba(7,11,20,.8);color:#fff;font:500 15px var(--kr)}

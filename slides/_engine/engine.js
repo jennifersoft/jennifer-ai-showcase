@@ -33,8 +33,11 @@ document.getElementById('viewport').addEventListener('click',e=>{if(e.target.clo
 document.getElementById('prev').onclick=()=>go(cur-1);
 document.getElementById('next').onclick=fwd;
 function steps(){return +(slides[cur].dataset.steps||0)}
-function showStep(){const n=steps();document.getElementById('st').textContent=n?`▸ ${step}/${n}`:''}
-function fwd(){t0??=Date.now();if(step<steps()){step++;showStep();hooks[slides[cur].id](step)}else go(cur+1)}
+// 단계 표시. data-step="N" 인 요소는 N 단계부터 보이고(.shown), .chat 은 새 메시지가 보이도록 아래로 스크롤한다.
+function showStep(){const n=steps();document.getElementById('st').textContent=n?`▸ ${step}/${n}`:'';
+  const s=slides[cur];s.querySelectorAll('[data-step]').forEach(e=>e.classList.toggle('shown',+e.dataset.step<=step));
+  s.querySelectorAll('.chat').forEach(c=>{const last=[...c.querySelectorAll('[data-step].shown')].pop();if(last)c.scrollTo({top:last.offsetTop-c.offsetTop-12,behavior:reduce?'auto':'smooth'});else c.scrollTop=0})}
+function fwd(){t0??=Date.now();if(step<steps()){step++;showStep();hooks[slides[cur].id]&&hooks[slides[cur].id](step)}else go(cur+1)}
 setInterval(()=>{if(t0==null)return;const e=Math.floor((Date.now()-t0)/1000);const tm=document.getElementById('tm');tm.textContent=String(e/60|0).padStart(2,'0')+':'+String(e%60).padStart(2,'0');tm.style.color=e>780?'#FF6B35':''},1000);
 // 라이브 iframe 조작 모드: 켜면 iframe이 클릭·키보드를 받는다. 끄려면 iframe 바깥(슬라이드 여백)을 클릭한다.
 function toggleInteract(){const l=slides[cur].querySelector('.live');if(!l||!l.querySelector('iframe'))return;l.classList.toggle('interact');if(!l.classList.contains('interact'))window.focus()}
