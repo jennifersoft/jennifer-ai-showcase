@@ -141,10 +141,12 @@ body.ov [data-step]{opacity:1;transform:none}
 .chat .msg.typing{font-size:0;line-height:0;padding:20px 22px}
 
 /* 번역 말풍선(.msg.tr): .ko 원문 → .translated 가 붙으면 .ja 번역으로 전환. T 키로 원문/번역 토글 */
-.chat .msg.tr .ja{display:none}
-.chat .msg.tr.translated .ko{display:none}
-.chat .msg.tr.translated .ja{display:block;animation:trin .5s ease}
-.chat .msg.tr::before{content:"原文";float:right;margin:0 0 4px 12px;font:700 12px var(--mono);letter-spacing:.08em;color:var(--sub);opacity:.8}
+.chat .msg.tr{display:grid;position:relative;padding-right:76px}
+.chat .msg.tr>.ko,.chat .msg.tr>.ja{grid-area:1/1;transition:opacity .6s ease,filter .6s ease}
+.chat .msg.tr>.ja{opacity:0;filter:blur(4px);pointer-events:none}
+.chat .msg.tr.translated>.ko{opacity:0;filter:blur(4px);pointer-events:none}
+.chat .msg.tr.translated>.ja{opacity:1;filter:none;pointer-events:auto}
+.chat .msg.tr::before{content:"原文";position:absolute;top:12px;right:16px;font:700 12px var(--mono);letter-spacing:.08em;color:var(--sub);opacity:.8}
 .chat .msg.tr.translated::before{content:"AI 翻訳";color:var(--hot)}
 .chat .msg.me.tr::before{color:rgba(255,255,255,.8)}
 .chat .msg.me.tr.translated::before{color:#fff}
@@ -201,13 +203,6 @@ h1+.kr,h2+.kr,h1+.kr.s,h2+.kr.s{margin-top:18px}
 .live .hint{display:flex;align-items:center;gap:10px}
 .live .hint kbd{font:700 15px var(--mono);color:var(--fg);background:var(--panel);border:1px solid var(--line);border-bottom-width:3px;border-radius:6px;padding:1px 8px}
 .live.interact .hint kbd{border-color:var(--hot);color:var(--hot)}
-.chat .msg.tr .st{display:none}
-.chat .msg.tr.streaming .ko{display:none}
-.chat .msg.tr.streaming .st{display:block}
-.chat .msg.tr.streaming::before{content:"翻訳中…";color:var(--hot)}
-.chat .msg.tr.translated .st{display:none}
-/* 스트리밍으로 이미 일본어가 다 보였으면 .ja 로 바꿀 때 페이드를 하지 않는다(깜빡임 방지) */
-.chat .msg.tr.streamed .ja{animation:none}
 /* 다음 장 안내: 오른쪽 위 알약 버튼. 보라 그라데이션 + 은은한 빛 번짐, 화살표만 살짝 움직인다 */
 #next-hint{position:fixed;right:32px;top:30px;display:flex;align-items:center;gap:10px;height:48px;padding:0 18px 0 22px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:linear-gradient(135deg,#7C73C2,#9A91E6);color:#fff;font:700 15px var(--mono);letter-spacing:.18em;cursor:pointer;z-index:8;opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity .45s ease,transform .45s ease;box-shadow:0 8px 28px rgba(124,115,194,.45)}
 #next-hint::before{content:"";position:absolute;inset:-1px;border-radius:inherit;box-shadow:0 0 0 0 rgba(154,145,230,.55);animation:hintring 2.2s ease-out infinite}
@@ -216,7 +211,3 @@ h1+.kr,h2+.kr,h1+.kr.s,h2+.kr.s{margin-top:18px}
 #next-hint:hover{opacity:1;filter:brightness(1.08)}
 @keyframes hintring{0%{box-shadow:0 0 0 0 rgba(154,145,230,.55)}100%{box-shadow:0 0 0 14px rgba(154,145,230,0)}}
 @keyframes hintarrow{0%,100%{transform:none}50%{transform:translateX(4px)}}
-.chat .msg.tr .st .tu{display:inline;transition:opacity .22s ease,filter .22s ease}
-.chat .msg.tr .st .tu.out{opacity:0;filter:blur(6px)}
-.chat .msg.tr .st .tu.in{animation:tuin .45s ease}
-@keyframes tuin{from{opacity:0;filter:blur(6px);color:var(--hot)}to{opacity:1;filter:none}}
