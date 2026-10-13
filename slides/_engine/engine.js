@@ -18,7 +18,8 @@ function go(i){
   document.getElementById('pg').textContent=`${i+1} / ${slides.length}`;
   document.getElementById('bar').style.width=`${(i+1)/slides.length*100}%`;
   document.getElementById('notes').textContent=s.dataset.notes||'';
-  step=0;showStep();hooks[s.id]&&hooks[s.id](0);
+  // data-autoplay 장은 들어오자마자 모든 단계를 순서대로 자동 재생한다(→ 는 바로 다음 장)
+  step=s.hasAttribute('data-autoplay')?steps():0;showStep();hooks[s.id]&&hooks[s.id](step);
   try{history.replaceState(null,'','#s'+(i+1))}catch(e){}
 }
 addEventListener('keydown',e=>{
