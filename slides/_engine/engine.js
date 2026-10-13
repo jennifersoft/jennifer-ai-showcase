@@ -74,7 +74,7 @@ function showStep(){const n=steps();document.getElementById('st').textContent=n?
       // .tr 말풍선: 원문(한국어)이 먼저 보이고, 잠시 뒤 번역(일본어)으로 바뀐다
       // 원문(한국어)을 TR_HOLD ms 동안 읽을 수 있게 보여 준 뒤 번역(일본어)으로 바꾼다
       if(e.classList.contains('tr'))e._tr=setTimeout(()=>streamTranslate(e,()=>scrollChat(s)),delay+(ai?900:0)+TR_HOLD);
-      delay+=e.classList.contains('tr')?(ai?900:0)+TR_HOLD+trLen(e)/TR_CPS*1000+600:(ai?1500:500)}
+      delay+=(+e.dataset.hold||0)+(e.classList.contains('tr')?(ai?900:0)+TR_HOLD+trLen(e)/TR_CPS*1000+600:(ai?1500:500))}
     else{e._t=setTimeout(()=>e.classList.add('shown'),delay)}});
   scrollChat(s);
   // 단계 연출(채팅 등)이 모두 끝나면 '다음 장' 안내를 띄운다

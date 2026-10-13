@@ -51,3 +51,15 @@
 .chat.gpt .composer .ph{flex:1}
 .chat.gpt .composer .send{width:34px;height:34px;border-radius:50%;background:#ececec;color:#212121;display:grid;place-items:center;font-weight:700}
 .chat.gpt .who{position:sticky;top:-18px;z-index:2;background:#212121;margin:-18px -26px 0;padding:18px 26px 10px}
+/* 도구 호출이 하나씩: 회전 표시 → ✓ (말풍선이 나타난 뒤 0.7초 간격) */
+.chat.gpt .msg.tool .call{opacity:0;transform:translateY(4px)}
+.chat.gpt .msg.tool.shown:not(.typing) .call{animation:callin .3s ease forwards;animation-delay:calc(var(--i) * .7s)}
+.chat.gpt .msg.tool .ok{position:relative;width:16px;height:16px;flex:none}
+.chat.gpt .msg.tool .ok::before{content:"";position:absolute;inset:1px;border-radius:50%;border:2px solid #3a3a3a;border-top-color:#cfcfcf;animation:spin .7s linear infinite}
+.chat.gpt .msg.tool .ok::after{content:"✓";position:absolute;inset:0;display:grid;place-items:center;color:#10A37F;font-weight:700;opacity:0}
+.chat.gpt .msg.tool.shown:not(.typing) .ok::before{animation:spin .7s linear infinite,gone 0s forwards;animation-delay:0s,calc(var(--i) * .7s + .6s)}
+.chat.gpt .msg.tool.shown:not(.typing) .ok::after{animation:come .2s forwards;animation-delay:calc(var(--i) * .7s + .6s)}
+@keyframes callin{to{opacity:1;transform:none}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes gone{to{opacity:0}}
+@keyframes come{to{opacity:1}}
