@@ -26,6 +26,11 @@ function go(i){
   try{history.replaceState(null,'','#s'+(i+1))}catch(e){}
 }
 addEventListener('keydown',e=>{
+  if(e.defaultPrevented||e.altKey||e.ctrlKey||e.metaKey)return;
+  if(e.key==='Escape'&&!document.getElementById('script').hidden){toggleScript();return}
+  if(e.target.closest('input,textarea,select,[contenteditable="true"]'))return;
+  if(e.target.closest('button,a')&&[' ','Enter'].includes(e.key))return;
+  if(e.target.closest('#sc-text')&&['ArrowRight','ArrowLeft','ArrowUp','ArrowDown','PageDown','PageUp',' ','Enter','Backspace','Home','End'].includes(e.key))return;
   if(['ArrowRight','PageDown',' ','Enter'].includes(e.key)){e.preventDefault();fwd()}
   else if(['ArrowLeft','PageUp','Backspace'].includes(e.key)){e.preventDefault();go(cur-1)}
   else if(e.code==='KeyN')toggleNotes();
@@ -82,8 +87,18 @@ document.getElementById('fs').onclick=full;
 function overview(){document.body.classList.toggle('ov');fit()}
 document.getElementById('ov').onclick=overview;
 slides.forEach((el,i)=>el.addEventListener('click',e=>{if(document.body.classList.contains('ov')){e.stopPropagation();document.body.classList.remove('ov');fit();go(i)}}));
-let tx=0;addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
-addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>50)d<0?fwd():go(cur-1)});
+// 대본의 세로 스크롤·핀치 확대는 슬라이드 이동으로 처리하지 않는다.
+const touchViewport=document.getElementById('viewport');let swipeStart=null;
+touchViewport.addEventListener('touchstart',e=>{
+  swipeStart=e.touches.length===1&&!e.target.closest('button,a,input,textarea,select,.live.interact,.playlist')
+    ?{x:e.touches[0].clientX,y:e.touches[0].clientY}:null;
+},{passive:true});
+touchViewport.addEventListener('touchend',e=>{
+  const start=swipeStart;swipeStart=null;if(!start||e.touches.length||e.changedTouches.length!==1)return;
+  const dx=e.changedTouches[0].clientX-start.x,dy=e.changedTouches[0].clientY-start.y;
+  if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.25)dx<0?fwd():go(cur-1);
+},{passive:true});
+touchViewport.addEventListener('touchcancel',()=>{swipeStart=null},{passive:true});
 
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 // typing helper with cancel token
@@ -163,13 +178,26 @@ draw();
   }
 })();
 
-// 대본 모드: data-script 를 화면 아래에 띄운다(S). 인쇄용 대본은 /slides/<덱>/script
+// 대본 모드(S): 짧은 발표자 대본이 기본. 통역용 원고와 전체 대본으로 전환할 수 있다.
 function renderScript(){const box=document.getElementById('script');if(!box)return;const s=slides[cur];
-  document.getElementById('sc-text').textContent=s.dataset.script||'(대본 없음)';
+  const presenter=document.getElementById('sc-mode').value!=='interpreter';
+  const text=document.getElementById('sc-text');text.replaceChildren();
+  const spoken=presenter&&s.dataset.presenter?.trim();
+  const chunks=spoken?spoken.split(/\n\s*\n/):[s.dataset.script||'(대본 없음)'];
+  chunks.forEach(chunk=>{
+    const p=document.createElement('p');p.textContent=chunk.trim();text.appendChild(p);
+    if(spoken){const cue=document.createElement('span');cue.className='sc-cue';cue.textContent='통역 대기';text.appendChild(cue)}
+  });
+  text.scrollTop=0;
+  document.getElementById('sc-title').textContent=presenter?'발표자 대본':'통역용 원고';
   document.getElementById('sc-pg').textContent=`${cur+1} / ${slides.length}`;
-  document.getElementById('sc-print').href=location.pathname.replace(/\/$/,'')+'/script'+location.search}
-function toggleScript(){const b=document.getElementById('script');b.hidden=!b.hidden;renderScript()}
+  document.getElementById('sc-print').href=location.pathname.replace(/\/$/,'')+'/script'+(presenter?'':'?mode=interpreter')+'#s'+(cur+1)}
+function toggleScript(){const b=document.getElementById('script');b.hidden=!b.hidden;
+  document.getElementById('sc').setAttribute('aria-expanded',String(!b.hidden));renderScript();
+  if(b.hidden)document.getElementById('sc').focus()}
 document.getElementById('sc')&&(document.getElementById('sc').onclick=toggleScript);
+document.getElementById('sc-close').onclick=toggleScript;
+document.getElementById('sc-mode').onchange=renderScript;
 document.getElementById('script')&&document.getElementById('script').addEventListener('click',e=>e.stopPropagation());
 renderScript();
 

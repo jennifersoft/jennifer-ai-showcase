@@ -3,7 +3,7 @@ import Link from "next/link";
 const GROUPS = [
   {
     title: "발표",
-    items: [{ href: "/slides", title: "슬라이드", desc: "발표 덱 목록. 공통 엔진 위에 덱을 추가해 재사용한다.", tag: "/slides" }],
+    items: [{ href: "/slides", title: "슬라이드 · 대본", desc: "발표 덱과 짧은 발표자 대본. 휴대폰·태블릿에서 읽고 오프라인으로 연습하세요.", tag: "/slides" }],
   },
   {
     title: "제니퍼 대시보드 iframe 위젯",
