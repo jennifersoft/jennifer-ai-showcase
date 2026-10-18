@@ -184,7 +184,7 @@ AI 비서에게 맡기거나, 제가 코딩 에이전트와 함께 작업합니�
   <p class="kr" data-a style="--d:3">제니퍼에 없는 연동이 필요하면 어떻게 하시나요? 보통은 요청하고 다음 버전을 기다리시죠. 이번에는 AI로 바로 만들어 드렸습니다.</p>
   <div class="spacer"></div>
 </section>
-<section class="slide" data-notes="근거: jennifersoft GitHub 공개 저장소 첫 커밋. 2016 Slack 어댑터·autoprofile 플러그인, 2017 Chatwork 어댑터, 2018 개발자 가이드·튜토리얼, 2024 LINE 어댑터, 2026 AI 스킬(extension-tutorial)과 PagerDuty 어댑터. 메시지: 10년 가까이 확장 가능한 구조를 지향했고, AI가 그 문턱을 낮췄습니다." data-script="사실 제니퍼는 처음부터 확장할 수 있는 구조로 만들어져 왔습니다. 2016년 Slack 어댑터를 시작으로 Chatwork 어댑터, 개발자 가이드와 튜토리얼을 공개해 왔습니다. 다만 지금까지는 연동 하나를 만드는 데 개발 시간이 많이 들었습니다. 2026년, AI가 그 시간을 크게 줄였습니다." data-presenter="제니퍼는 2016년 Slack 어댑터부터 확장 기능을 공개해 왔습니다.
+<section class="slide" data-notes="근거: jennifersoft GitHub 공개 저장소 첫 커밋. 2016 Slack 어댑터·autoprofile 플러그인, 2017 Chatwork 어댑터, 2018 개발자 가이드·튜토리얼, 2024 LINE 어댑터, 2026 AI 스킬(extension-tutorial)과 PagerDuty 어댑터. 메시지: 10년 가까이 확장 가능한 구조를 지향했고, AI가 연동을 만드는 시간을 크게 줄였습니다." data-script="사실 제니퍼는 처음부터 확장할 수 있는 구조로 만들어져 왔습니다. 2016년 Slack 어댑터를 시작으로 Chatwork 어댑터, 개발자 가이드와 튜토리얼을 공개해 왔습니다. 다만 지금까지는 연동 하나를 만드는 데 개발 시간이 많이 들었습니다. 2026년, AI가 그 시간을 크게 줄였습니다." data-presenter="제니퍼는 2016년 Slack 어댑터부터 확장 기능을 공개해 왔습니다.
 
 이제 AI와 함께 필요한 연동을 더 빠르게 만들 수 있습니다.">
   <div>
@@ -202,15 +202,15 @@ AI 비서에게 맡기거나, 제가 코딩 에이전트와 함께 작업합니�
   <h3 data-a style="--d:11;font-size:44px">一貫して「拡張できる構造」を目指してきました。</h3>
   <p class="kr s" data-a style="--d:11">일관되게 '확장할 수 있는 구조'를 지향해 왔고, 이제 AI가 연동을 만드는 시간을 크게 줄였습니다.</p>
 </section>
-<section class="slide" id="s-adapter" data-steps="5" data-notes="[진행] 첫 구간 뒤 통역이 끝나면 다음 버튼을 눌러 프롬프트와 코드 연출을 시작합니다. 이후 다음 버튼을 누를 때마다 빌드·등록 → 알림 → 실제 인시던트 캡처 순서로 진행됩니다. 마지막 구간은 실제 캡처와 함께 설명합니다.
+<section class="slide" id="s-adapter" data-steps="5" data-notes="[진행] 첫 구간 뒤 통역이 끝나면 다음 버튼을 눌러 프롬프트와 코드 연출을 시작합니다. 이후 다음 버튼을 누를 때마다 빌드·등록 → 알림 → 재현한 인시던트 화면 순서로 진행됩니다. 마지막 구간의 인시던트 화면은 어댑터가 보내는 데이터 형식으로 재현한 것입니다(PagerDuty 연동은 유료라 실제 계정 없이 재현).
 [화면 설명] 구현 과정을 보여 주는 연출입니다. 현장에서 코드를 새로 실행하는 데모로 소개하지 않습니다.
 [말이 막히면] “핵심은 장애 알림과 거래 분석 화면을 연결했다는 점입니다.”
 
-[데모] 일본 고객 요청으로 실제로 만든 PagerDuty 어댑터. 코드는 jennifer-view-adapter-pagerduty의 PagerDutyAdapter.kt 실제 코드(발췌). 빌드는 mvn clean package, Adapter ID는 pagerduty." data-script="이것이 일본 고객의 요청으로 실제로 만든 PagerDuty 어댑터입니다. 화면은 당시 구현 과정을 재현한 것입니다. 프롬프트는 한 줄입니다. 제니퍼 장애 이벤트를 PagerDuty로 보내는 어댑터를 만들어 달라고 하면, AI가 코드를 만들고 빌드해서 제니퍼에 등록합니다. 그러면 제니퍼에서 장애가 났을 때 PagerDuty에 인시던트가 바로 생깁니다. 이것이 PagerDuty에 생긴 인시던트입니다. 장애 종류와 인스턴스, 트랜잭션 ID가 함께 오고, 링크를 누르면 제니퍼 트랜잭션 분석 화면으로 바로 갑니다." data-presenter="고객 요청으로 만든 PagerDuty 어댑터입니다.
+[데모] 일본 고객 요청으로 실제로 만든 PagerDuty 어댑터. 코드는 jennifer-view-adapter-pagerduty의 PagerDutyAdapter.kt 실제 코드(발췌). 빌드는 mvn clean package, Adapter ID는 pagerduty." data-script="이것이 일본 고객의 요청으로 실제로 만든 PagerDuty 어댑터입니다. 화면은 당시 구현 과정을 재현한 것입니다. 프롬프트는 한 줄입니다. 제니퍼 장애 이벤트를 PagerDuty로 보내는 어댑터를 만들어 달라고 하면, AI가 코드를 만들고 빌드해서 제니퍼에 등록합니다. 그러면 제니퍼에서 장애가 났을 때 PagerDuty에 인시던트가 바로 생깁니다. 어댑터가 보내는 데이터로 재현한 PagerDuty 인시던트 화면입니다. 장애 종류와 인스턴스, 트랜잭션 ID가 함께 오고, 링크를 누르면 제니퍼 트랜잭션 분석 화면으로 바로 갑니다." data-presenter="고객 요청으로 만든 PagerDuty 어댑터입니다.
 제니퍼 장애 이벤트를 PagerDuty로 보내는 기능입니다.
 
 AI가 구현과 빌드, 등록까지 진행했습니다.
-구현 과정과 PagerDuty에 생성된 인시던트를 보여드리겠습니다.
+구현 과정과, 어댑터 데이터로 재현한 인시던트 화면을 보여드리겠습니다.
 
 장애가 나면 PagerDuty에 인시던트가 생깁니다.
 알림의 링크로 제니퍼 거래 분석 화면을 바로 열 수 있습니다.">
@@ -229,7 +229,7 @@ AI가 구현과 빌드, 등록까지 진행했습니다.
     <div class="step" data-s="3">インシデント<span class="kr s">인시던트 · PagerDuty에 생성</span></div>
   </div>
   <div class="toast" id="toast"><div class="ico" style="background:#06AC38">P</div><div><b>Triggered · Critical</b><span>SERVICE_EXCEPTION: approval line not found (groupware-01)<br>Transaction Analysis →</span></div></div>
-  <figure class="pdshot" id="pdshot"><img src="/media/japan-2026/pagerduty-incident.jpg" alt="PagerDuty incident from JENNIFER5"><figcaption>PagerDuty に届いたインシデント<span class="kr s">PagerDuty에 생긴 인시던트입니다. 오른쪽은 어댑터가 실제로 보내는 데이터입니다.</span></figcaption></figure>
+  <figure class="pdshot" id="pdshot"><img src="/media/japan-2026/pagerduty-incident.jpg" alt="PagerDuty incident from JENNIFER5"><figcaption>PagerDuty インシデント（再現画面）<span class="kr s">어댑터가 보내는 데이터로 재현한 인시던트 화면입니다. 오른쪽은 어댑터가 실제로 보내는 데이터입니다.</span></figcaption></figure>
 </section>
 <section class="slide" data-notes="고백 하나: 저는 PagerDuty라는 서비스를 이 요청으로 처음 알았습니다. (잠시 멈춤) 그래도 AI와 스킬로 만들 수 있었습니다. 심각도 매핑, 자동 해소, X-View 직링크(README 기준)." data-script="고백을 하나 하겠습니다. 저는 PagerDuty라는 서비스를 이 요청을 받고 처음 알았습니다. (잠시 멈춤) 그래도 AI와 함께 만들 수 있었습니다. 요청을 받고, AI와 구현하고, 문서와 설정을 정리해서 GitHub에 공개했습니다. 장애 심각도 매핑, 제니퍼의 복구 이벤트를 받으면 해당 인시던트 자동 해소, 알림에서 제니퍼 트랜잭션 분석 화면으로 바로 가는 링크까지 들어 있습니다." data-presenter="저도 이 요청으로 PagerDuty를 처음 알았습니다.
 그래도 AI와 함께 어댑터를 만들었습니다.
@@ -275,7 +275,7 @@ jennifer-view-extension-tutorial 저장소의 skills/jennifer-extension.zip. zip
 </section>
 <section class="slide" id="s-dash" data-steps="2" data-notes="[진행] 첫 구간 뒤 통역이 끝나면 다음 버튼을 눌러 프롬프트와 위젯 연출을 보여 줍니다. 두 번째 구간을 설명한 뒤 실제 대시보드 화면으로 넘어갑니다.
 
-[응용] 고객 요청은 어댑터까지였습니다. PagerDuty가 API를 제공해서, 거꾸로 인시던트를 제니퍼 사용자정의 대시보드에서 보는 위젯까지 만들어 본 응용 예시입니다. 프롬프트 한 줄로 AI가 위젯을 만들고 iframe 칸에 들어갑니다. iframe 칸 설정은 dev.jennifersoft.com 사용자정의 대시보드에서 확인했습니다." data-script="고객 요청은 여기까지였습니다. 그런데 PagerDuty는 API를 제공하니까, 거꾸로 PagerDuty 인시던트를 제니퍼 안에서 볼 수는 없을까 해서 한 걸음 더 나가 봤습니다. 제니퍼의 사용자정의 대시보드에는 외부 화면을 넣을 수 있는 iframe 칸이 있습니다. AI에게 PagerDuty 인시던트를 대시보드에 보여 달라고 하면, AI가 위젯을 만들어 그 칸에 넣어 줍니다." data-presenter="고객 요청은 어댑터까지였습니다.
+[응용] 고객 요청은 어댑터까지였습니다. PagerDuty가 API를 제공해서, 거꾸로 인시던트를 제니퍼 사용자정의 대시보드에서 보는 위젯까지 만들어 본 응용 예시입니다. 프롬프트 한 줄로 AI가 위젯을 만들고 iframe 칸에 들어갑니다. iframe 칸 설정은 dev.jennifersoft.com 사용자정의 대시보드에서 확인했습니다. 위젯 데이터는 샘플(PagerDuty API 형식)입니다." data-script="고객 요청은 여기까지였습니다. 그런데 PagerDuty는 API를 제공하니까, 거꾸로 PagerDuty 인시던트를 제니퍼 안에서 볼 수는 없을까 해서 한 걸음 더 나가 봤습니다. 제니퍼의 사용자정의 대시보드에는 외부 화면을 넣을 수 있는 iframe 칸이 있습니다. AI에게 PagerDuty 인시던트를 대시보드에 보여 달라고 하면, AI가 위젯을 만들고, 그 주소를 칸에 넣으면 됩니다." data-presenter="고객 요청은 어댑터까지였습니다.
 이 위젯은 제가 추가로 만든 응용 예시입니다.
 
 PagerDuty의 API를 이용해 인시던트를 제니퍼 대시보드로 가져옵니다.
@@ -304,7 +304,7 @@ PagerDuty의 API를 이용해 인시던트를 제니퍼 대시보드로 가져�
 </section>
 <section class="slide" id="s-live-jennifer" data-notes="[연결이 되지 않으면] “현재 화면 연결이 원활하지 않아 설명으로 이어가겠습니다. 제니퍼 차트 옆에서 PagerDuty 인시던트를 함께 확인하는 구성입니다.” 통역이 끝나면 다음 장으로 넘어갑니다.
 
-[라이브] 제니퍼 사용자정의 대시보드 실제 화면. 제니퍼 차트 옆에 PagerDuty 위젯(/widgets/pagerduty?lang=ja&amp;theme=dark)을 iframe으로 넣은 사용자정의 대시보드입니다. dev.jennifersoft.com에 미리 로그인해 두세요. 화면을 직접 만지려면 I 키, 끝나면 여백 클릭." data-script="응용으로 만들어 본 실제 화면입니다. 제니퍼 차트 옆에 AI가 만든 PagerDuty 인시던트 위젯을 넣은 사용자정의 대시보드입니다. 장애가 나면 제니퍼 지표와 PagerDuty 인시던트를 한 화면에서 함께 볼 수 있습니다." data-presenter="방금 설명한 위젯을 제니퍼 차트 옆에 넣은 실제 화면입니다.
+[라이브] 제니퍼 사용자정의 대시보드 실제 화면. 제니퍼 차트 옆에 PagerDuty 위젯(/widgets/pagerduty?lang=ja&amp;theme=dark)을 iframe으로 넣은 사용자정의 대시보드입니다. 위젯 데이터는 샘플(PagerDuty API 형식)입니다. dev.jennifersoft.com에 미리 로그인해 두세요. 화면을 직접 만지려면 I 키, 끝나면 여백 클릭." data-script="응용으로 만들어 본 실제 화면입니다. 제니퍼 차트 옆에 AI가 만든 PagerDuty 인시던트 위젯을 넣은 사용자정의 대시보드입니다. 장애가 나면 제니퍼 지표와 PagerDuty 인시던트를 한 화면에서 함께 볼 수 있습니다. 위젯의 인시던트는 PagerDuty API 형식의 샘플 데이터입니다." data-presenter="방금 설명한 위젯을 제니퍼 차트 옆에 넣은 실제 화면입니다.
 
 지표와 장애 상황을 한 화면에서 함께 확인할 수 있습니다.
 이제 대시보드 자체를 AI와 함께 만드는 예시로 넘어가겠습니다.">
