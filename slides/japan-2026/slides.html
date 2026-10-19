@@ -90,7 +90,7 @@ AI로 일하는 방법과 제니퍼를 더 잘 쓰는 방법을 보여드리겠�
 </section>
 <section class="slide" id="s-dev-qa" data-autoplay data-steps="4" data-notes="[진행] 요청과 점검 결과를 중심으로 설명합니다. 화면 속 세부 항목을 모두 읽을 필요는 없습니다.
 
-[AI 비서 2] AI 비서에게 자기 컴퓨터(클라우드 브라우저)에서 제니퍼 화면 QA를 맡깁니다. 장에 들어오면 자동으로 순서대로: 1) QA 요청 2) 클라라 대비 보완점 비교 3) 진행 상황 확인 4) 실서버 QA 결과와 캡처. 사람은 결과만 보고 판단합니다. 이번에는 리뷰만 했고 코드 수정은 하지 않았다는 것까지 비서가 구분해서 알려 줍니다. 말풍선은 한국어 원문이 먼저 나오고 잠시 뒤 일본어로 번역됩니다(T 키로 원문/번역 전환). [채팅 한국어 원문] 나: 너 컴퓨터에서 다시 콜트리 qa 진행하고 리뷰해줘. / 비서: 클라우드 브라우저에서 한국어·라이트 테마로 다시 QA, 핀·Link → 콜트리 선택 → 상세 이동과 높이·여백까지 리뷰해서 캡처와 함께 알려줄게. / 나: 개선할만한 점, 클라라 대비 더 강화할 점 체크해봐. / 비서: 보완할 2가지 - 짧은 막대가 사라짐(1ms 메서드가 0px), 데이터 누락 안내 부족(핀 1,000개 제한·시각 미확정·부분 수집). / 나: QA 진행 중이지? / 비서: 재로그인 끝, JENNIFER DEMO 거래로 핀·Link 연동과 높이·여백 검증 중. / 비서: 실서버 QA 마침 - 에러 핀·메서드·Link 클릭 시 콜트리 자동 펼침·행 선택, 호출함 → 상대 거래 이동, 1188px 가로 넘침 없음. 강화 우선순위: ① 위치 미확정 스택·부분 수집·핀 제한 안내 ② 짧은 막대 최소 폭·클릭 영역 ③ 연결 거래 진입 시 Call Tree 탭 유지." data-script="두 번째는 화면 QA입니다. AI 비서에게 자기 컴퓨터의 브라우저로 제니퍼 화면을 직접 열어서 QA해 달라고 맡깁니다. 비슷한 제품과 비교해서 보완할 점도 찾아 달라고 했습니다. 비서는 실제 데모 서버에 로그인해서 화면을 하나하나 눌러 보고, 정상 동작한 것과 개선할 점을 캡처와 함께 정리해 줍니다. 저는 결과만 보고 판단하면 됩니다. 이 사례에서는 코드를 고치지 않고 검토만 했습니다." data-presenter="다음은 화면 점검입니다.
+[AI 비서 2] AI 비서에게 자기 컴퓨터(클라우드 브라우저)에서 제니퍼 화면 QA를 맡깁니다. 장에 들어오면 자동으로 순서대로: 1) QA 요청 2) 클라라 대비 보완점 비교 3) 진행 상황 확인 4) 실서버 QA 결과와 캡처. 사람은 결과만 보고 판단합니다. 이번에는 리뷰만 했고 코드 수정은 하지 않았다는 것까지 비서가 구분해서 알려 줍니다. 말풍선은 한국어 원문이 먼저 나오고 잠시 뒤 일본어로 번역됩니다(T 키로 원문/번역 전환). [채팅 한국어 원문] 나: 너 컴퓨터에서 다시 콜트리 qa 진행하고 리뷰해줘. / 비서: 클라우드 브라우저에서 한국어·라이트 테마로 다시 QA, 핀·Link → 콜트리 선택 → 상세 이동과 높이·여백까지 리뷰해서 캡처와 함께 알려줄게. / 나: 개선할만한 점, 클라라 대비 더 강화할 점 체크해봐. / 비서: 보완할 2가지 - 짧은 막대가 사라짐(1ms 메서드가 0px), 데이터 누락 안내 부족(핀 1,000개 제한·시각 미확정·부분 수집). / 나: QA 진행 중이지? / 비서: 재로그인 끝, JENNIFER DEMO 트랜잭션으로 핀·Link 연동과 높이·여백 검증 중. / 비서: 실서버 QA 마침 - 에러 핀·메서드·Link 클릭 시 콜트리 자동 펼침·행 선택, 호출함 → 상대 트랜잭션 이동, 1188px 가로 넘침 없음. 강화 우선순위: ① 위치 미확정 스택·부분 수집·핀 제한 안내 ② 짧은 막대 최소 폭·클릭 영역 ③ 연결 트랜잭션 진입 시 Call Tree 탭 유지." data-script="두 번째는 화면 QA입니다. AI 비서에게 자기 컴퓨터의 브라우저로 제니퍼 화면을 직접 열어서 QA해 달라고 맡깁니다. 비슷한 제품과 비교해서 보완할 점도 찾아 달라고 했습니다. 비서는 실제 데모 서버에 로그인해서 화면을 하나하나 눌러 보고, 정상 동작한 것과 개선할 점을 캡처와 함께 정리해 줍니다. 저는 결과만 보고 판단하면 됩니다. 이 사례에서는 코드를 고치지 않고 검토만 했습니다." data-presenter="다음은 화면 점검입니다.
 AI 비서가 브라우저로 제니퍼 화면을 직접 열어 확인합니다.
 
 저는 개선점과 화면 캡처를 보고 판단합니다.
@@ -107,13 +107,13 @@ AI 비서가 브라우저로 제니퍼 화면을 직접 열어 확인합니다.
       <div class="msg me tr" data-step="2"><div class="ko">그리고 개선할만한점 클라라 대비 더 강화할점등을 체크해봐</div><div class="ja">あと、Clara と比べて改善・強化できる点もチェックして。</div></div>
       <div class="msg ai tr" data-step="2"><div class="ko">클라라 코드 비교에서 우선 보완할 2가지를 찾았어.<ol><li>짧은 막대가 사라짐: 1초 범위·차트 폭 300px에서 1ms 메서드가 0px로 계산돼. 최소 표시 폭과 클릭 영역을 보장하는 게 좋아.</li><li>데이터 누락 안내 부족: 핀 1,000개 제한·시각 미확정·부분 수집 정보가 일반 화면에 안 보여.</li></ol></div><div class="ja">Clara のコード比較で、まず補うべき2点が見つかった。<ol><li>短いバーが消える：1秒範囲・チャート幅300pxで、1msのメソッドが0pxになる。最小表示幅とクリック領域を保証したほうがいい。</li><li>データ欠落の案内が不足：ピン1,000件の上限・時刻未確定・部分収集の情報が通常画面に出ない。</li></ol></div></div>
       <div class="msg me tr" data-step="3"><div class="ko">QA 진행 중이지?</div><div class="ja">QA、進んでる？</div></div>
-      <div class="msg ai tr" data-step="3"><div class="ko">응. 재로그인 끝났고 내 클라우드 브라우저에서 JENNIFER DEMO 거래를 열어 확인 중이야. 지금은 실제 핀·Link 연동과 화면 높이·여백을 검증하고 있어.</div><div class="ja">うん。再ログインが終わって、クラウドブラウザで JENNIFER DEMO の取引を開いて確認中。今は実際のピン・Link 連動と画面の高さ・余白を検証してる。</div></div>
-      <div class="msg ai tr" data-step="4"><div class="ko">실서버 QA 마쳤어. 핵심 UX는 정상 동작해.<ul><li>에러 핀·메서드·Link 클릭 → 콜트리 자동 펼침·행 선택만 수행</li><li>콜트리 '호출함' → 상대 거래 상세 이동, 추가 중첩은 차단</li><li>5행·여백·긴 이름 말줄임 정상, 1188px 화면에서 가로 넘침 없음</li></ul>클라라 대비 강화 우선순위: ① 위치 미확정 스택·부분 수집·핀 표시 제한 안내 ② 짧은 막대의 최소 표시 폭·클릭 영역 ③ 연결 거래 진입 시 Call Tree 탭 유지</div><div class="ja">実サーバーのQA完了。主要なUXは正常に動作してる。<ul><li>エラーピン・メソッド・Link をクリック → コールツリーの自動展開・行選択のみ</li><li>コールツリーの「呼び出し」→ 相手取引の詳細へ移動、さらなるネストは遮断</li><li>5行・余白・長い名前の省略は正常、1188px 画面で横あふれなし</li></ul>Clara と比べた強化の優先順位：① 位置未確定のスタック・部分収集・ピン表示上限の案内 ② 短いバーの最小表示幅・クリック領域 ③ 連携取引に入ったときの Call Tree タブ維持</div></div>
+      <div class="msg ai tr" data-step="3"><div class="ko">응. 재로그인 끝났고 내 클라우드 브라우저에서 JENNIFER DEMO 트랜잭션을 열어 확인 중이야. 지금은 실제 핀·Link 연동과 화면 높이·여백을 검증하고 있어.</div><div class="ja">うん。再ログインが終わって、クラウドブラウザで JENNIFER DEMO のトランザクションを開いて確認中。今は実際のピン・Link 連動と画面の高さ・余白を検証してる。</div></div>
+      <div class="msg ai tr" data-step="4"><div class="ko">실서버 QA 마쳤어. 핵심 UX는 정상 동작해.<ul><li>에러 핀·메서드·Link 클릭 → 콜트리 자동 펼침·행 선택만 수행</li><li>콜트리 '호출함' → 상대 트랜잭션 상세 이동, 추가 중첩은 차단</li><li>5행·여백·긴 이름 말줄임 정상, 1188px 화면에서 가로 넘침 없음</li></ul>클라라 대비 강화 우선순위: ① 위치 미확정 스택·부분 수집·핀 표시 제한 안내 ② 짧은 막대의 최소 표시 폭·클릭 영역 ③ 연결 트랜잭션 진입 시 Call Tree 탭 유지</div><div class="ja">実サーバーのQA完了。主要なUXは正常に動作してる。<ul><li>エラーピン・メソッド・Link をクリック → コールツリーの自動展開・行選択のみ</li><li>コールツリーの「呼び出し」→ 相手トランザクションの詳細へ移動、さらなるネストは遮断</li><li>5行・余白・長い名前の省略は正常、1188px 画面で横あふれなし</li></ul>Clara と比べた強化の優先順位：① 位置未確定のスタック・部分収集・ピン表示上限の案内 ② 短いバーの最小表示幅・クリック領域 ③ 連携トランザクションに入ったときの Call Tree タブ維持</div></div>
     </div>
     <div class="shots" style="flex:1">
       <figure data-step="1"><img src="/media/japan-2026/qa-2-app-list.jpg" alt=""><figcaption>エラーピン → コールツリーの行選択 · 에러 핀 → 행 선택</figcaption></figure>
       <figure data-step="2"><img src="/media/japan-2026/qa-3-simular-link.jpg" alt=""><figcaption>Link 選択 → 行選択 · Link 선택 → 행 선택</figcaption></figure>
-      <figure data-step="3"><img src="/media/japan-2026/qa-4-visits-service.jpg" alt=""><figcaption>スタックのピンが出ない取引 · 핀 없음</figcaption></figure>
+      <figure data-step="3"><img src="/media/japan-2026/qa-4-visits-service.jpg" alt=""><figcaption>スタックのピンが出ないトランザクション · 핀 없음</figcaption></figure>
       <figure data-step="4"><img src="/media/japan-2026/qa-1-stacktrace.jpg" alt=""><figcaption>スタック詳細は実在 · 상세는 존재</figcaption></figure>
     </div>
   </div>
@@ -204,7 +204,7 @@ AI 비서에게 맡기거나, 제가 코딩 에이전트와 함께 작업합니�
 </section>
 <section class="slide" id="s-adapter" data-steps="5" data-notes="[진행] 첫 구간 뒤 통역이 끝나면 다음 버튼을 눌러 프롬프트와 코드 연출을 시작합니다. 이후 다음 버튼을 누를 때마다 빌드·등록 → 알림 → 재현한 인시던트 화면 순서로 진행됩니다. 마지막 구간의 인시던트 화면은 어댑터가 보내는 데이터 형식으로 재현한 것입니다(PagerDuty 연동은 유료라 실제 계정 없이 재현).
 [화면 설명] 구현 과정을 보여 주는 연출입니다. 현장에서 코드를 새로 실행하는 데모로 소개하지 않습니다.
-[말이 막히면] “핵심은 장애 알림과 거래 분석 화면을 연결했다는 점입니다.”
+[말이 막히면] “핵심은 장애 알림과 트랜잭션 분석 화면을 연결했다는 점입니다.”
 
 [데모] 일본 고객 요청으로 실제로 만든 PagerDuty 어댑터. 코드는 jennifer-view-adapter-pagerduty의 PagerDutyAdapter.kt 실제 코드(발췌). 빌드는 mvn clean package, Adapter ID는 pagerduty." data-script="이것이 일본 고객의 요청으로 실제로 만든 PagerDuty 어댑터입니다. 화면은 당시 구현 과정을 재현한 것입니다. 프롬프트는 한 줄입니다. 제니퍼 장애 이벤트를 PagerDuty로 보내는 어댑터를 만들어 달라고 하면, AI가 코드를 만들고 빌드해서 제니퍼에 등록합니다. 그러면 제니퍼에서 장애가 났을 때 PagerDuty에 인시던트가 바로 생깁니다. 어댑터가 보내는 데이터로 재현한 PagerDuty 인시던트 화면입니다. 장애 종류와 인스턴스, 트랜잭션 ID가 함께 오고, 링크를 누르면 제니퍼 트랜잭션 분석 화면으로 바로 갑니다." data-presenter="고객 요청으로 만든 PagerDuty 어댑터입니다.
 제니퍼 장애 이벤트를 PagerDuty로 보내는 기능입니다.
@@ -213,7 +213,7 @@ AI가 구현과 빌드, 등록까지 진행했습니다.
 구현 과정과, 어댑터 데이터로 재현한 인시던트 화면을 보여드리겠습니다.
 
 장애가 나면 PagerDuty에 인시던트가 생깁니다.
-알림의 링크로 제니퍼 거래 분석 화면을 바로 열 수 있습니다.">
+알림의 링크로 제니퍼 트랜잭션 분석 화면을 바로 열 수 있습니다.">
   <div>
     <p class="eyebrow" data-a>Demo</p>
     <h2 data-a style="--d:1;font-size:64px">PagerDuty アダプターをAIで</h2>
@@ -323,7 +323,7 @@ ChatGPT에 제니퍼를 연결하고 말로 요청합니다.">
   <p class="kr" data-a style="--d:3">세 번째, 대시보드를 직접 개발하지 않아도 됩니다. ChatGPT에 제니퍼 MCP를 연결하면 대화만으로 Open API 대시보드를 만들 수 있습니다.</p>
   <div class="spacer"></div>
 </section>
-<section class="slide" id="s-mcp" data-autoplay data-steps="3" data-notes="[시간이 여유로울 때 덧붙일 말] “AI가 도메인과 인스턴스를 찾고, TPS와 응답시간, 거래와 이벤트 데이터를 조회해 이 화면을 만들었습니다.”
+<section class="slide" id="s-mcp" data-autoplay data-steps="3" data-notes="[시간이 여유로울 때 덧붙일 말] “AI가 도메인과 인스턴스를 찾고, TPS와 응답시간, 트랜잭션과 이벤트 데이터를 조회해 이 화면을 만들었습니다.”
 
 [진행] 왼쪽 요청 → 오른쪽 결과 → 갱신되는 값 순서로 짚습니다. 왼쪽 과거 숫자를 현재 상태로 읽지 않습니다.
 [연결 상태] 오른쪽 아래에 SNAPSHOT이 보이면 마지막으로 받아 둔 값이라고 설명합니다.
@@ -345,7 +345,7 @@ KPI와 X-View는 2초, 나머지 차트는 10초 간격입니다.
       <div class="who"><b>ChatGPT</b><span class="ver">5 ⌄</span><span class="plug">jennifer5-mcp</span></div>
       <div class="msg me tr" data-step="1"><div class="ko">jennifer5-mcp로 도메인 2000(Simula)의 최근 1시간 운영 대시보드를 만들어 줘. TPS·응답시간·액티브 서비스·X-View·이벤트를 보여 줘.</div><div class="ja">jennifer5-mcp で、ドメイン 2000（Simula）の直近1時間の運用ダッシュボードを作って。TPS・応答時間・アクティブサービス・X-View・イベントを見せて。</div></div>
       <div class="msg ai tool" data-step="1" data-hold="4200"><div class="hd">ツールを呼び出しています…</div><div class="call" style="--i:0"><span class="ok"></span>jennifer5-mcp<span class="sep">›</span><code>get_domain_list</code></div><div class="call" style="--i:1"><span class="ok"></span>jennifer5-mcp<span class="sep">›</span><code>get_instance_list</code></div><div class="call" style="--i:2"><span class="ok"></span>jennifer5-mcp<span class="sep">›</span><code>get_domain_metric_values</code></div><div class="call" style="--i:3"><span class="ok"></span>jennifer5-mcp<span class="sep">›</span><code>get_transaction_list_by_time</code></div><div class="call" style="--i:4"><span class="ok"></span>jennifer5-mcp<span class="sep">›</span><code>get_event_list</code></div><div class="call" style="--i:5"><span class="ok"></span>jennifer5-mcp<span class="sep">›</span><code>get_error_list</code></div></div>
-      <div class="msg ai tr" data-step="2"><div class="ko">도메인 2000 · Simula, 11:39~12:39 데이터로 만들었어. 눈에 띄는 점은 3가지야.<ol><li>TPS는 13.0~13.9로 안정적이고, 지금은 13.62야.</li><li>응답시간은 지금 68ms인데 구간 최고는 185ms였어. X-View에는 2초·4초대에 몰린 거래 줄이 보여.</li><li>에러는 1시간에 342건이야. 12:08에 FATAL · AGENT_STOP 이벤트가 있었어.</li></ol></div><div class="ja">ドメイン 2000・Simula、11:39〜12:39 のデータで作りました。目立つ点は3つです。<ol><li>TPS は 13.0〜13.9 で安定、現在は 13.62。</li><li>応答時間は現在 68ms、区間の最大は 185ms。X-View では 2秒・4秒台に並ぶ取引の列が見えます。</li><li>エラーは1時間で 342 件。12:08 に FATAL・AGENT_STOP イベントがありました。</li></ol></div></div>
+      <div class="msg ai tr" data-step="2"><div class="ko">도메인 2000 · Simula, 11:39~12:39 데이터로 만들었어. 눈에 띄는 점은 3가지야.<ol><li>TPS는 13.0~13.9로 안정적이고, 지금은 13.62야.</li><li>응답시간은 지금 68ms인데 구간 최고는 185ms였어. X-View에는 2초·4초대에 몰린 트랜잭션 줄이 보여.</li><li>에러는 1시간에 342건이야. 12:08에 FATAL · AGENT_STOP 이벤트가 있었어.</li></ol></div><div class="ja">ドメイン 2000・Simula、11:39〜12:39 のデータで作りました。目立つ点は3つです。<ol><li>TPS は 13.0〜13.9 で安定、現在は 13.62。</li><li>応答時間は現在 68ms、区間の最大は 185ms。X-View では 2秒・4秒台に並ぶトランザクションの列が見えます。</li><li>エラーは1時間で 342 件。12:08 に FATAL・AGENT_STOP イベントがありました。</li></ol></div></div>
       <div class="msg ai tr" data-step="3"><div class="ko">대시보드를 만들었어. →</div><div class="ja">ダッシュボードを作りました。→</div></div>
       <div class="composer"><span class="plus">＋</span><span class="ph">質問してみましょう</span><span class="send">↑</span></div>
     </div>
