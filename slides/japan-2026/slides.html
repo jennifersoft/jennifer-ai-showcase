@@ -3,7 +3,7 @@
 [발표 연습] 적힌 문장을 그대로 읽어도 됩니다. 한 구간을 말하고 통역이 끝나면 다음 구간을 시작합니다. 통역을 기다리는 동안 다음 문장을 확인하세요. 첫 장과 마지막 장은 소리 내어 여러 번 읽어 보세요.
 [말이 막히면] “잠시만요. 다음 내용을 확인하고 이어가겠습니다.”
 
-오늘은 제품 설명은 거의 하지 않습니다. AI 시대에 제니퍼 개발자인 제가 AI로 어떻게 개발하는지, 그리고 제니퍼를 쓰는 여러분이 AI로 제니퍼를 어떻게 더 잘 쓸 수 있는지를 보여드립니다." data-script="안녕하세요. 제니퍼소프트 R&amp;D팀에서 프론트엔드 테크 리드를 맡고 있는 홍재석입니다. 오늘은 제품 기능 소개는 거의 하지 않겠습니다. 대신 두 가지를 실제 화면으로 보여드리겠습니다. 제니퍼를 만드는 개발자인 제가 AI로 어떻게 일하는지, 그리고 제니퍼를 쓰시는 여러분이 AI로 제니퍼를 어떻게 더 잘 쓸 수 있는지입니다." data-presenter="안녕하세요. 제니퍼소프트 홍재석입니다.
+오늘은 제품 설명은 거의 하지 않습니다. AI 시대에 제니퍼 개발자인 제가 AI로 어떻게 개발하는지, 그리고 제니퍼를 쓰는 여러분이 AI로 제니퍼를 어떻게 더 잘 쓸 수 있는지를 보여드립니다." data-script="안녕하세요. 제니퍼소프트 R&amp;D팀에서 프론트엔드 테크 리드를 맡고 있는 홍재석입니다. 오늘은 제품 기능 소개 대신, 제가 AI와 일하면서 실제로 만든 것들을 화면으로 보여드리겠습니다. 제니퍼를 만드는 방식이 AI로 어떻게 바뀌었는지, 그리고 그 덕분에 여러분이 제니퍼를 어떻게 더 잘 쓰실 수 있는지입니다." data-presenter="안녕하세요. 제니퍼소프트 홍재석입니다.
 
 AI로 일하는 방법과 제니퍼를 더 잘 쓰는 방법을 보여드리겠습니다.
 실제로 만든 결과물을 중심으로 이야기하겠습니다.">
@@ -16,19 +16,19 @@ AI로 일하는 방법과 제니퍼를 더 잘 쓰는 방법을 보여드리겠�
   <p data-a style="--d:4;font:500 28px var(--mono);color:var(--sub)">洪在錫（ホン・ジェソク） · JenniferSoft R&amp;Dチーム Frontend Tech Lead</p>
   <p class="kr s" data-a style="--d:4">발표자: 홍재석(洪在錫) · 제니퍼소프트 R&amp;D팀 Frontend Tech Lead</p>
 </section>
-<section class="slide" id="s-agenda" data-notes="오늘의 세 가지 이야기. 1) 개발자인 제가 AI를 쓰는 방법 2) 필요한 연동을 AI로 바로 만드는 방법(일본 고객 요청 PagerDuty 어댑터 + 응용) 3) MCP로 Open API 대시보드를 바로 만드는 방법(예시는 ChatGPT, MCP를 지원하는 AI 도구면 가능)." data-script="오늘은 세 가지 이야기를 준비했습니다. 첫 번째는 개발자인 제가 AI를 어떻게 쓰는지입니다. 두 번째는 필요한 연동을 AI로 바로 만드는 이야기로, 실제 고객 요청이었던 PagerDuty 사례를 보여드리겠습니다. 세 번째는 MCP를 이용해 대화만으로 대시보드를 만드는 방법입니다." data-presenter="먼저, 개발자인 제가 AI를 쓰는 방법입니다.
+<section class="slide" id="s-agenda" data-notes="오늘의 세 가지 이야기. 1) 개발자인 제가 AI를 쓰는 방법 2) 필요한 연동을 AI로 바로 만드는 방법(일본 고객 요청 PagerDuty 어댑터 + 응용) 3) MCP로 Open API 대시보드를 바로 만드는 방법(예시는 ChatGPT, MCP를 지원하는 AI 도구면 가능)." data-script="오늘은 세 가지 이야기를 준비했습니다. 모두 제가 실제로 만들고 쓰고 있는 것들입니다. 첫 번째는 AI 비서와 함께하는 제 하루와, AI로 만든 모바일 앱입니다. 두 번째는 일본 고객 한 분의 요청으로 만든 PagerDuty 어댑터입니다. 세 번째는 ChatGPT에 말로 요청해서 대시보드를 만드는 방법입니다." data-presenter="세 가지 모두 제가 실제로 만든 것입니다.
 
-다음은 고객 요청으로 만든 PagerDuty 연동입니다.
-
-마지막은 MCP로 대시보드를 만드는 방법입니다.">
+첫째, AI 비서와 일하는 하루와 모바일 앱.
+둘째, 고객 요청으로 만든 PagerDuty 어댑터.
+셋째, 말로 요청해 만든 대시보드.">
   <div>
     <h2 data-a style="--d:1">今日の3つの話</h2>
-    <p class="kr s" data-a style="--d:1">오늘은 세 가지를 이야기합니다. AI와 함께하는 개발, AI로 바로 만드는 연동, 대화로 만드는 대시보드입니다.</p>
+    <p class="kr s" data-a style="--d:1">오늘 이야기는 세 가지입니다. 모두 제가 실제로 만들고 쓰고 있는 것들입니다.</p>
   </div>
   <div class="skill" style="margin:auto 0;align-items:stretch;grid-template-columns:repeat(3,minmax(0,1fr))">
-    <div class="card" data-a style="--d:2"><span class="ic" style="font-size:72px">01</span><h3 style="font-size:31px;line-height:1.35;word-break:keep-all;white-space:nowrap">開発は、<br>AIと一緒に</h3><p class="kr s">개발은 AI와 함께</p></div>
-    <div class="card" data-a style="--d:3"><span class="ic" style="font-size:72px">02</span><h3 style="font-size:31px;line-height:1.35;word-break:keep-all;white-space:nowrap">必要な連携は、<br>AIですぐに</h3><p class="kr s">필요한 연동은 AI로 바로</p></div>
-    <div class="card" data-a style="--d:4"><span class="ic" style="font-size:72px">03</span><h3 style="font-size:31px;line-height:1.35;word-break:keep-all;white-space:nowrap">ダッシュボードは、<br>会話で</h3><p class="kr s">대시보드는 대화로 · MCP</p></div>
+    <div class="card" data-a style="--d:2"><span class="ic" style="font-size:72px">01</span><h3 style="font-size:31px;line-height:1.35;word-break:keep-all;white-space:nowrap">開発は、<br>AIと一緒に</h3><p class="kr s">AI 비서와 일하는 하루, AI로 만든 모바일 앱</p></div>
+    <div class="card" data-a style="--d:3"><span class="ic" style="font-size:72px">02</span><h3 style="font-size:31px;line-height:1.35;word-break:keep-all;white-space:nowrap">必要な連携は、<br>AIですぐに</h3><p class="kr s">고객 요청 하나로 만든 PagerDuty 어댑터</p></div>
+    <div class="card" data-a style="--d:4"><span class="ic" style="font-size:72px">03</span><h3 style="font-size:31px;line-height:1.35;word-break:keep-all;white-space:nowrap">ダッシュボードは、<br>会話で</h3><p class="kr s">ChatGPT에 말로 요청해 만든 대시보드</p></div>
   </div>
 </section>
 <section class="slide sec" data-notes="첫 번째 이야기: 개발자인 제가 AI와 어떻게 일하는지." data-script="먼저 첫 번째 이야기입니다. 제니퍼를 만드는 개발자인 제가 매일 AI와 어떻게 일하는지 보여드리겠습니다." data-presenter="첫 번째 이야기입니다.
