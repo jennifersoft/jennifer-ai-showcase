@@ -177,3 +177,16 @@
 .ar i{position:absolute;left:50%;top:-34px;transform:translateX(-50%);font:700 16px var(--mono);font-style:normal;color:var(--hot);white-space:nowrap}
 .arch-pts{grid-template-columns:repeat(3,minmax(0,1fr))}
 .arch-pts h3{font-size:28px}
+/* 19장: 이전(순서대로) vs 지금(동시에) */
+.flow2{display:flex;flex-direction:column;gap:14px;justify-content:center}
+.lane-h{display:flex;align-items:baseline;gap:14px}.lane-h b{font:800 30px var(--jp);color:var(--sub)}.lane-h span{font:400 18px var(--kr);color:var(--sub)}
+.lane-h.now b{color:var(--hot)}
+.seq,.ln{display:flex;gap:8px}
+.seq{margin-bottom:22px}
+.par{display:flex;flex-direction:column;gap:10px}
+.ln small{flex:none;width:200px;font:600 15px var(--jp);color:var(--sub);align-self:center}
+.seq i,.ln i{display:flex;flex-direction:column;justify-content:center;width:var(--w);height:58px;padding:0 14px;border-radius:10px;background:#2a2f3c;font:700 18px var(--jp);font-style:normal;white-space:nowrap;overflow:hidden}
+.seq i em,.ln i em{font:400 13px var(--kr);font-style:normal;color:var(--sub)}
+.ln i{background:rgba(124,115,194,.28);border:1px solid rgba(124,115,194,.6)}
+.seq i.bug,.ln i.bug{background:rgba(246,166,33,.16);border:1px solid rgba(246,166,33,.45)}
+.ln i.qa{background:rgba(79,179,255,.14);border:1px solid rgba(79,179,255,.4)}
