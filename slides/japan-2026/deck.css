@@ -195,3 +195,8 @@
 .seq i.wait{background:repeating-linear-gradient(135deg,rgba(229,72,77,.18) 0 8px,transparent 8px 16px);border:1px dashed rgba(229,72,77,.55);color:#ff8a8f}
 .seq{margin-bottom:6px}.seq-note{margin:0 0 18px;font:600 16px var(--jp);color:#ff8a8f}.seq-note span{display:block;font:400 14px var(--kr);color:var(--sub)}
 .ln i.ans{background:rgba(61,220,151,.14);border:1px solid rgba(61,220,151,.45)}
+/* 19장: 병렬로 아낀 시간 → 새로운 도전 */
+.par{position:relative;padding-right:27.5%}
+.par .free{position:absolute;right:0;top:0;bottom:0;width:24%;border-radius:12px;border:2px dashed var(--hot);background:linear-gradient(160deg,rgba(124,115,194,.22),rgba(124,115,194,.05));display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;text-align:center;padding:10px;animation:freeglow 2.6s ease-in-out infinite}
+.par .free b{font:800 22px var(--jp);color:var(--fg)}.par .free span{font:400 14px var(--kr);color:var(--hot)}
+@keyframes freeglow{50%{box-shadow:0 0 30px rgba(124,115,194,.35)}}
