@@ -19,6 +19,11 @@ function presenterCopy(value: string): string {
 </div>`).join("\n");
 }
 
+function interpreterCopy(value: string): string {
+  const chunks = value.replace(/\r\n?/g, "\n").split(/\n\s*\n/).map((chunk) => chunk.trim()).filter(Boolean);
+  return chunks.map((chunk) => `<p class="spoken">${escapeHtml(chunk)}</p>`).join("\n");
+}
+
 function slideNumber(item: ScriptItem, index: number): number {
   return Number.isSafeInteger(item.no) && item.no > 0 ? item.no : index + 1;
 }
@@ -39,7 +44,7 @@ ${item.subtitle ? `<p class="chapter-subtitle">${escapeHtml(item.subtitle)}</p>`
 ${presenterCopy(presenter)}
 </div>
 <div class="script-copy" data-script-mode="interpreter" aria-label="통역용 원고">
-<p class="spoken">${escapeHtml(interpreter)}</p>
+${interpreterCopy(interpreter)}
 </div>
 ${item.notes?.trim() ? `<aside class="explanatory-notes" aria-label="참고 노트"><h3>참고 노트</h3><p>${escapeHtml(item.notes.trim())}</p></aside>` : ""}
 </article>`;
@@ -110,7 +115,7 @@ ${downloaded ? "" : `<p class="save-help online-only no-print"><strong>탑승 �
 </div>
 <main class="script-page page-width" id="script-content" tabindex="-1">
 <p class="reading-hint no-print" data-script-mode="presenter">한 문단씩 말하고, <span class="inline-cue">통역 대기</span> 표시에서 잠시 멈추세요. 대기 표시는 읽는 문장이 아닙니다.</p>
-<p class="reading-hint no-print" data-script-mode="interpreter">통역 준비용 상세 참고 자료입니다. 현장에서는 ‘발표자 대본’의 구간에 맞춰 통역하세요. 필요하면 참고 노트도 함께 확인하세요.</p>
+<p class="reading-hint no-print" data-script-mode="interpreter">발표자가 실제로 말하는 문장과 같습니다. 한 문단이 끝날 때마다 통역해 주세요. 배경은 참고 노트에 있습니다.</p>
 ${data.items.map((item, index) => renderArticle(item, index, data.meta.lang ?? "ja")).join("\n") || '<p class="empty-state">표시할 대본이 없습니다.</p>'}
 </main>
 <footer class="reader-footer page-width no-print"><a href="#script-content">대본 처음으로 ↑</a><span>${data.items.length}장 전체 수록</span></footer>

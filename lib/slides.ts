@@ -158,7 +158,7 @@ export type ScriptItem = {
   no: number;
   title: string;
   subtitle: string;
-  /** 통역 준비용 상세 원고 */
+  /** 통역용 원고. 발표자 대본과 같은 문장이다. */
   script: string;
   /** 발표자가 읽는 짧은 대본. 빈 줄은 통역을 기다릴 구간을 나눈다. */
   presenter?: string;
