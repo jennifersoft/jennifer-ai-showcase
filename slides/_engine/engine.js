@@ -136,10 +136,21 @@ function axes(x,w,h,max,unit,xl){const sub=token('--sub','#8E9CB3'),line=token('
 let tick=0;
 function draw(){tick++;
   for(const o of charts){if(!o.c.closest('.slide.on'))continue;const[w,h]=size(o),x=o.x;x.clearRect(0,0,w,h);
-    if(tick%6===0){o.d.shift();o.d.push(Math.max(5,Math.min(95,o.d[o.d.length-1]+(Math.random()-.5)*18)))}
+    // 데이터는 약 1초마다 한 칸씩만 흐른다(너무 빨리 움직이지 않게)
+    if(tick%60===0){o.d.shift();o.d.push(Math.max(5,Math.min(95,o.d[o.d.length-1]+(Math.random()-.5)*14)))}
     if(o.type==='line'){const a=axes(x,w,h,o.max,o.unit,['-10m','-5m','now']);x.beginPath();o.d.forEach((v,i)=>{const px=a.x+i/(o.d.length-1)*a.w,py=a.y+a.h-v/100*a.h;i?x.lineTo(px,py):x.moveTo(px,py)});
       x.strokeStyle=o.col;x.lineWidth=4;x.lineJoin='round';x.stroke();x.lineTo(a.x+a.w,a.y+a.h);x.lineTo(a.x,a.y+a.h);x.fillStyle=o.col+'22';x.fill()}
     else if(o.type==='bars'){const a=axes(x,w,h,o.max,o.unit,['-12m','-6m','now']),n=12,bw=a.w/n;for(let i=0;i<n;i++){const v=o.d[o.d.length-n+i];x.fillStyle=o.c.dataset.c||(v>75?'#F6A621':'#4FB3FF');x.fillRect(a.x+i*bw+6,a.y+a.h-v/100*a.h,bw-12,v/100*a.h)}}
+    else if(o.type==='eq'){// 제니퍼 액티브 서비스 이퀄라이저: X축은 대상(인스턴스), 막대는 서비스 1건씩 쌓인 칸, 색은 경과 시간 구간
+      const names=(o.c.dataset.names||'gw-01,gw-02,order-api,payment,member,batch').split(','),n=names.length;
+      if(!o.eq||tick%120===0){o.eq=names.map((_,i)=>{const cnt=Math.max(0,Math.round((o.eq?.[i]?.length??3)+(Math.random()-.5)*3));return Array.from({length:Math.min(cnt,9)},()=>{const r=Math.random();return r<.55?0:r<.78?1:r<.92?2:3}).sort((p,q)=>q-p)})}
+      const sub=token('--sub','#8E9CB3'),line=token('--line','#24344F'),pw=w-16,ph=h-AX.b-34,cw=pw/n,seg=Math.min(22,ph/10),cols=['#3D9BFF','#3DDC97','#F6A621','#E5484D'];
+      x.strokeStyle=line;x.lineWidth=2;x.beginPath();x.moveTo(8,34+ph);x.lineTo(w-8,34+ph);x.stroke();
+      x.font='500 24px '+token('--mono','monospace');x.textAlign='center';
+      o.eq.forEach((arr,i)=>{const cx=8+i*cw,bw=cw*.62,bx=cx+(cw-bw)/2;
+        arr.forEach((c,k)=>{x.fillStyle=cols[c];x.fillRect(bx,34+ph-(k+1)*seg+3,bw,seg-6)});
+        x.fillStyle=token('--fg','#EEF1F6');x.font='700 26px '+token('--mono','monospace');x.fillText(arr.length,cx+cw/2,34+ph-arr.length*seg-10);
+        x.fillStyle=sub;x.font='500 22px '+token('--mono','monospace');x.fillText(names[i],cx+cw/2,h-6)})}
     else if(o.type==='heat'){const cols=30,rows=6,cw=w/cols,rh=h/rows;for(let i=0;i<cols;i++)for(let j=0;j<rows;j++){
       const v=(Math.sin((i+tick/20)/3+j)+1)/2;x.fillStyle=`rgba(154,145,230,${.12+v*.8})`;x.fillRect(i*cw+2,j*rh+2,cw-4,rh-4)}}
     else if(o.type==='xview'){const a=axes(x,w,h,+(o.c.dataset.max||8000),o.c.dataset.unit||'ms',['-5m','-2.5m','now']);
