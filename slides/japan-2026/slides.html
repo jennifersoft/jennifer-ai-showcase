@@ -162,9 +162,9 @@ Figma 링크만 주면 디자인 시안과도 비교해 줍니다.">
 </section>
 <section class="slide" data-notes="질문으로 시작합니다. 잠시 멈추고, 통역이 끝날 때까지 기다립니다. 예: 우리 회사는 PagerDuty를 쓰는데 제니퍼 알림을 거기로 보내고 싶다. 요청을 받으면 제니퍼소프트가 어댑터 같은 확장 기능을 만들어 제니퍼소프트 GitHub에 공개합니다. 제품 버전 업그레이드 없이 추가할 수 있습니다. 실제 요청(일본 고객사 한 곳)을 AI로 바로 만들어 드린 이야기로 이어집니다." data-script="제니퍼에 없는 연동이 필요하면 어떻게 하시나요?
 요청을 주시면 저희가 어댑터를 만들어 제니퍼소프트 GitHub에 공개합니다. 제품 업그레이드는 필요 없습니다.
-일본 고객 한 분이 PagerDuty 연동을 요청하셨고, 이번에는 AI로 바로 만들었습니다." data-presenter="제니퍼에 없는 연동이 필요하면 어떻게 하시나요?
+일본 고객사의 PagerDuty 연동 요청을 받아, 이번에는 AI로 바로 만들었습니다." data-presenter="제니퍼에 없는 연동이 필요하면 어떻게 하시나요?
 요청을 주시면 저희가 어댑터를 만들어 제니퍼소프트 GitHub에 공개합니다. 제품 업그레이드는 필요 없습니다.
-일본 고객 한 분이 PagerDuty 연동을 요청하셨고, 이번에는 AI로 바로 만들었습니다.">
+일본 고객사의 PagerDuty 연동 요청을 받아, 이번에는 AI로 바로 만들었습니다.">
   <div class="bg-grid"></div>
   <div class="spacer"></div>
   <h2 data-a style="--d:1;font-size:104px">JENNIFERにない連携が<br>必要になったら、<br><span class="hl">どうしますか？</span></h2>
@@ -194,12 +194,12 @@ AI가 연동을 만드는 시간을 크게 줄였습니다.">
 [말이 막히면] “핵심은 장애 알림과 트랜잭션 분석 화면을 연결했다는 점입니다.”
 
 [데모] 일본 고객 요청으로 실제로 만든 PagerDuty 어댑터. 코드는 jennifer-view-adapter-pagerduty의 PagerDutyAdapter.kt 실제 코드(발췌). 빌드는 mvn clean package, Adapter ID는 pagerduty." data-script="그 요청으로 만든 PagerDuty 어댑터입니다.
-프롬프트 한 줄로 코드부터 등록까지 진행됩니다." data-presenter="그 요청으로 만든 PagerDuty 어댑터입니다.
-프롬프트 한 줄로 코드부터 등록까지 진행됩니다.">
+한 줄의 프롬프트에서 시작해 코드 작성·빌드·등록 과정을 보여 드립니다." data-presenter="그 요청으로 만든 PagerDuty 어댑터입니다.
+한 줄의 프롬프트에서 시작해 코드 작성·빌드·등록 과정을 보여 드립니다.">
   <div>
     <p class="eyebrow" data-a>Demo</p>
     <h2 data-a style="--d:1;font-size:64px">AIで作ったPagerDutyアダプター</h2>
-    <p class="kr s" data-a style="max-width:1060px;--d:1">일본 고객의 요청을 받아 제가 실제로 만든 어댑터입니다. 프롬프트 한 줄로 코드 작성부터 빌드, 등록, PagerDuty 알림까지 이어집니다.</p>
+    <p class="kr s" data-a style="max-width:1060px;--d:1">일본 고객의 요청을 받아 실제로 만든 어댑터입니다. 한 줄의 프롬프트에서 시작해 코드 작성·빌드·등록 과정과 재현한 인시던트 화면을 보여 줍니다.</p>
   </div>
   <div class="prompt" data-a style="--d:2"><span class="hl">❯ </span><span id="ptext2"></span><span class="caret"></span></div>
   <p class="kr s" data-a style="--d:2;margin-top:-16px">프롬프트: 제니퍼 장애 이벤트를 PagerDuty로 보내는 어댑터를 만들어 줘.</p>
@@ -365,7 +365,7 @@ ChatGPT에 jennifer5-mcp 플러그인(제니퍼 MCP, https://insight-dev.jennife
     <div class="flow2">
       <div class="lane-h" data-a style="--d:2"><b>以前</b><span>이전 · 한 번에 하나씩</span></div>
       <div class="seq" data-a style="--d:2.3"><i style="--w:24%">機能開発<em>기능 개발</em></i><i class="wait" style="--w:15%">待ち<em>질문 답변 대기</em></i><i class="bug" style="--w:15%">バグ<em>버그</em></i><i class="wait" style="--w:13%">待ち<em>대기</em></i><i class="bug" style="--w:15%">バグ<em>버그</em></i><i class="ext" style="--w:18%">動画・デザイン<em>디자이너에게 요청</em></i></div>
-      <p class="seq-note" data-a style="--d:2.5">開発中の質問には答えられず、待つ人ももどかしく、開発する人も焦る。<span>개발 중엔 질문에 답하지 못해, 기다리는 사람은 답답하고 개발하는 사람은 초조했습니다.</span></p>
+      <p class="seq-note" data-a style="--d:2.5">開発中は質問に答えられず、待つ側はもどかしさを感じ、開発する側も焦っていました。<span>개발 중엔 질문에 답하지 못해, 기다리는 사람은 답답하고 개발하는 사람은 초조했습니다.</span></p>
       <div class="lane-h now" data-a style="--d:3"><b>今</b><span>지금 · AI와 함께 동시에</span></div>
       <div class="par" data-a style="--d:3.3">
         <div class="free"><b>新しい挑戦へ</b><span>남은 시간은 새로운 시도로</span></div>
