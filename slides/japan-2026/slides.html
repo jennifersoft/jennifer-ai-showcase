@@ -323,6 +323,28 @@ ChatGPT 같은 AI 도구에 제니퍼를 연결하고 말로 요청합니다.">
   <p class="kr" data-a style="--d:3">세 번째, 대시보드는 대화로 만듭니다. ChatGPT 같은 AI 도구에 제니퍼 MCP를 연결하고 말로 요청하면 Open API 대시보드가 만들어집니다.</p>
   <div class="spacer"></div>
 </section>
+<section class="slide" id="s-mcp-arch" data-notes="[구조] MCP가 무엇인지 먼저 짚습니다. 제니퍼 LLM 서버(제니퍼 인사이트의 AI 분석 서버)는 원래 뷰서버 Open API를 기반으로 AI 기능을 제공합니다. MCP는 그 LLM 서버 안에 함께 들어 있고, 같은 Open API를 AI 도구가 쉽게 쓰도록 도구(get_domain_list, get_domain_metric_values 등)로 묶어 둔 것입니다. 새 API가 아니라 기존 Open API이고, AI 도구에는 MCP 주소와 API URL·토큰만 등록하면 됩니다(chat-report-server: McpToolService, mcp-wrapper)." data-script="그 전에 MCP가 무엇인지 짧게 설명드리겠습니다. 제니퍼 뷰서버에는 원래 Open API가 있습니다. 하지만 Open API를 직접 쓰려면 주소와 파라미터를 알아야 해서 쉽지 않습니다. 제니퍼 인사이트, 즉 AI 분석 기능은 이 Open API를 바탕으로 동작하는 LLM 서버에서 제공되는데, 이 LLM 서버 안에 MCP가 함께 들어 있습니다. MCP는 Open API를 AI가 쓰기 쉬운 도구로 묶어 둔 입구입니다. 그래서 ChatGPT 같은 AI 도구에 MCP 주소와 API 토큰만 등록하면, AI가 알아서 필요한 Open API를 호출합니다." data-presenter="MCP가 무엇인지 짧게 짚겠습니다.
+뷰서버의 Open API를 AI가 쓰기 쉽게 묶은 입구입니다.
+
+제니퍼 인사이트를 제공하는 LLM 서버 안에 함께 들어 있습니다.
+AI 도구에는 주소와 토큰만 등록하면 됩니다.">
+  <div>
+    <h2 data-a style="--d:1;font-size:60px">MCPは、Open APIの「使いやすい入口」</h2>
+    <p class="kr s" data-a style="--d:1">MCP는 뷰서버 Open API를 AI가 쉽게 쓰도록 묶은 입구입니다. 제니퍼 인사이트(AI 분석)를 제공하는 LLM 서버 안에 함께 들어 있습니다.</p>
+  </div>
+  <div class="arch">
+    <div class="ab" data-a style="--d:2"><small>AIツール</small><b>ChatGPT など</b><span>말로 요청</span></div>
+    <div class="ar" data-a style="--d:2.5"><i>MCP</i></div>
+    <div class="ab hl" data-a style="--d:3"><small>JENNIFER LLM サーバー</small><b>MCP</b><em>JENNIFER インサイト（AI分析）と同じサーバー</em><span>Open API를 AI용 도구로 묶음</span></div>
+    <div class="ar" data-a style="--d:3.5"><i>Open API</i></div>
+    <div class="ab" data-a style="--d:4"><small>JENNIFER ビューサーバー</small><b>Open API</b><span>도메인·지표·X-View·이벤트</span></div>
+  </div>
+  <div class="skill arch-pts">
+    <div class="card" data-a style="--d:5"><h3>新しいAPIではない</h3><p class="kr s">기존 뷰서버 Open API를 그대로 씁니다</p></div>
+    <div class="card" data-a style="--d:5.3"><h3>LLMサーバーに同梱</h3><p class="kr s">제니퍼 인사이트와 같은 서버에 함께 들어 있습니다</p></div>
+    <div class="card" data-a style="--d:5.6"><h3>登録はURLとトークンだけ</h3><p class="kr s">AI 도구에 MCP 주소와 API 토큰만 등록합니다</p></div>
+  </div>
+</section>
 <section class="slide" id="s-mcp" data-autoplay data-steps="3" data-notes="[시간이 여유로울 때 덧붙일 말] “AI가 도메인과 인스턴스를 찾고, TPS와 응답시간, 트랜잭션과 이벤트 데이터를 조회해 이 화면을 만들었습니다.”
 
 [진행] 왼쪽 요청 → 오른쪽 결과 → 갱신되는 값 순서로 짚습니다. 왼쪽 과거 숫자를 현재 상태로 읽지 않습니다.
