@@ -190,3 +190,5 @@
 .ln i{background:rgba(124,115,194,.28);border:1px solid rgba(124,115,194,.6)}
 .seq i.bug,.ln i.bug{background:rgba(246,166,33,.16);border:1px solid rgba(246,166,33,.45)}
 .ln i.qa{background:rgba(79,179,255,.14);border:1px solid rgba(79,179,255,.4)}
+.seq i.ext{background:transparent;border:1px dashed #4a5060;color:var(--sub)}
+.ln i.mk{background:rgba(61,220,151,.14);border:1px solid rgba(61,220,151,.45)}
