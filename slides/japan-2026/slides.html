@@ -306,12 +306,12 @@ PagerDuty 데이터는 샘플입니다.">
   <div class="live" data-a style="--d:2">{{live:jennifer}}</div>
 </section>
 <section class="slide sec" data-notes="세 번째 이야기: 제니퍼 Open API 데이터는 통계 조회, 보고서 작성, 대시보드 등 다양하게 활용할 수 있습니다. AI 도구가 데이터를 쓰는 연결 방식은 다음 장의 MCP에서 설명하고, 뒤에서 대시보드 실제 예시를 보여줍니다." data-script="세 번째, AI로 제니퍼 데이터를 활용하는 방법입니다.
-통계를 조회하고 보고서를 만드는 등 여러 방법이 있습니다. 대시보드는 그중 한 예입니다." data-presenter="세 번째, AI로 제니퍼 데이터를 활용하는 방법입니다.
-통계를 조회하고 보고서를 만드는 등 여러 방법이 있습니다. 대시보드는 그중 한 예입니다.">
+통계를 조회하고 보고서를 만드는 등 여러 방법이 있습니다." data-presenter="세 번째, AI로 제니퍼 데이터를 활용하는 방법입니다.
+통계를 조회하고 보고서를 만드는 등 여러 방법이 있습니다.">
   <div class="spacer"></div>
   <p class="num" data-a="left">03</p>
   <h2 data-a style="--d:2;font-size:96px">JENNIFERのデータを<br>AIで活用</h2>
-  <p class="kr" data-a style="--d:3">AI 도구를 이용하면 제니퍼 Open API 데이터로 통계를 확인하고 보고서를 만드는 등 다양한 작업을 할 수 있습니다. 대시보드는 그중 한 예입니다.</p>
+  <p class="kr" data-a style="--d:3">AI 도구를 이용하면 제니퍼 Open API 데이터로 통계를 확인하고 보고서를 만드는 등 다양한 작업을 할 수 있습니다.</p>
   <div class="spacer"></div>
 </section>
 <section class="slide" id="s-mcp-arch" data-notes="[구조] MCP가 무엇인지 먼저 짚습니다. 제니퍼 LLM 서버(제니퍼 인사이트의 AI 분석 서버)는 원래 뷰서버 Open API를 기반으로 AI 기능을 제공합니다. MCP는 그 LLM 서버 안에 함께 들어 있고, 같은 Open API를 AI 도구가 쉽게 쓰도록 도구(get_domain_list, get_domain_metric_values 등)로 묶어 둔 것입니다. 새 API가 아니라 기존 Open API이고, AI 도구에는 MCP 주소와 API URL·토큰만 등록하면 됩니다(chat-report-server: McpToolService, mcp-wrapper)." data-script="제니퍼 데이터를 AI 도구에서 쉽게 활용하도록 이어 주는 통로가 MCP입니다.
@@ -340,10 +340,10 @@ PagerDuty 데이터는 샘플입니다.">
 [연결 상태] 오른쪽 아래에 SNAPSHOT이 보이면 마지막으로 받아 둔 값이라고 설명합니다.
 [화면이 나오지 않으면] “현재 화면 연결이 원활하지 않아 설명으로 이어가겠습니다. AI 도구(ChatGPT)가 제니퍼 데이터를 조회해 대시보드를 만든 예시입니다.” 통역이 끝나면 다음 장으로 넘어갑니다.
 
-ChatGPT에 jennifer5-mcp 플러그인(제니퍼 MCP, https://insight-dev.jennifersoft.com/mcp)을 연결하고 한 줄로 요청. AI가 get_domain_list → get_instance_list → get_domain_metric_values → get_transaction_list_by_time → get_event_list → get_error_list 를 호출해 도메인 2000 Simula 대시보드를 만들었습니다. 오른쪽은 그 결과물(jennifer-mcp-dashboard.html?compact)이고, 연결이 정상일 때는 제니퍼 Open API로 KPI·X-View 2초, 나머지 차트 10초마다 갱신합니다(오른쪽 아래 LIVE, 연결 실패 시 SNAPSHOT). 왼쪽 답변의 숫자는 만들 당시(11:39~12:39) 값이라 실시간 값과 다를 수 있습니다." data-script="ChatGPT에 제니퍼 MCP를 등록하고, 제니퍼 데이터를 활용해 대시보드를 만들어 봤습니다. 연결이 정상일 때는 실시간으로 갱신됩니다." data-presenter="ChatGPT에 제니퍼 MCP를 등록하고, 제니퍼 데이터를 활용해 대시보드를 만들어 봤습니다. 연결이 정상일 때는 실시간으로 갱신됩니다.">
+ChatGPT에 jennifer5-mcp 플러그인(제니퍼 MCP, https://insight-dev.jennifersoft.com/mcp)을 연결하고 한 줄로 요청. AI가 get_domain_list → get_instance_list → get_domain_metric_values → get_transaction_list_by_time → get_event_list → get_error_list 를 호출해 도메인 2000 Simula 대시보드를 만들었습니다. 오른쪽은 그 결과물(jennifer-mcp-dashboard.html?compact)이고, 연결이 정상일 때는 제니퍼 Open API로 KPI·X-View 2초, 나머지 차트 10초마다 갱신합니다(오른쪽 아래 LIVE, 연결 실패 시 SNAPSHOT). 왼쪽 답변의 숫자는 만들 당시(11:39~12:39) 값이라 실시간 값과 다를 수 있습니다." data-script="그중 한 예로, ChatGPT에 제니퍼 MCP를 등록하고 제니퍼 데이터를 활용해 대시보드를 만들어 봤습니다. 연결이 정상일 때는 실시간으로 갱신됩니다." data-presenter="그중 한 예로, ChatGPT에 제니퍼 MCP를 등록하고 제니퍼 데이터를 활용해 대시보드를 만들어 봤습니다. 연결이 정상일 때는 실시간으로 갱신됩니다.">
   <div>
     <h2 data-a style="--d:1;font-size:56px">実例：AIツールとMCPで作ったダッシュボード</h2>
-    <p class="kr s" data-a style="--d:1">ChatGPT 같은 AI 도구에 제니퍼 MCP를 등록하면, 제니퍼 Open API 데이터를 활용해 대시보드를 쉽게 만들 수 있습니다. 이 화면은 제가 ChatGPT로 만든 실제 예시입니다.</p>
+    <p class="kr s" data-a style="--d:1">ChatGPT 같은 AI 도구에 제니퍼 MCP를 등록하면, 제니퍼 Open API 데이터를 활용해 대시보드를 쉽게 만들 수 있습니다. 여러 활용 방법 중 한 예로, 제가 ChatGPT로 만든 대시보드입니다.</p>
   </div>
   <div class="row" style="flex:1;min-height:0;gap:28px;align-items:stretch">
     <div class="chat gpt" data-a style="--d:2;flex:1.15">
