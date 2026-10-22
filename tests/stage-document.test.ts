@@ -43,6 +43,6 @@ test("the script route serves the stage view for ?view=stage", async () => {
   });
   assert.equal(res.status, 200);
   const html = await res.text();
-  assert.match(html, /<html lang="ko" data-mode="interpreter">/);
+  assert.match(html, /<html lang="ko" data-mode="presenter">/);
   assert.match(html, /발표 중 대본/);
 });

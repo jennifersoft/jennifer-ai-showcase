@@ -38,8 +38,7 @@ function renderCard(item: ScriptItem, index: number, items: ScriptItem[], lang: 
   const no = index + 1;
   const total = items.length;
   const presenter = chunksOf(item.presenter?.trim() || item.script?.trim() || "");
-  const interpreter = chunksOf(item.script?.trim() || "");
-  const pause = '<p class="pause" data-only="presenter"><span aria-hidden="true">Ⅱ</span> 통역 대기</p>';
+  const pause = '<p class="pause" role="separator"><span>Ⅱ 통역 대기</span></p>';
   const cues = progressCues(item.notes ?? "");
   const next = items[index + 1];
   return `<article class="card" id="s${no}" data-index="${index}" aria-label="${no}번째 장"${index === 0 ? "" : " hidden"}>
@@ -50,12 +49,9 @@ function renderCard(item: ScriptItem, index: number, items: ScriptItem[], lang: 
 <p class="badges">${badges(item)}</p>
 </div>
 </header>
-<div class="lines" data-only="presenter">
+<div class="lines">
 ${presenter.map((chunk) => `<p class="spoken">${escapeHtml(chunk)}</p>`).join(`\n${pause}\n`) || '<p class="spoken empty">(대본 없음)</p>'}
 ${presenter.length ? pause : ""}
-</div>
-<div class="lines" data-only="interpreter">
-${interpreter.map((chunk) => `<p class="spoken">${escapeHtml(chunk)}</p>`).join("\n") || '<p class="spoken empty">(대본 없음)</p>'}
 </div>
 ${cues.length ? `<aside class="cue">${cues.map((cue) => `<p>${escapeHtml(cue)}</p>`).join("")}</aside>` : ""}
 <p class="next">${next ? `다음 ▸ <b>${String(no + 1).padStart(2, "0")}</b> <span lang="${escapeHtml(lang)}">${escapeHtml(next.title)}</span>` : "마지막 장입니다"}</p>
@@ -66,7 +62,7 @@ ${cues.length ? `<aside class="cue">${cues.map((cue) => `<p>${escapeHtml(cue)}</
 export async function renderStageDocument(
   name: string,
   data: StageDocumentData,
-  mode: "presenter" | "interpreter",
+  _mode?: "presenter" | "interpreter",
 ): Promise<string> {
   const engineDir = path.join(SLIDES_DIR, "_engine");
   const [css, js] = await Promise.all([
@@ -80,17 +76,17 @@ export async function renderStageDocument(
     .join("\n");
 
   return `<!doctype html>
-<html lang="ko" data-mode="${mode}">
+<html lang="ko" data-mode="presenter">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#0E0F12">
-<link rel="manifest" href="/slides/${encodeURIComponent(name)}/script/manifest?mode=${mode}">
+<link rel="manifest" href="/slides/${encodeURIComponent(name)}/script/manifest">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="${mode === "interpreter" ? "통역 대본" : "발표 대본"}">
+<meta name="apple-mobile-web-app-title" content="발표 대본">
 <link rel="apple-touch-icon" href="/slides-script/icon-192.png">
 <title>${escapeHtml(data.meta.title)} — 발표 중 대본</title>
 <link rel="icon" href="data:,">
@@ -100,10 +96,7 @@ ${css}
 </head>
 <body>
 <div class="bar">
-<div class="mode" role="group" aria-label="대본 종류">
-<button type="button" data-mode-button="presenter" aria-pressed="${mode === "presenter"}">발표자</button>
-<button type="button" data-mode-button="interpreter" aria-pressed="${mode === "interpreter"}">통역</button>
-</div>
+<p class="bar-title">발표 대본 · 발표자·통역 공용</p>
 <div class="tools">
 <button type="button" data-size="-1" aria-label="글자 작게">가−</button>
 <button type="button" data-size="1" aria-label="글자 크게">가+</button>

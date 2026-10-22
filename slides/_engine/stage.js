@@ -118,7 +118,8 @@
   window.addEventListener("appinstalled", function () { install.hidden = true; });
 
   const params = new URLSearchParams(location.search);
-  setMode(params.get("mode") || load("mode") || root.dataset.mode);
+  // 발표자·통역이 같은 대본을 본다
+  setMode("presenter");
   setScale(scale);
   const m = /^#s(\d+)$/.exec(location.hash);
   show(m ? +m[1] - 1 : 0);

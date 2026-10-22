@@ -85,3 +85,8 @@ html[data-mode="presenter"] .card:has(details.notes[open]) .lines,
 html[data-mode="presenter"] .card:has(details.notes[open]) .cue { display: none; }
 html[data-mode="presenter"] details.notes[open] p { font-size: calc(var(--fs) * .8); color: var(--fg); }
 html[data-mode="presenter"] details.notes[open] summary::after { content: " · 접으면 대본으로"; font-weight: 500; }
+/* 발표자·통역 공용 대본: 통역 대기 자리를 줄로 크게 표시한다 */
+.bar-title { margin: 0; font-size: 15px; font-weight: 700; color: var(--sub); }
+.pause { display: flex; align-items: center; gap: 12px; margin: 16px 0 22px; color: #FFC24B; }
+.pause::before, .pause::after { content: ""; flex: 1; height: 2px; background: rgba(255, 194, 75, .45); border-radius: 1px; }
+.pause span { flex: none; padding: 6px 14px; border: 1px solid rgba(255, 194, 75, .6); border-radius: 999px; font-size: 16px; font-weight: 800; letter-spacing: .04em; }
