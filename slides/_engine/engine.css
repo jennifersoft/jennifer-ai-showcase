@@ -219,4 +219,4 @@ h1+.kr,h2+.kr,h1+.kr.s,h2+.kr.s{margin-top:18px}
 #pg::before{content:"";display:inline-block;width:12px;height:12px;margin-right:10px;border-radius:50%;vertical-align:-1px;border:2px solid var(--fg);box-sizing:border-box}
 #pg[data-kind="detail"]::before{background:#FFC24B;border-color:#FFC24B;box-shadow:0 0 8px rgba(255,194,75,.7)}
 /* 아래 진행 막대도 부연 설명이 있는 장에서는 노란색으로 */
-body:has(#pg[data-kind="detail"]) #bar{background:#FFC24B}
+body:has(#pg[data-kind="detail"]) #bar{background:#FFC24B;height:6px;box-shadow:0 0 10px rgba(255,194,75,.6)}

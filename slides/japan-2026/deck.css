@@ -226,6 +226,3 @@
 /* 13장: 어댑터 종류 설명이 들어간 만큼 카드 여백을 줄여 아래 다운로드 안내까지 화면 안에 둔다 */
 #s-skill .card{padding:20px 30px;gap:4px}
 #s-skill .card p[style]{line-height:1.45!important}
-/* 발표자용: 개요 뒤에 부연 설명이 있는 장에서는 NEXT 버튼이 노란색(부연까지 말한 뒤 넘기기) */
-body:has(#pg[data-kind="detail"]) #next-hint,
-body:has(#pg[data-kind="detail"]) #next-hint.on-sec{background:linear-gradient(135deg,#F2B33D,#FFD27A);color:#1A1608;border-color:rgba(255,255,255,.4);box-shadow:0 8px 28px rgba(255,194,75,.4)}
