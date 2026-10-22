@@ -73,9 +73,11 @@ export async function renderScriptDocument(
   }).join("\n");
 
   return `<!doctype html>
-<html lang="ko" data-mode="${mode}" data-notes="${withNotes}" data-saved="${downloaded}">
+<html translate="no" lang="ko" data-mode="${mode}" data-notes="${withNotes}" data-saved="${downloaded}">
 <head>
 <meta charset="utf-8">
+<!-- 브라우저 자동 번역 금지: 일본어 화면·대본이 다른 언어로 바뀌지 않게 한다 -->
+<meta name="google" content="notranslate">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light">
 <title>${escapeHtml(data.meta.title)} — 리허설 대본</title>
