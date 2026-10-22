@@ -99,6 +99,11 @@
     if (list.open) return;
     if (["ArrowRight", "PageDown", " "].includes(e.key)) { e.preventDefault(); show(index + 1); }
     if (["ArrowLeft", "PageUp"].includes(e.key)) { e.preventDefault(); show(index - 1); }
+    // + / - 키로 글자 크기를 바꾼다(가+ / 가− 버튼과 같다). Shift 없이 누르는 = 키도 + 로 받는다
+    if (!e.metaKey && !e.ctrlKey && !e.altKey) {
+      if (["+", "="].includes(e.key)) { e.preventDefault(); setScale(scale + 0.1); }
+      if (["-", "_"].includes(e.key)) { e.preventDefault(); setScale(scale - 0.1); }
+    }
   });
 
   // 발표 중에 화면이 꺼지지 않게 한다. 지원하지 않는 브라우저는 기기 설정을 따른다.
