@@ -15,7 +15,8 @@
 html, body { margin: 0; height: 100%; background: var(--bg); color: var(--fg); }
 body {
   font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", "Hiragino Sans", system-ui, sans-serif;
-  display: flex; flex-direction: column; min-height: 100dvh;
+  /* 화면 높이에 고정하고 가운데(main)만 스크롤해서, 위 막대와 아래 이동 버튼이 항상 보이게 한다 */
+  display: flex; flex-direction: column; height: 100vh; height: 100dvh; overflow: hidden;
   -webkit-text-size-adjust: 100%;
 }
 button { font: inherit; color: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
@@ -36,7 +37,8 @@ html[data-mode="interpreter"] [data-only="presenter"] { display: none; }
 .tools { display: flex; gap: 6px; }
 .tools button { background: var(--panel); color: var(--fg); }
 
-main { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+main { flex: 1; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
+.bar, .pager { flex: none; }
 .card { padding: 20px max(20px, env(safe-area-inset-right)) 28px max(20px, env(safe-area-inset-left)); max-width: 1100px; margin: 0 auto; }
 .card-head { display: flex; gap: 16px; align-items: flex-start; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
 .count { margin: 0; flex: none; font-family: "Montserrat", system-ui, sans-serif; line-height: 1; }
