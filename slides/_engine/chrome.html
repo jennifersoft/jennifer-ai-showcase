@@ -1,15 +1,5 @@
 <div id="bar"></div>
 <div id="hud">
   <button id="prev" aria-label="前へ">←</button><span id="pg">1 / 12</span><span id="tm">00:00</span><span id="st"></span><button id="next" aria-label="次へ">→</button>
-  <button id="sc" aria-controls="script" aria-expanded="false"><span class="shortcut">S </span>대본</button><button id="nt">N 노트</button><button id="fs">F 전체화면</button><button id="ov">O 목록</button>
+  <button id="fs">F 전체화면</button><button id="ov">O 목록</button>
 </div>
-<div id="notes" hidden></div>
-<aside id="script" aria-label="대본" hidden>
-  <div class="sc-head">
-    <b id="sc-title">발표자 대본</b><span id="sc-pg"></span>
-    <select id="sc-mode" aria-label="대본 종류"><option value="presenter">발표자 대본</option><option value="interpreter">통역용 원고</option></select>
-    <a id="sc-print" target="_blank" rel="noopener">전체 대본 읽기 ↗</a>
-    <button id="sc-close" type="button" aria-label="대본 닫기">×</button>
-  </div>
-  <div id="sc-text" tabindex="0" aria-label="현재 장 대본"></div>
-</aside>

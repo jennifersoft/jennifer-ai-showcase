@@ -17,8 +17,7 @@ function go(i){
   s.classList.add('on');
   document.getElementById('pg').textContent=`${i+1} / ${slides.length}`;
   document.getElementById('bar').style.width=`${(i+1)/slides.length*100}%`;
-  document.getElementById('notes').textContent=s.dataset.notes||'';
-  renderScript();hideNextHint();
+  hideNextHint();
   // data-autoplay 장은 들어오자마자 모든 단계를 순서대로 자동 재생한다(→ 는 바로 다음 장)
   // 다시 들어와도 처음부터 재생되게, 이전 방문에서 나타난 단계 요소를 되돌린다
   s.querySelectorAll('[data-step]').forEach(e=>{e.classList.remove('shown','typing','translated');clearTimeout(e._t);clearTimeout(e._tr)});
@@ -27,14 +26,10 @@ function go(i){
 }
 addEventListener('keydown',e=>{
   if(e.defaultPrevented||e.altKey||e.ctrlKey||e.metaKey)return;
-  if(e.key==='Escape'&&!document.getElementById('script').hidden){toggleScript();return}
   if(e.target.closest('input,textarea,select,[contenteditable="true"]'))return;
   if(e.target.closest('button,a')&&[' ','Enter'].includes(e.key))return;
-  if(e.target.closest('#sc-text')&&['ArrowRight','ArrowLeft','ArrowUp','ArrowDown','PageDown','PageUp',' ','Enter','Backspace','Home','End'].includes(e.key))return;
   if(['ArrowRight','PageDown',' ','Enter'].includes(e.key)){e.preventDefault();fwd()}
   else if(['ArrowLeft','PageUp','Backspace'].includes(e.key)){e.preventDefault();go(cur-1)}
-  else if(e.code==='KeyN')toggleNotes();
-  else if(e.code==='KeyS')toggleScript();
   else if(e.code==='KeyF')full();
   else if(e.code==='KeyI')toggleInteract();
   else if(e.code==='KeyT'){const tr=[...slides[cur].querySelectorAll('.msg.tr.shown')];const to=!tr.every(m=>m.classList.contains('translated'));tr.forEach(m=>m.classList.toggle('translated',to));scrollChat(slides[cur])}
@@ -80,8 +75,6 @@ function fwd(){t0??=Date.now();if(step<steps()){step++;showStep();hooks[slides[c
 setInterval(()=>{if(t0==null)return;const e=Math.floor((Date.now()-t0)/1000);const tm=document.getElementById('tm');tm.textContent=String(e/60|0).padStart(2,'0')+':'+String(e%60).padStart(2,'0');tm.style.color=e>780?'#F6A621':''},1000);
 // 라이브 iframe 조작 모드: 켜면 iframe이 클릭·키보드를 받는다. 끄려면 iframe 바깥(슬라이드 여백)을 클릭한다.
 function toggleInteract(){const l=slides[cur].querySelector('.live');if(!l||!l.querySelector('iframe'))return;l.classList.toggle('interact');if(!l.classList.contains('interact'))window.focus()}
-function toggleNotes(){const n=document.getElementById('notes');n.hidden=!n.hidden}
-document.getElementById('nt').onclick=toggleNotes;
 function full(){try{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen().catch(()=>{})}catch(e){}}
 document.getElementById('fs').onclick=full;
 function overview(){document.body.classList.toggle('ov');fit()}
@@ -189,28 +182,6 @@ draw();
   }
 })();
 
-// 대본 모드(S): 짧은 발표자 대본이 기본. 통역용 원고와 전체 대본으로 전환할 수 있다.
-function renderScript(){const box=document.getElementById('script');if(!box)return;const s=slides[cur];
-  const presenter=document.getElementById('sc-mode').value!=='interpreter';
-  const text=document.getElementById('sc-text');text.replaceChildren();
-  const spoken=presenter&&s.dataset.presenter?.trim();
-  const chunks=spoken?spoken.split(/\n\s*\n/):[s.dataset.script||'(대본 없음)'];
-  chunks.forEach(chunk=>{
-    const p=document.createElement('p');p.textContent=chunk.trim();text.appendChild(p);
-    if(spoken){const cue=document.createElement('span');cue.className='sc-cue';cue.textContent='통역 대기';text.appendChild(cue)}
-  });
-  text.scrollTop=0;
-  document.getElementById('sc-title').textContent=presenter?'발표자 대본':'통역용 원고';
-  document.getElementById('sc-pg').textContent=`${cur+1} / ${slides.length}`;
-  document.getElementById('sc-print').href=location.pathname.replace(/\/$/,'')+'/script'+(presenter?'':'?mode=interpreter')+'#s'+(cur+1)}
-function toggleScript(){const b=document.getElementById('script');b.hidden=!b.hidden;
-  document.getElementById('sc').setAttribute('aria-expanded',String(!b.hidden));renderScript();
-  if(b.hidden)document.getElementById('sc').focus()}
-document.getElementById('sc')&&(document.getElementById('sc').onclick=toggleScript);
-document.getElementById('sc-close').onclick=toggleScript;
-document.getElementById('sc-mode').onchange=renderScript;
-document.getElementById('script')&&document.getElementById('script').addEventListener('click',e=>e.stopPropagation());
-renderScript();
 
 // '다음 장' 안내: 채팅·영상 장이 끝나면 오른쪽에 반투명 큰 화살표. 누르면 다음 장
 const nextHint=document.createElement('button');nextHint.id='next-hint';nextHint.setAttribute('aria-label','次へ');nextHint.innerHTML='<span>NEXT</span><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>';
