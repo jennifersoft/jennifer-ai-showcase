@@ -200,3 +200,11 @@
 .par .free{position:absolute;right:0;top:0;bottom:0;width:24%;border-radius:12px;border:2px dashed var(--hot);background:linear-gradient(160deg,rgba(124,115,194,.22),rgba(124,115,194,.05));display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;text-align:center;padding:10px;animation:freeglow 2.6s ease-in-out infinite}
 .par .free b{font:800 22px var(--jp);color:var(--fg)}.par .free span{font:400 14px var(--kr);color:var(--hot)}
 @keyframes freeglow{50%{box-shadow:0 0 30px rgba(124,115,194,.35)}}
+/* 일본어 설명 문장: 일본 청중이 읽는 본문. 한국어 보조 문장(.kr) 바로 위에 둔다 */
+.ja-lead{font:500 36px/1.5 var(--jp);color:var(--fg);max-width:1500px;margin:20px 0 0;word-break:normal;line-break:strict}
+.ja-lead.s{font-size:30px;margin-top:16px;max-width:none}
+.sec .ja-lead{color:#fff}
+.ja-lead+.kr{margin-top:10px}
+/* 14장: 일본어 설명 문장이 들어간 만큼 대시보드 칸을 낮춰 두 번째 줄(AI 위젯)이 화면 안에 들어오게 한다 */
+#s-dash .dash{grid-template-rows:186px 186px;padding:18px}
+#s-dash .prompt{padding:14px 24px}
