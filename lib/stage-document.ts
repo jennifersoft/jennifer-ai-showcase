@@ -58,7 +58,6 @@ ${presenter.length ? pause : ""}
 ${interpreter.map((chunk) => `<p class="spoken">${escapeHtml(chunk)}</p>`).join("\n") || '<p class="spoken empty">(대본 없음)</p>'}
 </div>
 ${cues.length ? `<aside class="cue">${cues.map((cue) => `<p>${escapeHtml(cue)}</p>`).join("")}</aside>` : ""}
-${item.notes?.trim() ? `<details class="notes"><summary>참고 노트</summary><p>${escapeHtml(item.notes.trim())}</p></details>` : ""}
 <p class="next">${next ? `다음 ▸ <b>${String(no + 1).padStart(2, "0")}</b> <span lang="${escapeHtml(lang)}">${escapeHtml(next.title)}</span>` : "마지막 장입니다"}</p>
 </article>`;
 }

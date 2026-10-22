@@ -31,7 +31,8 @@ test("the stage view shows one card per slide with only stage cues from the note
   assert.doesNotMatch(cue, /구현 배경입니다/);
   assert.doesNotMatch(cue, /말이 막히면/);
   // 전체 노트는 접고 펼칠 수 있는 칸에 따로 담는다(통역은 펼침, 발표자는 접힘)
-  assert.match(html, /<details class="notes"><summary>참고 노트<\/summary><p>[^<]*구현 배경입니다/);
+  // 참고 노트 전문은 싣지 않는다
+  assert.doesNotMatch(html, /details class="notes"|구현 배경입니다/);
   assert.match(html, /First &lt;b&gt;/);
   assert.equal((html.match(/class="pause"/g) || []).length, 3);
 });

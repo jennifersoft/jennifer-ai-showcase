@@ -60,7 +60,7 @@
         root.dataset.mode = button.dataset.modeButton;
         // 통역용 원고는 참고 노트를 펼치고, 발표자 대본은 접는다
         root.dataset.notes = String(root.dataset.mode === "interpreter");
-        notesToggle.checked = root.dataset.notes === "true";
+        if (notesToggle) notesToggle.checked = root.dataset.notes === "true";
         modeButtons.forEach(function (item) {
           item.setAttribute("aria-pressed", String(item === button));
         });
@@ -69,7 +69,7 @@
     });
   });
 
-  notesToggle.addEventListener("change", function () {
+  if (notesToggle) notesToggle.addEventListener("change", function () {
     keepVisibleChapter(function () { root.dataset.notes = String(notesToggle.checked); });
     updateAddress();
   });

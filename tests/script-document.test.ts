@@ -22,7 +22,8 @@ test("the reader keeps both manuscripts and escapes text instead of executing ma
   assert.match(html, /두 번째 문장입니다\./);
   assert.match(html, /상세한 통역용 원고입니다\./);
   assert.match(html, /&lt;img src=x onerror=&quot;alert\(1\)&quot;&gt;/);
-  assert.match(html, /&lt;\/script&gt;&lt;script&gt;alert\(1\)&lt;\/script&gt;/);
+  // 참고 노트는 대본 화면에 싣지 않는다
+  assert.doesNotMatch(html, /alert\(1\)<\/script>|&lt;\/script&gt;&lt;script&gt;/);
   assert.doesNotMatch(html, /<img src=x|<script>alert\(1\)/);
   assert.equal((html.match(/class="pause-cue"/g) || []).length, 2);
 });

@@ -46,7 +46,6 @@ ${presenterCopy(presenter)}
 <div class="script-copy" data-script-mode="interpreter" aria-label="통역용 원고">
 ${interpreterCopy(interpreter)}
 </div>
-${item.notes?.trim() ? `<aside class="explanatory-notes" aria-label="참고 노트"><h3>참고 노트</h3><p>${escapeHtml(item.notes.trim())}</p></aside>` : ""}
 </article>`;
 }
 
@@ -97,7 +96,7 @@ ${downloaded ? "" : `<a class="action-button primary online-only" data-download 
 <button class="action-button print-button js-only" type="button" id="print-script">인쇄 / PDF</button>
 </div>
 ${downloaded ? "" : `<p class="save-help online-only no-print"><strong>탑승 전에 저장해 주세요.</strong> ‘오프라인 저장’으로 HTML 파일을 기기에 저장한 뒤, 비행기 모드에서 열어 확인하세요. 파일 열기가 어려운 기기에서는 ‘인쇄 / PDF’로 저장할 수 있습니다.</p>`}
-<p class="save-help saved-only no-print"><strong>인터넷 없이 읽는 저장된 대본입니다.</strong> 모든 장의 발표자 대본, 통역용 원고와 참고 노트가 이 파일에 들어 있습니다. 아래에서 대본 종류와 글자 크기를 바꿀 수 있습니다.</p>
+<p class="save-help saved-only no-print"><strong>인터넷 없이 읽는 저장된 대본입니다.</strong> 모든 장의 발표자 대본과 통역용 원고가 이 파일에 들어 있습니다. 아래에서 대본 종류와 글자 크기를 바꿀 수 있습니다.</p>
 <noscript><p class="save-help no-print">현재 선택된 대본을 읽을 수 있습니다. 대본 전환과 글자 크기 조절은 JavaScript를 지원하는 브라우저에서 사용할 수 있습니다.</p></noscript>
 </header>
 <div class="reader-toolbar js-only no-print" id="reader-toolbar">
@@ -109,13 +108,12 @@ ${downloaded ? "" : `<p class="save-help online-only no-print"><strong>탑승 �
 <div class="reader-controls">
 <label class="control chapter-control" for="chapter-select"><span>장 이동</span><select id="chapter-select"${data.items.length ? "" : " disabled"}>${chapterOptions || '<option value="">대본 없음</option>'}</select></label>
 <label class="control size-control" for="text-size"><span>글자 크기</span><select id="text-size"><option value="18">작게 · 18px</option><option value="20" selected>기본 · 20px</option><option value="22">크게 · 22px</option><option value="26">아주 크게 · 26px</option></select></label>
-<label class="notes-toggle" for="notes-toggle"><input type="checkbox" id="notes-toggle"${withNotes ? " checked" : ""}><span>참고 노트</span></label>
 </div>
 </div>
 </div>
 <main class="script-page page-width" id="script-content" tabindex="-1">
 <p class="reading-hint no-print" data-script-mode="presenter">한 문단씩 말하고, <span class="inline-cue">통역 대기</span> 표시에서 잠시 멈추세요. 대기 표시는 읽는 문장이 아닙니다.</p>
-<p class="reading-hint no-print" data-script-mode="interpreter">발표자가 실제로 말하는 문장과 같습니다. 한 문단이 끝날 때마다 통역해 주세요. 배경은 참고 노트에 있습니다.</p>
+<p class="reading-hint no-print" data-script-mode="interpreter">발표자가 실제로 말하는 문장과 같습니다. 한 문단이 끝날 때마다 통역해 주세요.</p>
 ${data.items.map((item, index) => renderArticle(item, index, data.meta.lang ?? "ja")).join("\n") || '<p class="empty-state">표시할 대본이 없습니다.</p>'}
 </main>
 <footer class="reader-footer page-width no-print"><a href="#script-content">대본 처음으로 ↑</a><span>${data.items.length}장 전체 수록</span></footer>
