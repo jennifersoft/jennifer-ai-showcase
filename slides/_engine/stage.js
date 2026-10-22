@@ -54,6 +54,16 @@
   document.querySelectorAll("[data-mode-button]").forEach(function (b) {
     b.addEventListener("click", function () { setMode(b.dataset.modeButton); });
   });
+  // 발표자가 노트를 펼치면 대본 대신 노트만 보는 화면으로 바꾼다. 장을 넘겨도 같은 상태를 유지한다.
+  let syncing = false;
+  document.querySelectorAll("details.notes").forEach(function (d) {
+    d.addEventListener("toggle", function () {
+      if (syncing || root.dataset.mode !== "presenter") return;
+      syncing = true;
+      document.querySelectorAll("details.notes").forEach(function (o) { o.open = d.open; });
+      syncing = false;
+    });
+  });
   document.querySelectorAll("[data-size]").forEach(function (b) {
     b.addEventListener("click", function () { setScale(scale + 0.1 * +b.dataset.size); });
   });

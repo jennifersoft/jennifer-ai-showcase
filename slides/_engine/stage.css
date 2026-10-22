@@ -80,3 +80,8 @@ dialog li button[aria-current="true"] { background: var(--panel); }
 details.notes { margin-top: 14px; border: 1px solid var(--line); border-radius: 8px; }
 details.notes summary { padding: 10px 14px; font-size: 15px; font-weight: 700; color: var(--sub); cursor: pointer; min-height: 44px; display: flex; align-items: center; }
 details.notes p { margin: 0; padding: 0 14px 14px; font-size: calc(var(--fs) * .55); line-height: 1.6; color: #C9CDD6; white-space: pre-line; overflow-wrap: anywhere; }
+/* 발표자 모드에서 노트를 펼치면 대본·진행 안내를 숨기고 노트만 크게 보여 준다 */
+html[data-mode="presenter"] .card:has(details.notes[open]) .lines,
+html[data-mode="presenter"] .card:has(details.notes[open]) .cue { display: none; }
+html[data-mode="presenter"] details.notes[open] p { font-size: calc(var(--fs) * .8); color: var(--fg); }
+html[data-mode="presenter"] details.notes[open] summary::after { content: " · 접으면 대본으로"; font-weight: 500; }
