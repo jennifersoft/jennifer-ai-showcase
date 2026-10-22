@@ -28,7 +28,10 @@ test("the stage view shows one card per slide with only stage cues from the note
   assert.match(html, /라이브 화면/);
   assert.match(html, /클릭하면 다음 단계로 갑니다\./);
   assert.match(html, /\[말이 막히면\]/);
-  assert.doesNotMatch(html, /구현 배경입니다/);
+  const cue = /<aside class="cue">([\s\S]*?)<\/aside>/.exec(html)?.[1] ?? "";
+  assert.doesNotMatch(cue, /구현 배경입니다/);
+  // 전체 노트는 접고 펼칠 수 있는 칸에 따로 담는다(통역은 펼침, 발표자는 접힘)
+  assert.match(html, /<details class="notes"><summary>참고 노트<\/summary><p>[^<]*구현 배경입니다/);
   assert.match(html, /First &lt;b&gt;/);
   assert.equal((html.match(/class="pause"/g) || []).length, 3);
 });

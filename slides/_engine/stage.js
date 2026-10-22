@@ -29,6 +29,8 @@
 
   function setMode(mode) {
     root.dataset.mode = mode;
+    // 통역사는 참고 노트를 펼쳐 두고, 발표자는 접어 둔다
+    document.querySelectorAll("details.notes").forEach(function (d) { d.open = mode === "interpreter"; });
     document.querySelectorAll("[data-mode-button]").forEach(function (b) {
       b.setAttribute("aria-pressed", String(b.dataset.modeButton === mode));
     });

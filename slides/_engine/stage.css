@@ -77,3 +77,6 @@ dialog ol { list-style: none; margin: 48px 0 0; padding: 0; }
 dialog li button { display: flex; gap: 12px; width: 100%; text-align: left; border: 0; background: transparent; padding: 12px 8px; border-bottom: 1px solid var(--line); font-size: 16px; }
 dialog li button b { font-family: "Montserrat", system-ui, sans-serif; color: var(--hot-fg); min-width: 28px; }
 dialog li button[aria-current="true"] { background: var(--panel); }
+details.notes { margin-top: 14px; border: 1px solid var(--line); border-radius: 8px; }
+details.notes summary { padding: 10px 14px; font-size: 15px; font-weight: 700; color: var(--sub); cursor: pointer; min-height: 44px; display: flex; align-items: center; }
+details.notes p { margin: 0; padding: 0 14px 14px; font-size: calc(var(--fs) * .55); line-height: 1.6; color: #C9CDD6; white-space: pre-line; overflow-wrap: anywhere; }

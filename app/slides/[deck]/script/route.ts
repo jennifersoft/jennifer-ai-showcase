@@ -26,7 +26,8 @@ export async function GET(request: Request, { params }: { params: Promise<{ deck
   const download = query.get("download") === "1";
   const html = await renderScriptDocument(deck, data, {
     mode,
-    withNotes: query.get("notes") === "1",
+    // 통역용 원고는 참고 노트를 펼친 채로, 발표자 대본은 접은 채로 연다. ?notes=1|0 이 있으면 그것을 따른다.
+    withNotes: query.has("notes") ? query.get("notes") === "1" : mode === "interpreter",
     download,
   });
   if (download) headers["Content-Disposition"] = `attachment; filename="${deck}-script.html"`;

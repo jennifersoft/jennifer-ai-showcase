@@ -24,7 +24,7 @@
     const url = new URL(downloadLink.dataset.downloadPath, location.href);
     url.searchParams.set("download", "1");
     url.searchParams.set("mode", root.dataset.mode);
-    if (root.dataset.notes === "true") url.searchParams.set("notes", "1");
+    url.searchParams.set("notes", root.dataset.notes === "true" ? "1" : "0");
     url.hash = currentChapter();
     downloadLink.href = url.toString();
   }
@@ -34,8 +34,7 @@
     if (saved) return;
     const url = new URL(location.href);
     url.searchParams.set("mode", root.dataset.mode);
-    if (root.dataset.notes === "true") url.searchParams.set("notes", "1");
-    else url.searchParams.delete("notes");
+    url.searchParams.set("notes", root.dataset.notes === "true" ? "1" : "0");
     // Some file viewers and embedded browsers restrict history changes.
     try { history.replaceState(null, "", url); } catch { /* Reading remains available. */ }
   }
@@ -59,6 +58,9 @@
       if (root.dataset.mode === button.dataset.modeButton) return;
       keepVisibleChapter(function () {
         root.dataset.mode = button.dataset.modeButton;
+        // 통역용 원고는 참고 노트를 펼치고, 발표자 대본은 접는다
+        root.dataset.notes = String(root.dataset.mode === "interpreter");
+        notesToggle.checked = root.dataset.notes === "true";
         modeButtons.forEach(function (item) {
           item.setAttribute("aria-pressed", String(item === button));
         });
