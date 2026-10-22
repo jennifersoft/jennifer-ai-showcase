@@ -296,22 +296,23 @@ AI가 연동을 만드는 시간을 크게 줄였습니다.">
     <div class="card"><h3>X-View 直リンク</h3><p class="kr s">알림에서 트랜잭션 분석으로 바로 이동</p></div>
   </div>
 </section>
-<section class="slide" data-notes="[핵심] 예전에는 개발 가이드와 예제를 보고 어댑터를 직접 구현했습니다. 이제는 그 내용을 담은 스킬을 AI 도구에 넣고 필요한 연동을 말로 요청하면, AI가 가이드와 예제를 참고해 구현합니다.
+<section class="slide" id="s-skill" data-notes="[핵심] 예전에는 개발 가이드와 예제를 보고 어댑터를 직접 구현했습니다. 이제는 그 내용을 담은 스킬을 AI 도구에 넣고 필요한 연동을 말로 요청하면, AI가 가이드와 예제를 참고해 구현합니다.
 [시간이 여유로울 때 덧붙일 말] “스킬에는 Slack과 Teams 예제, 인증과 오류 처리 패턴도 들어 있습니다.”
 
 jennifer-view-extension-tutorial 저장소의 skills/jennifer-extension.zip. zip을 받아 ChatGPT 사이드바 Plugins → Skills 탭 → Create → Upload from your computer로 업로드합니다(OpenAI 도움말 「Skills in ChatGPT」 기준. 대상은 Business·Enterprise·Healthcare·Edu이고, Enterprise·Edu는 관리자가 스킬 업로드를 허용해야 함). 발표 예시는 ChatGPT로 통일하지만 ChatGPT 전용은 아니고, 스킬을 지원하는 다른 AI 도구에서도 쓸 수 있습니다. 5종 어댑터, Slack/Teams/Telegram/LDAP 예제, 인증·HTTP·오류 처리 패턴 포함.
 
-[통역 용어] 스킬=スキル · 어댑터 종류=アダプター種別 · 구현 예제=実装例 · 공통 패턴=共通パターン" data-script="예전에는 개발 가이드를 보며 어댑터를 직접 만들었습니다.
+[통역 용어] 스킬=スキル · 이벤트 알림=イベント通知 · 사용자 인증=ユーザー認証 · 어댑터 종류=アダプター種別 · 구현 예제=実装例 · 공통 패턴=共通パターン" data-script="제니퍼에는 이벤트 알림, 고객사에 맞춘 사용자 인증 등 여러 어댑터가 있습니다.
+예전에는 개발 가이드를 보며 어댑터를 직접 만들었습니다.
 이제는 그 가이드와 예제를 담은 jennifer-extension 스킬을 AI 도구에 넣습니다.
-필요한 연동을 말로 요청하면 AI가 구현합니다." data-presenter="예전에는 개발 가이드를 보며 어댑터를 직접 만들었습니다.
+필요한 연동을 말로 요청하면 AI가 구현합니다." data-presenter="제니퍼에는 이벤트 알림, 고객사에 맞춘 사용자 인증 등 여러 어댑터가 있습니다.
+예전에는 개발 가이드를 보며 어댑터를 직접 만들었습니다.
 이제는 그 가이드와 예제를 담은 jennifer-extension 스킬을 AI 도구에 넣습니다.
 필요한 연동을 말로 요청하면 AI가 구현합니다.">
   <div>
-    <h2 data-a style="--d:1;font-size:72px">「jennifer-extension」スキル</h2>
-    <p class="ja-lead s" data-a style="--d:1">以前は開発ガイドを読んで自分で実装していました。今はこのスキルを入れたAIツールに、言葉で依頼すれば実装してくれます。</p>
-    <p class="kr s" data-a style="--d:1">예전에는 개발 가이드를 보고 직접 구현했습니다. 이제는 이 스킬을 넣은 AI 도구에 말로 요청하면 AI가 구현해 줍니다.</p>
+    <h2 data-a style="--d:1;font-size:60px">「jennifer-extension」スキル</h2>
+    <p class="ja-lead s" data-a style="--d:1">JENNIFERには、イベント通知のアダプターや、お客様に合わせたユーザー認証のアダプターなど、多くの種類があります。以前は開発ガイドを読んで自分で実装していましたが、今はこのスキルを入れたAIツールに言葉で依頼すれば実装してくれます。</p>
+    <p class="kr s" data-a style="--d:1">제니퍼에는 이벤트 알림 어댑터, 고객사에 맞춘 사용자 인증 어댑터 등 여러 종류의 어댑터가 있습니다. 예전에는 개발 가이드를 보고 직접 구현했지만, 이제는 이 스킬을 넣은 AI 도구에 말로 요청하면 AI가 구현해 줍니다.</p>
   </div>
-  <div class="spacer"></div>
   <div class="skill">
     <div class="card" data-a style="--d:2"><span class="ic">5</span><h3>アダプター種別</h3><p class="kr s">어댑터 종류</p><p style="font:400 22px/1.6 var(--mono);color:var(--sub)">Event · Transaction<br>Login · SSO · System Event</p></div>
     <div class="card" data-a style="--d:3"><span class="ic">{ }</span><h3>実装例</h3><p class="kr s">구현 예제</p><p style="font:400 22px/1.6 var(--mono);color:var(--sub)">Slack · Teams<br>Telegram · LDAP</p></div>
