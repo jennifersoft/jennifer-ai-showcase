@@ -201,10 +201,15 @@
 .par .free b{font:800 22px var(--jp);color:var(--fg)}.par .free span{font:400 14px var(--kr);color:var(--hot)}
 @keyframes freeglow{50%{box-shadow:0 0 30px rgba(124,115,194,.35)}}
 /* 일본어 설명 문장: 일본 청중이 읽는 본문. 한국어 보조 문장(.kr) 바로 위에 둔다 */
-.ja-lead{font:500 36px/1.5 var(--jp);color:var(--fg);max-width:1500px;margin:20px 0 0;word-break:normal;line-break:strict}
-.ja-lead.s{font-size:30px;margin-top:16px;max-width:none}
+/* 청중이 읽는 일본어가 먼저 눈에 들어오게 한국어보다 크고 진하게, 모든 장에서 같은 크기·간격으로 쓴다 */
+.ja-lead{font:600 40px/1.5 var(--jp);color:var(--fg);max-width:1500px;margin:18px 0 0;word-break:normal;line-break:strict}
+.ja-lead.s{font-size:32px;max-width:none}
 .sec .ja-lead{color:#fff}
-.ja-lead+.kr{margin-top:10px}
+.ja-lead+.kr{margin-top:14px;line-height:1.5}
+.ja-lead:not(.s)+.kr{font-size:30px}
+/* 장의 직속 자식이면 .slide 의 gap(40px)이 더해지므로 빼서, 감싼 div 안에 있을 때와 같은 간격(제목→일본어 18px, 일본어→한국어 14px)으로 맞춘다 */
+.slide>.ja-lead{margin-top:-22px}
+.slide>.ja-lead+.kr{margin-top:-26px}
 /* 14장: 일본어 설명 문장이 들어간 만큼 대시보드 칸을 낮춰 두 번째 줄(AI 위젯)이 화면 안에 들어오게 한다 */
 #s-dash .dash{grid-template-rows:186px 186px;padding:18px}
 #s-dash .prompt{padding:14px 24px}
