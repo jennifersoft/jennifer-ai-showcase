@@ -163,6 +163,12 @@ export type ScriptItem = {
   /** 발표자가 읽는 짧은 대본. 빈 줄은 통역을 기다릴 구간을 나눈다. */
   presenter?: string;
   notes: string;
+  /** 다음 버튼으로 넘기는 단계 수(data-steps). 0이면 단계 없음. */
+  steps?: number;
+  /** 장에 들어오면 단계가 자동으로 진행된다(data-autoplay). */
+  autoplay?: boolean;
+  /** 라이브 화면({{live:...}})이 들어 있다. */
+  live?: boolean;
 };
 
 function decodeEntities(v: string): string {
@@ -189,7 +195,17 @@ export async function readDeckScript(name: string): Promise<{ meta: DeckMeta; it
     const attr = (k: string) => decodeEntities(new RegExp(`${k}="([^"]*)"`).exec(open)?.[1] ?? "");
     const heading = /<h[12][^>]*>([\s\S]*?)<\/h[12]>/.exec(sec)?.[1] ?? "";
     const sub = /<p class="kr[^"]*"[^>]*>([\s\S]*?)<\/p>/.exec(sec)?.[1] ?? "";
-    return { no: i + 1, title: textOf(heading), subtitle: textOf(sub), script: attr("data-script"), presenter: attr("data-presenter"), notes: attr("data-notes") };
+    return {
+      no: i + 1,
+      title: textOf(heading),
+      subtitle: textOf(sub),
+      script: attr("data-script"),
+      presenter: attr("data-presenter"),
+      notes: attr("data-notes"),
+      steps: Number.parseInt(attr("data-steps"), 10) || 0,
+      autoplay: /\sdata-autoplay[\s>=]/.test(open),
+      live: /\{\{live:/.test(sec),
+    };
   });
   return { meta, items };
 }

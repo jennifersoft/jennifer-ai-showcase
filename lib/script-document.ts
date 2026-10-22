@@ -88,7 +88,7 @@ ${css}
 <body>
 <a class="skip-link no-print" href="#script-content">대본으로 바로 가기</a>
 <header class="reader-header page-width">
-${downloaded ? "" : `<nav class="top-links online-only no-print" aria-label="슬라이드 탐색"><a href="/slides">← 슬라이드 목록</a><a href="${escapeHtml(deckPath)}">슬라이드 열기 ↗</a></nav>`}
+${downloaded ? "" : `<nav class="top-links online-only no-print" aria-label="슬라이드 탐색"><a href="/slides">← 슬라이드 목록</a><a href="${escapeHtml(deckPath)}">슬라이드 열기 ↗</a><a href="${escapeHtml(`${scriptPath}?view=stage&mode=${mode}`)}">발표 중 보기 ↗</a></nav>`}
 <p class="eyebrow">REHEARSAL SCRIPT <span class="saved-only saved-badge no-print">저장된 대본</span></p>
 <h1>${escapeHtml(data.meta.title)}</h1>
 <p class="reader-meta"><span>${data.items.length}장</span><span aria-hidden="true">·</span><span data-script-mode="presenter">발표자 대본</span><span data-script-mode="interpreter">통역용 원고</span></p>

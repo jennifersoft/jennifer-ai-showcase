@@ -1,5 +1,6 @@
 import { isDeckName, readDeckScript } from "@/lib/slides";
 import { renderScriptDocument } from "@/lib/script-document";
+import { renderStageDocument } from "@/lib/stage-document";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -18,9 +19,13 @@ export async function GET(request: Request, { params }: { params: Promise<{ deck
   if (data === null) return new Response("deck not found", { status: 404, headers });
 
   const query = new URL(request.url).searchParams;
+  const mode = query.get("mode") === "interpreter" ? "interpreter" : "presenter";
+  // ?view=stage: 발표 중에 휴대폰·태블릿으로 한 장씩 보는 화면
+  if (query.get("view") === "stage") return new Response(await renderStageDocument(deck, data, mode), { headers });
+
   const download = query.get("download") === "1";
   const html = await renderScriptDocument(deck, data, {
-    mode: query.get("mode") === "interpreter" ? "interpreter" : "presenter",
+    mode,
     withNotes: query.get("notes") === "1",
     download,
   });
