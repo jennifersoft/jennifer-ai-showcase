@@ -216,5 +216,7 @@ h1+.kr,h2+.kr,h1+.kr.s,h2+.kr.s{margin-top:18px}
   #next-hint svg{width:16px;height:16px}
 }
 /* 쪽수 앞 작은 점: 빈 점 = 개요만 말하는 장, 찬 점 = 개요 뒤에 부연 설명이 있는 장(발표자용) */
-#pg::before{content:"";display:inline-block;width:7px;height:7px;margin-right:8px;border-radius:50%;vertical-align:1px;border:1.5px solid var(--sub);box-sizing:border-box}
-#pg[data-kind="detail"]::before{background:var(--hot);border-color:var(--hot)}
+#pg::before{content:"";display:inline-block;width:12px;height:12px;margin-right:10px;border-radius:50%;vertical-align:-1px;border:2px solid var(--fg);box-sizing:border-box}
+#pg[data-kind="detail"]::before{background:#FFC24B;border-color:#FFC24B;box-shadow:0 0 8px rgba(255,194,75,.7)}
+/* 아래 진행 막대도 부연 설명이 있는 장에서는 노란색으로 */
+body:has(#pg[data-kind="detail"]) #bar{background:#FFC24B}
