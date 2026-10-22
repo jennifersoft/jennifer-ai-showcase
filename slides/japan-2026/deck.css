@@ -216,7 +216,7 @@
 /* 7장: 설명 문장이 늘어난 만큼 한국어 줄을 넓게 쓰고, 영상 칸 높이를 줄여 위 문장과 겹치지 않게 한다 */
 #s-mobile .kr.s{max-width:none}
 #s-mobile .playlist{flex:0 1 760px;margin-left:auto}
-/* 7장: 3일이 가능했던 배경(오래 다져 온 공통 부품) */
+/* 7장: 3일이 가능했던 배경(오래 다져 온 공통 모듈) */
 .base-note{margin:0;padding:14px 18px;border-left:3px solid var(--hot);background:var(--panel);border-radius:0 10px 10px 0;font:600 22px/1.5 var(--jp);color:var(--fg)}
 .base-note span{display:block;margin-top:4px;font:300 18px/1.5 var(--kr);color:var(--sub);word-break:keep-all}
 .base-note{font-size:19px;font-weight:500;color:#D9DCE4}
