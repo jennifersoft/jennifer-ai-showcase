@@ -211,7 +211,9 @@
 .slide>.ja-lead{margin-top:-22px}
 .slide>.ja-lead+.kr{margin-top:-26px}
 /* 14장: 일본어 설명 문장이 들어간 만큼 대시보드 칸을 낮춰 두 번째 줄(AI 위젯)이 화면 안에 들어오게 한다 */
-#s-dash .dash{grid-template-rows:186px 186px;padding:18px}
+#s-dash .dash{grid-template-rows:140px 196px;padding:16px}
+#s-dash .pd{gap:6px}
+#s-dash .pd li{padding:6px 12px;font-size:20px}
 #s-dash .prompt{padding:14px 24px}
 /* 7장: 설명 문장이 늘어난 만큼 한국어 줄을 넓게 쓰고, 영상 칸 높이를 줄여 위 문장과 겹치지 않게 한다 */
 #s-mobile .kr.s{max-width:none}
