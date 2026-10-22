@@ -169,6 +169,8 @@ export type ScriptItem = {
   autoplay?: boolean;
   /** 라이브 화면({{live:...}})이 들어 있다. */
   live?: boolean;
+  /** 대본 종류: overview = 화면 개요만 말하면 되는 장, detail = 개요 뒤에 화면 내용 부연이 붙는 장 */
+  kind?: "overview" | "detail";
 };
 
 function decodeEntities(v: string): string {
@@ -205,6 +207,7 @@ export async function readDeckScript(name: string): Promise<{ meta: DeckMeta; it
       steps: Number.parseInt(attr("data-steps"), 10) || 0,
       autoplay: /\sdata-autoplay[\s>=]/.test(open),
       live: /\{\{live:/.test(sec),
+      kind: (attr("data-script-kind") === "overview" ? "overview" : "detail") as ScriptItem["kind"],
     };
   });
   return { meta, items };

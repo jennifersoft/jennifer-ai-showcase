@@ -27,6 +27,7 @@ function progressCues(notes: string): string[] {
 
 function badges(item: ScriptItem): string {
   const list: string[] = [];
+  list.push(item.kind === "overview" ? '<span class="badge kind-overview">개요만</span>' : '<span class="badge kind-detail">개요 + 부연</span>');
   const steps = item.steps ?? 0;
   if (steps > 0 && !item.autoplay) list.push(`<span class="badge click">클릭 ${steps}번</span>`);
   if (item.autoplay) list.push('<span class="badge auto">자동 진행</span>');
@@ -50,7 +51,7 @@ function renderCard(item: ScriptItem, index: number, items: ScriptItem[], lang: 
 </div>
 </header>
 <div class="lines">
-${presenter.map((chunk) => `<p class="spoken">${escapeHtml(chunk)}</p>`).join(`\n${pause}\n`) || '<p class="spoken empty">(대본 없음)</p>'}
+${presenter.map((chunk, k) => `${item.kind === "overview" ? "" : `<p class="part ${k === 0 ? "part-overview" : "part-detail"}">${k === 0 ? "개요" : "부연"}</p>`}<p class="spoken${item.kind !== "overview" && k > 0 ? " detail" : ""}">${escapeHtml(chunk)}</p>`).join(`\n${pause}\n`) || '<p class="spoken empty">(대본 없음)</p>'}
 ${presenter.length ? pause : ""}
 </div>
 ${cues.length ? `<aside class="cue">${cues.map((cue) => `<p>${escapeHtml(cue)}</p>`).join("")}</aside>` : ""}

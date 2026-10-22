@@ -92,3 +92,10 @@ html[data-mode="presenter"] details.notes[open] summary::after { content: " · �
 .pause { display: flex; align-items: center; gap: 12px; margin: 16px 0 22px; color: #FFC24B; }
 .pause::before, .pause::after { content: ""; flex: 1; height: 2px; background: rgba(255, 194, 75, .45); border-radius: 1px; }
 .pause span { flex: none; padding: 6px 14px; border: 1px solid rgba(255, 194, 75, .6); border-radius: 999px; font-size: 16px; font-weight: 800; letter-spacing: .04em; }
+/* 개요만 말하는 장 / 개요 뒤에 부연 설명이 붙는 장 구분 */
+.badge.kind-overview { color: #3DDC97; }
+.badge.kind-detail { color: #FF9EC4; }
+.part { margin: 4px 0 6px; font-size: 13px; font-weight: 800; letter-spacing: .06em; }
+.part-overview { color: #3DDC97; }
+.part-detail { color: #FF9EC4; }
+.spoken.detail { padding-left: 14px; border-left: 3px solid rgba(255, 158, 196, .55); }
