@@ -25,7 +25,20 @@
     next.disabled = index === cards.length - 1;
     jumps.forEach(function (b) { b.setAttribute("aria-current", String(+b.dataset.go === index)); });
     try { history.replaceState(null, "", "#s" + (index + 1)); } catch { /* 주소만 안 바뀐다 */ }
+    syncPreview();
   }
+
+  // 넓은 화면(태블릿 가로·노트북)에서는 오른쪽에 지금 장의 실제 슬라이드를 작게 보여 준다.
+  // 휴대폰처럼 좁은 화면에서는 숨기고 불러오지도 않는다. 장을 넘기면 iframe 의 #sN 만 바꿔 다시 불러오지 않는다.
+  const preview = document.getElementById("preview");
+  const wide = window.matchMedia("(min-width: 900px)");
+  function syncPreview() {
+    if (!preview || !wide.matches) return;
+    const hash = "#s" + (index + 1);
+    if (!preview.getAttribute("src")) { preview.src = preview.dataset.src + hash; return; }
+    try { preview.contentWindow.location.hash = hash; } catch { preview.src = preview.dataset.src + hash; }
+  }
+  wide.addEventListener("change", syncPreview);
 
   function setMode(mode) {
     root.dataset.mode = mode;

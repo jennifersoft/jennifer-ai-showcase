@@ -109,6 +109,7 @@ ${css}
 </div>
 <main id="cards">
 ${data.items.map((item, index) => renderCard(item, index, data.items, lang)).join("\n") || '<p class="spoken empty">표시할 대본이 없습니다.</p>'}
+<aside class="preview" aria-label="현재 슬라이드 미리보기"><iframe id="preview" title="현재 슬라이드" tabindex="-1" data-src="/slides/${encodeURIComponent(name)}?preview=1"></iframe></aside>
 </main>
 <nav class="pager" aria-label="장 이동">
 <button type="button" id="prev" aria-label="이전 장">◀ 이전</button>

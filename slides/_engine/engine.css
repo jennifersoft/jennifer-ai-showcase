@@ -217,3 +217,5 @@ h1+.kr,h2+.kr,h1+.kr.s,h2+.kr.s{margin-top:18px}
 }
 /* 발표자용 표시: 개요 뒤에 부연 설명이 있는 장은 아래 진행 막대가 노란색 */
 body:has(#pg[data-kind="detail"]) #bar{background:#FFC24B}
+/* 미리보기(?preview=1): 발표 중 대본 화면 안의 작은 화면이라 진행 막대·조작 버튼·다음 안내를 숨긴다 */
+body.preview #bar,body.preview #hud,body.preview #next-hint{display:none}

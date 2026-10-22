@@ -7,6 +7,9 @@ function layoutOverview(ov){const cols=5,rows=Math.ceil(slides.length/cols),gap=
   slides.forEach((el,i)=>{el.style.transform=ov?`translate(${gap+(i%cols)*(cw+gap)}px,${oy+gap+Math.floor(i/cols)*(ch+gap)}px) scale(${sc})`:''})}
 addEventListener('resize',fit);fit();
 const hooks={};
+// ?preview=1: 발표 중 대본(stage) 화면 오른쪽에 작게 넣는 미리보기. 조작 막대를 숨기고 각 장의 마지막 단계(완성된 화면)를 보여 준다
+const PREVIEW=new URLSearchParams(location.search).has('preview');
+if(PREVIEW)document.body.classList.add('preview');
 function go(i){
   i=Math.max(0,Math.min(slides.length-1,i));
   slides[cur].querySelectorAll('.live.interact').forEach(l=>l.classList.remove('interact'));
@@ -23,7 +26,7 @@ function go(i){
   // data-autoplay 장은 들어오자마자 모든 단계를 순서대로 자동 재생한다(→ 는 바로 다음 장)
   // 다시 들어와도 처음부터 재생되게, 이전 방문에서 나타난 단계 요소를 되돌린다
   s.querySelectorAll('[data-step]').forEach(e=>{e.classList.remove('shown','typing','translated');clearTimeout(e._t);clearTimeout(e._tr)});
-  step=s.hasAttribute('data-autoplay')?steps():0;showStep();hooks[s.id]&&hooks[s.id](step);
+  step=s.hasAttribute('data-autoplay')||PREVIEW?steps():0;showStep();hooks[s.id]&&hooks[s.id](step);
   try{history.replaceState(null,'','#s'+(i+1))}catch(e){}
 }
 addEventListener('keydown',e=>{
@@ -190,3 +193,9 @@ const nextHint=document.createElement('button');nextHint.id='next-hint';nextHint
 nextHint.addEventListener('click',e=>{e.stopPropagation();go(cur+1)});document.body.appendChild(nextHint);
 function showNextHint(){if(cur<slides.length-1&&!document.body.classList.contains('ov')){nextHint.classList.toggle('on-sec',slides[cur].classList.contains('sec'));nextHint.classList.add('show')}}
 function hideNextHint(){nextHint.classList.remove('show');slides.forEach(s=>clearTimeout(s._doneT))}
+
+// 주소의 #sN 으로 그 장을 연다. 미리보기 iframe 은 대본 화면이 장을 넘길 때 #sN 만 바꾸므로 hashchange 로 따라간다
+// deck.js 의 hooks 가 등록된 뒤에 이동하도록 DOMContentLoaded 에서 처음 한 번 맞춘다
+function fromHash(){const m=/^#s(\d+)$/.exec(location.hash);if(m&&+m[1]-1!==cur)go(+m[1]-1);else if(PREVIEW&&cur===0&&!m)go(0)}
+addEventListener('hashchange',fromHash);
+addEventListener('DOMContentLoaded',fromHash);

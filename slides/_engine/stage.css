@@ -99,3 +99,11 @@ html[data-mode="presenter"] details.notes[open] summary::after { content: " · �
 .part-overview { color: #3DDC97; }
 .part-detail { color: #FF9EC4; }
 .spoken.detail { padding-left: 14px; border-left: 3px solid rgba(255, 158, 196, .55); }
+/* 현재 슬라이드 미리보기: 넓은 화면에서만 대본(왼쪽 2/3) 오른쪽 1/3에 붙여 둔다. 슬라이드는 iframe 크기에 맞춰 스스로 축소된다 */
+.preview { display: none; }
+@media (min-width: 900px) {
+  main#cards { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); align-items: start; gap: 8px; padding-right: max(20px, env(safe-area-inset-right)); }
+  main#cards > .card { grid-column: 1; grid-row: 1; margin: 0; max-width: none; }
+  .preview { display: block; grid-column: 2; grid-row: 1; position: sticky; top: 20px; margin-top: 20px; }
+  .preview iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 1px solid var(--line); border-radius: 10px; background: #0E0F12; pointer-events: none; }
+}
