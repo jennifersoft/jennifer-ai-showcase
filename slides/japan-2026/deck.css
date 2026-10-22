@@ -173,7 +173,7 @@
 .ab span{font:400 18px var(--kr);color:var(--sub)}
 .ab.hl{border-color:var(--hot);background:linear-gradient(160deg,rgba(124,115,194,.16),var(--panel) 70%)}
 .ar{position:relative;height:2px;background:var(--hot);margin:0 14px}
-.ar::after{content:"";position:absolute;right:-2px;top:-6px;border:7px solid transparent;border-left:11px solid var(--hot)}
+.ar::after{content:"";position:absolute;right:-2px;top:-6px;border-style:solid;border-width:7px 0 7px 13px;border-color:transparent transparent transparent var(--hot)}
 .ar i{position:absolute;left:50%;top:-34px;transform:translateX(-50%);font:700 16px var(--mono);font-style:normal;color:var(--hot);white-space:nowrap}
 .arch-pts{grid-template-columns:repeat(3,minmax(0,1fr))}
 .arch-pts h3{font-size:28px}
