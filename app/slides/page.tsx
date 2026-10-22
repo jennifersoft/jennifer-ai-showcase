@@ -46,7 +46,7 @@ export default async function SlidesIndex() {
               </div>
               <div className="deck-actions">
                 <Link href={`/slides/${d.name}`} className="deck-action">슬라이드 보기</Link>
-                <a href={`/slides/${d.name}/script`} className="deck-action primary">대본 연습</a>
+                <a href={`/slides/${d.name}/script?view=stage`} className="deck-action primary">대본 연습</a>
               </div>
             </div>
           </article>
