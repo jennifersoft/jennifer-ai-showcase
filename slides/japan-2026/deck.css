@@ -209,6 +209,9 @@
 .ja-lead.s{font-size:34px}
 /* 13장 아래쪽 설명은 34px이면 두 줄로 넘어가 하단 컨트롤에 닿으므로 한 줄에 들어가는 33px로 둔다 */
 #s-skill>.ja-lead.s{font-size:33px}
+/* 내용이 적어 여유가 있는 장(.lg)은 제목(인라인 +4px)과 일본어 개요·설명을 한 단계 더 키운다. 내용이 꽉 찬 장(1·4·5·7·13·14·15·18장)은 그대로 둔다 */
+.slide.lg .ja-lead{font-size:44px}
+.slide.lg .ja-lead.s{font-size:36px}
 .sec .ja-lead{color:#fff}
 .ja-lead+.kr{margin-top:14px;line-height:1.5}
 .ja-lead:not(.s)+.kr{font-size:30px}
