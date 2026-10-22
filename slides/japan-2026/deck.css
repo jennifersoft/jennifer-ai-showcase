@@ -219,3 +219,5 @@
 /* 7장: 3일이 가능했던 배경(오래 다져 온 공통 부품) */
 .base-note{margin:0;padding:14px 18px;border-left:3px solid var(--hot);background:var(--panel);border-radius:0 10px 10px 0;font:600 22px/1.5 var(--jp);color:var(--fg)}
 .base-note span{display:block;margin-top:4px;font:300 18px/1.5 var(--kr);color:var(--sub);word-break:keep-all}
+.base-note{font-size:19px;font-weight:500;color:#D9DCE4}
+.base-note b{display:block;margin-bottom:4px;font:700 26px/1.4 var(--jp);color:var(--fg)}
