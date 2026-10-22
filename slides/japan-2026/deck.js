@@ -5,8 +5,8 @@ net('net');net('net2');
 hooks['s-dash']=st=>{const t=document.getElementById('aiTile'),p=document.getElementById('ptext');
   if(st===0){t.classList.remove('in');p._tok=(p._tok||0)+1;p.textContent=''}
   // 프롬프트 입력이 끝나면 다음을 누르지 않아도 위젯이 들어온다
-  if(st===1)typer(p,'PagerDutyのインシデントをダッシュボードに表示して',45).then(k=>{if(p._tok===k&&slides[cur].id==='s-dash'&&step===1)setTimeout(()=>{if(p._tok===k&&step===1)fwd()},500)});
-  if(st===2){p._tok++;p.textContent='PagerDutyのインシデントをダッシュボードに表示して';t.classList.add('in')}};
+  if(st===1)typer(p,'PagerDuty APIを使って、インシデントの状態を表示するチャートウィジェットを作って',45).then(k=>{if(p._tok===k&&slides[cur].id==='s-dash'&&step===1)setTimeout(()=>{if(p._tok===k&&step===1)fwd()},500)});
+  if(st===2){p._tok++;p.textContent='PagerDuty APIを使って、インシデントの状態を表示するチャートウィジェットを作って';t.classList.add('in')}};
 
 // slide 9: adapter pipeline
 const CODE=[
