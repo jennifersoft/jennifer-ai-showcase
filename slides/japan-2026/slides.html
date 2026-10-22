@@ -122,7 +122,7 @@ AI 비서가 브라우저로 직접 화면을 열어, Figma 디자인 시안과 
       <div class="msg ai tr" data-step="2"><div class="ko">Figma 시안과 비교해서 다른 점 2가지를 찾았어.<ol><li>짧은 막대가 사라짐: 1초 범위·차트 폭 300px에서 1ms 메서드가 0px로 계산돼. 최소 표시 폭과 클릭 영역을 보장하는 게 좋아.</li><li>데이터 누락 안내가 안 보임: 핀 1,000개 제한·시각 미확정·부분 수집 정보가 구현 화면에 안 보여.</li></ol></div><div class="ja">Figmaのデザイン案と比べて、違う点が2つ見つかった。<ol><li>短いバーが消える：1秒範囲・チャート幅300pxで、1msのメソッドが0pxになる。最小表示幅とクリック領域を保証したほうがいい。</li><li>データ欠落の案内が出ない：ピン1,000件の上限・時刻未確定・部分収集の情報が実装画面に表示されない。</li></ol></div></div>
       <div class="msg me tr" data-step="3"><div class="ko">QA 진행 중이지?</div><div class="ja">QA、進んでる？</div></div>
       <div class="msg ai tr" data-step="3"><div class="ko">응. 재로그인 끝났고 내 브라우저에서 JENNIFER DEMO 트랜잭션을 열어 확인 중이야. 지금은 실제 핀·Link 연동과 화면 높이·여백을 검증하고 있어.</div><div class="ja">うん。再ログインが終わって、自分のブラウザで JENNIFER DEMO のトランザクションを開いて確認中。今は実際のピン・Link 連動と画面の高さ・余白を検証してる。</div></div>
-      <div class="msg ai tr" data-step="4"><div class="ko">데모 서버 QA 마쳤어. 핵심 UX는 정상 동작해.<ul><li>에러 핀·메서드·Link 클릭 → 콜트리 자동 펼침·행 선택만 수행</li><li>콜트리 '호출함' → 연관 트랜잭션 상세 이동, 추가 중첩은 차단</li><li>5행·여백·긴 이름 말줄임 정상, 1188px 화면에서 가로 넘침 없음</li></ul>시안 대비 보완 우선순위: ① 위치 미확정 스택·부분 수집·핀 표시 제한 안내 ② 짧은 막대의 최소 표시 폭·클릭 영역 ③ 연관 트랜잭션 진입 시 Call Tree 탭 유지</div><div class="ja">デモサーバーでのQAが完了。主要なUXは正常に動作してる。<ul><li>エラーピン・メソッド・Link をクリック → コールツリーの自動展開・行選択のみ</li><li>コールツリーの「呼び出し」→ 関連トランザクションの詳細へ移動、さらなるネストは遮断</li><li>5行・余白・長い名前の省略は正常、1188px 画面で横あふれなし</li></ul>デザイン案と比べた補完の優先順位：① 位置未確定のスタック・部分収集・ピン表示上限の案内 ② 短いバーの最小表示幅・クリック領域 ③ 関連トランザクションに入ったときの Call Tree タブ維持</div></div>
+      <div class="msg ai tr" data-step="4"><div class="ko">데모 서버 QA 마쳤어. 핵심 UX는 정상 동작해.<ul><li>에러 핀·메서드·Link 클릭 → 콜트리 자동 펼침·행 선택만 수행</li><li>콜트리 '호출함' → 연관 트랜잭션 상세 이동, 추가 중첩은 차단</li><li>5행·여백·긴 이름 말줄임 정상, 1188px 화면에서 가로 넘침 없음</li></ul>시안 대비 보완 우선순위: ① 위치 미확정 스택·부분 수집·핀 표시 제한 안내 ② 짧은 막대의 최소 표시 폭·클릭 영역 ③ 연관 트랜잭션 진입 시 Call Tree 탭 유지</div><div class="ja">デモサーバーでのQAが完了。主要なUXは正常に動作してる。<ul><li>エラーピン・メソッド・Link をクリック → コールツリーの自動展開・行選択のみ</li><li>コールツリーの「呼び出し」→ 関連トランザクションの詳細へ移動、さらなるネストは遮断</li><li>5行・余白・長い名前の省略は正常、1188px 画面で横あふれなし</li></ul>デザイン案と比べた改善の優先順位：① 位置未確定のスタック・部分収集・ピン表示上限の案内 ② 短いバーの最小表示幅・クリック領域 ③ 関連トランザクションに入ったときの Call Tree タブ維持</div></div>
     </div>
     <div class="shots" style="flex:1">
       <figure data-step="1"><img src="/media/japan-2026/qa-2-app-list.jpg" alt=""><figcaption>エラーピン → コールツリーの行選択 · 에러 핀 → 행 선택</figcaption></figure>
@@ -140,7 +140,7 @@ AI 비서가 브라우저로 직접 화면을 열어, Figma 디자인 시안과 
   <div>
     <h2 data-a style="--d:1;font-size:60px">そして、エージェントコーディング</h2>
     <p class="ja-lead s" data-a style="--d:1">ブリーフィングで出たイシューやQAで見つけた改善点が、そのまま次の作業になります。明らかなバグはAIが直してレビュー依頼を出し、私は確認するだけです。大きな作業は、私が直接AIと一緒に進めます。</p>
-    <p class="kr s" data-a style="--d:1">브리핑에서 나온 이슈와 QA에서 찾은 개선점이 바로 제 다음 작업이 됩니다. 분명한 버그는 AI가 고쳐서 리뷰 요청을 올리고, 저는 확인만 합니다. 큰 작업은 제가 직접 AI와 함께 합니다.</p>
+    <p class="kr s" data-a style="--d:1">브리핑에서 나온 이슈와 QA에서 찾은 개선점이 바로 제 다음 작업이 됩니다. 분명한 버그는 AI가 고쳐서 리뷰 요청을 올리고, 저는 확인만 합니다. 큰 작업은 제가 직접 AI와 함께합니다.</p>
   </div>
   <div class="skill" style="margin:auto 0;grid-template-columns:repeat(3,1fr)">
     <div class="card" data-a style="--d:2"><span class="ic">①</span><h3 style="font-size:40px">ブリーフィング<br>・自動パッチ</h3><p class="kr s">매일 아침 이슈 리뷰, 분명한 버그는 고쳐서 리뷰 요청</p></div>
@@ -213,15 +213,15 @@ X-View에서는 트랜잭션 분포를 보고, 궁금한 트랜잭션을 골라 
 <section class="slide" data-notes="질문으로 시작합니다. 잠시 멈추고, 통역이 끝날 때까지 기다립니다. 예: 우리 회사는 PagerDuty를 쓰는데 제니퍼 알림을 거기로 보내고 싶다. 요청을 받으면 제니퍼소프트가 어댑터 같은 확장 기능을 만들어 제니퍼소프트 GitHub에 공개합니다. 제품 버전 업그레이드 없이 추가할 수 있습니다. 실제 요청(일본 고객사 한 곳)을 AI로 바로 만들어 드린 이야기로 이어집니다.
 
 [통역 용어] 연동=連携 · 어댑터=アダプター · 확장 기능=拡張機能 · 제품 업그레이드=製品のアップグレード" data-script="제니퍼에 없는 연동이 필요하면 어떻게 하시나요?
-요청을 주시면 제니퍼소프트가 어댑터를 만들어 제니퍼소프트 GitHub에 공개합니다. 제품 업그레이드는 필요 없습니다.
+요청을 주시면 제니퍼소프트가 어댑터를 만들어 GitHub에 공개합니다. 제품 업그레이드는 필요 없습니다.
 일본 고객사의 PagerDuty 연동 요청을 받아, 이번에는 AI로 바로 만들었습니다." data-presenter="제니퍼에 없는 연동이 필요하면 어떻게 하시나요?
-요청을 주시면 제니퍼소프트가 어댑터를 만들어 제니퍼소프트 GitHub에 공개합니다. 제품 업그레이드는 필요 없습니다.
+요청을 주시면 제니퍼소프트가 어댑터를 만들어 GitHub에 공개합니다. 제품 업그레이드는 필요 없습니다.
 일본 고객사의 PagerDuty 연동 요청을 받아, 이번에는 AI로 바로 만들었습니다.">
   <div class="bg-grid"></div>
   <div class="spacer"></div>
   <h2 data-a style="--d:1;font-size:104px">JENNIFERにない連携が<br>必要になったら、<br><span class="hl">どうしますか？</span></h2>
   <p class="ja-lead" data-a style="--d:3">ご要望をいただければ、アダプターなどの拡張機能をつくってJenniferSoftのGitHubで公開します。製品のアップグレードは不要です。今回は日本のお客様からPagerDuty連携のご要望をいただき、AIですぐにつくりました。</p>
-  <p class="kr" data-a style="--d:3">제니퍼에 없는 연동이 필요하면 어떻게 하시나요? 요청을 주시면 제니퍼소프트가 어댑터 같은 확장 기능을 만들어 제니퍼소프트 GitHub에 공개합니다. 제품 업그레이드 없이 받아서 쓰시면 됩니다. 이번에는 일본 고객사의 PagerDuty 연동 요청을 받아, AI로 바로 만들었습니다.</p>
+  <p class="kr" data-a style="--d:3">제니퍼에 없는 연동이 필요하면 어떻게 하시나요? 요청을 주시면 제니퍼소프트가 어댑터 같은 확장 기능을 만들어 GitHub에 공개합니다. 제품 업그레이드 없이 받아서 쓰시면 됩니다. 이번에는 일본 고객사의 PagerDuty 연동 요청을 받아, AI로 바로 만들었습니다.</p>
   <div class="spacer"></div>
 </section>
 <section class="slide" data-notes="근거: jennifersoft GitHub 공개 저장소 첫 커밋. 2016 Slack 어댑터·autoprofile 플러그인, 2017 Chatwork 어댑터, 2018 개발자 가이드·튜토리얼, 2024 LINE 어댑터, 2026 AI 스킬(extension-tutorial)과 PagerDuty 어댑터. 메시지: 10년 가까이 확장 가능한 구조를 지향했고, AI가 연동을 만드는 시간을 크게 줄였습니다.
@@ -242,7 +242,7 @@ AI가 연동을 만드는 시간을 크게 줄였습니다.">
     <div data-a style="--d:9" class="now"><span class="dot"></span><p class="yr hl">2026</p><h3>AIスキル公開</h3><p class="kr s">AI로 빠르게 확장</p></div>
   </div>
   <div class="spacer"></div>
-  <h3 data-a style="--d:11;font-size:44px">一貫して「拡張できる構造」を目指してきました。</h3>
+  <h3 data-a style="--d:11;font-size:44px">一貫して「拡張できる構造」を目指してきました。今はAIのおかげで、連携をつくる時間が大きく短くなりました。</h3>
   <p class="kr s" data-a style="--d:11">처음부터 확장할 수 있는 구조를 목표로 했고, 이제 AI 덕분에 연동을 만드는 시간이 크게 줄었습니다.</p>
 </section>
 <section class="slide" id="s-adapter" data-steps="5" data-notes="[진행] 첫 구간 뒤 통역이 끝나면 다음 버튼을 눌러 프롬프트와 코드 연출을 시작합니다. 이후 다음 버튼을 누를 때마다 빌드·등록 → 알림 → 재현한 인시던트 화면 순서로 진행됩니다. 마지막 구간의 인시던트 화면은 어댑터가 보내는 데이터 형식으로 재현한 것입니다(PagerDuty 연동은 유료라 실제 계정 없이 재현).
@@ -252,13 +252,13 @@ AI가 연동을 만드는 시간을 크게 줄였습니다.">
 [데모] 일본 고객 요청으로 실제로 만든 PagerDuty 어댑터. 코드는 jennifer-view-adapter-pagerduty의 PagerDutyAdapter.kt 실제 코드(발췌). 빌드는 mvn clean package, Adapter ID는 pagerduty.
 
 [통역 용어] 코드 생성=コード生成 · 빌드=ビルド · 등록=登録 · 인시던트=インシデント · 재현 화면=再現画面" data-script="그 요청으로 만든 PagerDuty 어댑터입니다.
-한 줄의 프롬프트에서 시작해 코드 작성·빌드·등록 과정을 보여 드립니다." data-presenter="그 요청으로 만든 PagerDuty 어댑터입니다.
-한 줄의 프롬프트에서 시작해 코드 작성·빌드·등록 과정을 보여 드립니다.">
+한 줄의 프롬프트에서 시작해 코드 생성·빌드·등록 과정을 보여 드립니다." data-presenter="그 요청으로 만든 PagerDuty 어댑터입니다.
+한 줄의 프롬프트에서 시작해 코드 생성·빌드·등록 과정을 보여 드립니다.">
   <div>
     <p class="eyebrow" data-a>Demo</p>
     <h2 data-a style="--d:1;font-size:64px">AIで作ったPagerDutyアダプター</h2>
-    <p class="ja-lead s" data-a style="max-width:1060px;--d:1">日本のお客様のご要望で、実際につくったアダプターです。1行のプロンプトから、コード作成・ビルド・登録までの流れと、再現したインシデント画面をお見せします。</p>
-    <p class="kr s" data-a style="max-width:1060px;--d:1">일본 고객의 요청을 받아 실제로 만든 어댑터입니다. 한 줄의 프롬프트에서 시작해 코드 작성·빌드·등록 과정과 재현한 인시던트 화면을 보여 줍니다.</p>
+    <p class="ja-lead s" data-a style="max-width:1060px;--d:1">日本のお客様のご要望で、実際につくったアダプターです。1行のプロンプトから、コード生成・ビルド・登録までの流れと、再現したインシデント画面をお見せします。</p>
+    <p class="kr s" data-a style="max-width:1060px;--d:1">일본 고객의 요청을 받아 실제로 만든 어댑터입니다. 한 줄의 프롬프트에서 시작해 코드 생성·빌드·등록 과정과 재현한 인시던트 화면을 보여 줍니다.</p>
   </div>
   <div class="prompt" data-a style="--d:2"><span class="hl">❯ </span><span id="ptext2"></span><span class="caret"></span></div>
   <p class="kr s" data-a style="--d:2;margin-top:-16px">프롬프트: 제니퍼 장애 이벤트를 PagerDuty로 보내는 어댑터를 만들어 줘.</p>
@@ -310,7 +310,7 @@ jennifer-view-extension-tutorial 저장소의 skills/jennifer-extension.zip. zip
 필요한 연동을 말로 요청하면 AI가 구현합니다.">
   <div>
     <h2 data-a style="--d:1;font-size:60px">「jennifer-extension」スキル</h2>
-    <p class="ja-lead s" data-a style="--d:1">JENNIFERには、イベント通知のアダプターや、お客様に合わせたユーザー認証のアダプターなど、多くの種類があります。以前は開発ガイドを読んで自分で実装していましたが、今はこのスキルを入れたAIツールに言葉で依頼すれば実装してくれます。</p>
+    <p class="ja-lead s" data-a style="--d:1">JENNIFERのアダプターには、イベント通知や、お客様に合わせたユーザー認証など、多くの種類があります。以前は開発ガイドを読んで自分で実装していましたが、今はこのスキルを入れたAIツールに言葉で依頼すれば実装してくれます。</p>
     <p class="kr s" data-a style="--d:1">제니퍼에는 이벤트 알림 어댑터, 고객사에 맞춘 사용자 인증 어댑터 등 여러 종류의 어댑터가 있습니다. 예전에는 개발 가이드를 보고 직접 구현했지만, 이제는 이 스킬을 넣은 AI 도구에 말로 요청하면 AI가 구현해 줍니다.</p>
   </div>
   <div class="skill">
@@ -318,7 +318,8 @@ jennifer-view-extension-tutorial 저장소의 skills/jennifer-extension.zip. zip
     <div class="card" data-a style="--d:3"><span class="ic">{ }</span><h3>実装例</h3><p class="kr s">구현 예제</p><p style="font:400 22px/1.6 var(--mono);color:var(--sub)">Slack · Teams<br>Telegram · LDAP</p></div>
     <div class="card" data-a style="--d:4"><span class="ic">⚙</span><h3>プロジェクト雛形</h3><p class="kr s">프로젝트 템플릿</p><p style="font:400 22px/1.6 var(--mono);color:var(--sub)">ビルド設定 · テスト<br>README（日・韓・英）</p></div>
   </div>
-  <div class="prompt" data-a style="--d:6;font-size:24px"><span class="hl">⬇ </span>github.com/jennifersoft/jennifer-view-extension-tutorial · skills/jennifer-extension.zip</div>
+  <div class="prompt" data-a style="--d:6;font-size:24px;padding:14px 24px"><span class="hl">⬇ </span>github.com/jennifersoft/jennifer-view-extension-tutorial · skills/jennifer-extension.zip</div>
+  <p class="ja-lead s" data-a style="--d:6">zipをダウンロードして、スキルに対応したAIツール（例：ChatGPTのSkills）にアップロードするだけです。</p>
   <p class="kr s" data-a style="--d:6">zip 파일을 받아 스킬을 지원하는 AI 도구(예: ChatGPT Skills)에 올리면 됩니다.</p>
 </section>
 <section class="slide" id="s-dash" data-steps="2" data-notes="[진행] 첫 구간 뒤 통역이 끝나면 다음 버튼을 눌러 프롬프트와 위젯 연출을 보여 줍니다. 두 번째 구간을 설명한 뒤 실제 대시보드 화면으로 넘어갑니다.
@@ -335,7 +336,7 @@ jennifer-view-extension-tutorial 저장소의 skills/jennifer-extension.zip. zip
       <p class="tag-apply" data-a>応用 · 응용</p>
       <h2 data-a style="--d:1;font-size:64px">PagerDutyの状況を、ユーザー定義ダッシュボードに</h2>
       <p class="ja-lead s" data-a style="--d:1">ご要望はアダプターまででしたが、PagerDutyのAPIを使って、インシデントをJENNIFERのダッシュボードでも見られるようにしました。</p>
-      <p class="kr s" data-a style="--d:1">고객이 요청한 건 어댑터까지였습니다. PagerDuty가 API를 제공하길래, 제가 인시던트를 제니퍼 대시보드에서 볼 수 있게 더 만들어 봤습니다.</p>
+      <p class="kr s" data-a style="--d:1">고객이 요청한 건 어댑터까지였습니다. PagerDuty가 API를 제공해서, 제가 인시던트를 제니퍼 대시보드에서 볼 수 있게 더 만들어 봤습니다.</p>
     </div>
   </div>
   <div class="prompt" data-a style="--d:2"><span class="hl">❯ </span><span id="ptext"></span><span class="caret"></span></div>

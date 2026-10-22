@@ -222,5 +222,5 @@
 .base-note{font-size:19px;font-weight:500;color:#D9DCE4}
 .base-note b{display:block;margin-bottom:4px;font:700 26px/1.4 var(--jp);color:var(--fg)}
 /* 13장: 어댑터 종류 설명이 들어간 만큼 카드 여백을 줄여 아래 다운로드 안내까지 화면 안에 둔다 */
-#s-skill .card{padding:24px 32px;gap:6px}
+#s-skill .card{padding:20px 30px;gap:4px}
 #s-skill .card p[style]{line-height:1.45!important}
