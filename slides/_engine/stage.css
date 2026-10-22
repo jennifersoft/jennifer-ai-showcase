@@ -105,5 +105,5 @@ html[data-mode="presenter"] details.notes[open] summary::after { content: " Â· ì
   main#cards { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); align-items: start; gap: 8px; padding-right: max(20px, env(safe-area-inset-right)); }
   main#cards > .card { grid-column: 1; grid-row: 1; margin: 0; max-width: none; }
   .preview { display: block; grid-column: 2; grid-row: 1; position: sticky; top: 20px; margin-top: 20px; }
-  .preview iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 1px solid var(--line); border-radius: 10px; background: #0E0F12; pointer-events: none; }
+  .preview iframe { display: block; width: 100%; aspect-ratio: 16 / 10; border: 1px solid var(--line); border-radius: 10px; background: #0E0F12; pointer-events: none; }
 }
