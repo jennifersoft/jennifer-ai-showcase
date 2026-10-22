@@ -16,6 +16,8 @@ function go(i){
   void s.offsetWidth;s.querySelectorAll('[data-a]').forEach(e=>e.style.transition='');
   s.classList.add('on');
   document.getElementById('pg').textContent=`${i+1} / ${slides.length}`;
+  // 발표자만 아는 표시: 쪽수 앞 점이 비어 있으면 개요만, 차 있으면 개요 뒤에 부연 설명이 있는 장
+  document.getElementById('pg').dataset.kind=s.dataset.scriptKind==='overview'?'overview':'detail';
   document.getElementById('bar').style.width=`${(i+1)/slides.length*100}%`;
   hideNextHint();
   // data-autoplay 장은 들어오자마자 모든 단계를 순서대로 자동 재생한다(→ 는 바로 다음 장)
