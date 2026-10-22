@@ -101,6 +101,22 @@
   document.addEventListener("click", keepAwake);
   keepAwake();
 
+  // 홈 화면에 설치: 브라우저 주소창 없이 전체 화면으로 쓴다. 설치할 수 있을 때만 '설치' 버튼을 보인다.
+  const script = document.currentScript;
+  const sw = script && script.dataset.sw;
+  if (sw && "serviceWorker" in navigator) {
+    navigator.serviceWorker.register(sw, { scope: script.dataset.swScope }).catch(function () { /* 설치 없이도 대본은 그대로 보인다 */ });
+  }
+  const install = document.getElementById("install");
+  let deferred = null;
+  window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); deferred = e; install.hidden = false; });
+  install.addEventListener("click", function () {
+    if (!deferred) return;
+    deferred.prompt();
+    deferred.userChoice.finally(function () { deferred = null; install.hidden = true; });
+  });
+  window.addEventListener("appinstalled", function () { install.hidden = true; });
+
   const params = new URLSearchParams(location.search);
   setMode(params.get("mode") || load("mode") || root.dataset.mode);
   setScale(scale);

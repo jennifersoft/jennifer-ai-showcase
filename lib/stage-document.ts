@@ -87,6 +87,12 @@ export async function renderStageDocument(
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#0E0F12">
+<link rel="manifest" href="/slides/${encodeURIComponent(name)}/script/manifest?mode=${mode}">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="${mode === "interpreter" ? "통역 대본" : "발표 대본"}">
+<link rel="apple-touch-icon" href="/slides-script/icon-192.png">
 <title>${escapeHtml(data.meta.title)} — 발표 중 대본</title>
 <link rel="icon" href="data:,">
 <style>
@@ -102,6 +108,7 @@ ${css}
 <div class="tools">
 <button type="button" data-size="-1" aria-label="글자 작게">가−</button>
 <button type="button" data-size="1" aria-label="글자 크게">가+</button>
+<button type="button" id="install" hidden>설치</button>
 <button type="button" id="open-list" aria-haspopup="dialog">목록</button>
 </div>
 </div>
@@ -117,7 +124,7 @@ ${data.items.map((item, index) => renderCard(item, index, data.items, lang)).joi
 <form method="dialog"><button class="close" aria-label="닫기">닫기</button></form>
 <ol>${jumpList}</ol>
 </dialog>
-<script>
+<script data-sw="/slides/${encodeURIComponent(name)}/script/sw.js" data-sw-scope="/slides/${encodeURIComponent(name)}/">
 ${js}
 </script>
 </body>
