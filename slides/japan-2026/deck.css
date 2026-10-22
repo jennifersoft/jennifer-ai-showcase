@@ -200,20 +200,20 @@
 .par .free{position:absolute;right:0;top:0;bottom:0;width:24%;border-radius:12px;border:2px dashed var(--hot);background:linear-gradient(160deg,rgba(124,115,194,.22),rgba(124,115,194,.05));display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;text-align:center;padding:10px;animation:freeglow 2.6s ease-in-out infinite}
 .par .free b{font:800 22px var(--jp);color:var(--fg)}.par .free span{font:400 14px var(--kr);color:var(--hot)}
 @keyframes freeglow{50%{box-shadow:0 0 30px rgba(124,115,194,.35)}}
-/* 상단 여백: 공통 엔진(120px)보다 조금 줄여 제목을 위로 올린다 */
-.slide{padding-top:96px}
+/* 상단 여백: 공통 엔진(120px)보다 줄여 제목을 위로 올리고, 그만큼 제목→일본어 개요 간격(30px)을 넓힌다 */
+.slide{padding-top:76px}
 /* 일본어 설명 문장: 일본 청중이 읽는 본문. 한국어 보조 문장(.kr) 바로 위에 둔다 */
 /* 청중이 읽는 일본어가 먼저 눈에 들어오게 한국어보다 크고 진하게, 모든 장에서 같은 크기·간격으로 쓴다 */
 /* 글자를 키운 만큼 폭 제한(1500px)을 풀어 줄 수가 늘지 않게 하고, 마지막 줄에 두세 글자만 남지 않게 pretty 로 줄을 나눈다 */
-.ja-lead{font:600 42px/1.5 var(--jp);color:var(--fg);margin:18px 0 0;word-break:normal;line-break:strict;text-wrap:pretty}
+.ja-lead{font:600 42px/1.5 var(--jp);color:var(--fg);margin:30px 0 0;word-break:normal;line-break:strict;text-wrap:pretty}
 .ja-lead.s{font-size:34px}
 /* 13장 아래쪽 설명은 34px이면 두 줄로 넘어가 하단 컨트롤에 닿으므로 한 줄에 들어가는 33px로 둔다 */
 #s-skill>.ja-lead.s{font-size:33px}
 .sec .ja-lead{color:#fff}
 .ja-lead+.kr{margin-top:14px;line-height:1.5}
 .ja-lead:not(.s)+.kr{font-size:30px}
-/* 장의 직속 자식이면 .slide 의 gap(40px)이 더해지므로 빼서, 감싼 div 안에 있을 때와 같은 간격(제목→일본어 18px, 일본어→한국어 14px)으로 맞춘다 */
-.slide>.ja-lead{margin-top:-22px}
+/* 장의 직속 자식이면 .slide 의 gap(40px)이 더해지므로 빼서, 감싼 div 안에 있을 때와 같은 간격(제목→일본어 30px, 일본어→한국어 14px)으로 맞춘다 */
+.slide>.ja-lead{margin-top:-10px}
 .slide>.ja-lead+.kr{margin-top:-26px}
 /* 14장: 일본어 설명 문장이 들어간 만큼 대시보드 칸을 낮춰 두 번째 줄(AI 위젯)이 화면 안에 들어오게 한다 */
 #s-dash .dash{grid-template-rows:140px 196px;padding:16px}
