@@ -8,8 +8,8 @@ function chunksOf(value: string): string[] {
   return value.replace(/\r\n?/g, "\n").split(/\n\s*\n/).map((chunk) => chunk.trim()).filter(Boolean);
 }
 
-/** 노트에서 발표 중에 필요한 줄([진행], [연결이 되지 않으면], [말이 막히면])만 뽑는다. 화면 설명 같은 배경은 뺀다. */
-const STAGE_LABELS = /^\[(진행|연결이 되지 않으면|말이 막히면)\]/;
+/** 노트에서 발표 중에 필요한 줄([진행], 연결·영상·화면이 안 될 때, [말이 막히면])만 뽑는다. 화면 설명 같은 배경은 뺀다. */
+const STAGE_LABELS = /^\[(진행|연결이 되지 않으면|영상이 나오지 않으면|화면이 나오지 않으면|말이 막히면)\]/;
 
 function progressCues(notes: string): string[] {
   const cues: string[] = [];
