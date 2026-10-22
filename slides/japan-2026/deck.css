@@ -206,7 +206,9 @@
 /* 청중이 읽는 일본어가 먼저 눈에 들어오게 한국어보다 크고 진하게, 모든 장에서 같은 크기·간격으로 쓴다 */
 /* 글자를 키운 만큼 폭 제한(1500px)을 풀어 줄 수가 늘지 않게 하고, 마지막 줄에 두세 글자만 남지 않게 pretty 로 줄을 나눈다 */
 .ja-lead{font:600 42px/1.5 var(--jp);color:var(--fg);margin:18px 0 0;word-break:normal;line-break:strict;text-wrap:pretty}
-.ja-lead.s{font-size:33px}
+.ja-lead.s{font-size:34px}
+/* 13장 아래쪽 설명은 34px이면 두 줄로 넘어가 하단 컨트롤에 닿으므로 한 줄에 들어가는 33px로 둔다 */
+#s-skill>.ja-lead.s{font-size:33px}
 .sec .ja-lead{color:#fff}
 .ja-lead+.kr{margin-top:14px;line-height:1.5}
 .ja-lead:not(.s)+.kr{font-size:30px}
